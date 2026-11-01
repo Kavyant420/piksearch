@@ -7,7 +7,7 @@
     <!-- ===== Security hardening (CSP: self scripts/styles limited, icons CDN allowed) ===== -->
     <meta http-equiv="Content-Security-Policy"
           content="default-src 'self';
-                   style-src 'self' https://cdnjs.cloudflare.com;
+                   style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com;
                    font-src https://cdnjs.cloudflare.com data:;
                    img-src 'self' data: blob:;
                    media-src 'self' blob:;
@@ -16,12 +16,13 @@
                    object-src 'none';
                    base-uri 'self';
                    form-action 'self';
-                   frame-ancestors 'none';
                    upgrade-insecure-requests">
+    <!-- frame-ancestors removed from meta (ignored there); set it as an HTTP header if you control the server. -->
     <meta name="referrer" content="strict-origin-when-cross-origin">
     <meta name="color-scheme" content="dark light">
     <meta name="theme-color" content="#000000">
     <meta name="description" content="PikSearch — private, monochrome, liquid-glass search experience. iOS 26 material language, WebGL glass rendering, full keyboard accessibility.">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23000'/%3E%3Ccircle cx='14' cy='14' r='7' fill='none' stroke='%23fff' stroke-width='2.5'/%3E%3Cpath d='M19 19l7 7' stroke='%23fff' stroke-width='2.5' stroke-linecap='round'/%3E%3C/svg%3E">
     <link rel="stylesheet" href="styles/01-design-tokens.css">
     <link rel="stylesheet" href="styles/02-liquid-glass.css">
     <link rel="stylesheet" href="styles/03-typography.css" media="all">
@@ -62,6 +63,7 @@
     <link rel="stylesheet" href="styles/38-premium-details.css" media="all">
     <link rel="stylesheet" href="styles/39-icons-system.css" media="all">
     <link rel="stylesheet" href="styles/40-integration-open-glass.css" media="all">
+    <link rel="stylesheet" href="styles/41-liquid-glass-plus.css" media="all">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
@@ -87,8 +89,10 @@
                 </div>
             </div>
             <div class="nav-controls">
-                
-                <button class="nav-btn" id="settingsBtn" title="Settings" aria-label="Settings">
+                <button class="nav-btn" id="shortcutsBtn" title="Keyboard shortcuts" aria-label="Keyboard shortcuts">
+                    <i class="fas fa-keyboard"></i>
+                </button>
+                <button class="nav-btn" id="settingsBtn" title="Settings" aria-label="Settings" aria-haspopup="dialog">
                     <i class="fas fa-cog"></i>
                 </button>
             </div>
@@ -101,9 +105,9 @@
             <p class="search-subtitle">Search the web with complete privacy and security</p>
             
             <div class="search-box glow-effect" id="searchBox" data-glass data-renderer="auto">
-                <input type="search" class="search-input" id="searchInput" aria-label="Search the web" autocomplete="off" role="searchbox" aria-autocomplete="list" aria-controls="searchSuggestions" 
-                       placeholder="Search privately and securely..." 
-                       autocomplete="off" spellcheck="false">
+                <input type="search" class="search-input" id="searchInput" aria-label="Search the web" role="searchbox" aria-autocomplete="list" aria-controls="searchSuggestions"
+                       placeholder="Search privately and securely..."
+                       autocomplete="off" spellcheck="false" autofocus>
                 <button class="voice-search" id="voiceSearchBtn" title="Voice Search" aria-label="Voice Search">
                     <i class="fas fa-microphone"></i>
                 </button>
@@ -497,7 +501,7 @@
         </div>
     </div>
 
-    <div class="settings-panel custom-scrollbar" id="settingsPanel" data-glass data-renderer="auto" role="region" aria-label="Settings panel" tabindex="-1">
+    <div class="settings-panel custom-scrollbar" id="settingsPanel" data-glass data-renderer="auto" role="region" aria-label="Settings panel" tabindex="-1" aria-hidden="true">
         <div class="settings-header">
             <h2>
                 <i class="fas fa-cog"></i>
@@ -642,7 +646,7 @@
     </div>
 
     <div class="modal-backdrop" id="modalBackdrop"></div>
-    <div class="modal" id="modal" data-glass data-renderer="auto" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal" id="modal" data-glass data-renderer="auto" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-hidden="true">
         <div class="modal-header">
             <h3 class="modal-title" id="modalTitle">
                 <i class="fas fa-info-circle"></i>
@@ -659,7 +663,7 @@
         <i class="fas fa-arrow-up"></i>
     </button>
 
-    <div class="keyboard-shortcuts" id="keyboardShortcuts">
+    <div class="keyboard-shortcuts" id="keyboardShortcuts" hidden>
         <div class="shortcut-item">
             <span>Search</span>
             <span class="shortcut-key">Ctrl + K</span>
@@ -674,7 +678,7 @@
         </div>
     </div>
 
-    <div class="search-performance" id="searchPerformance">
+    <div class="search-performance" id="searchPerformance" hidden>
         <div class="perf-item">
             <span>Response:</span>
             <span class="perf-value" id="responseTime">0ms</span>
@@ -697,35 +701,9 @@
 
     <div class="easter-egg" id="easterEgg">🔍</div>
 
-    <script type="module" src="js/01-core-tokens.js"></script>
-    <script type="module" src="js/02-glass-renderer.js"></script>
-    <script type="module" src="js/03-security-sanitizer.js"></script>
-    <script type="module" src="js/04-input-guard.js"></script>
-    <script type="module" src="js/05-a11y-live-region.js"></script>
-    <script type="module" src="js/06-keyboard-nav.js"></script>
-    <script type="module" src="js/07-focus-trap.js"></script>
-    <script type="module" src="js/08-search-controller.js"></script>
-    <script type="module" src="js/09-suggestions-engine.js"></script>
-    <script type="module" src="js/10-results-renderer.js"></script>
-    <script type="module" src="js/11-filters-sort.js"></script>
-    <script type="module" src="js/12-history-manager.js"></script>
-    <script type="module" src="js/13-settings-store.js"></script>
-    <script type="module" src="js/14-theme-controller.js"></script>
-    <script type="module" src="js/15-motion-preferences.js"></script>
-    <script type="module" src="js/16-reduced-transparency.js"></script>
-    <script type="module" src="js/17-webgl-glass-surface.js"></script>
-    <script type="module" src="js/18-particle-field.js"></script>
-    <script type="module" src="js/19-audio-visualizer.js"></script>
-    <script type="module" src="js/20-video-ownsrc.js"></script>
-    <script type="module" src="js/21-image-gallery.js"></script>
-    <script type="module" src="js/22-maps-widget.js"></script>
-    <script type="module" src="js/23-calendar-events.js"></script>
-    <script type="module" src="js/24-translate-panel.js"></script>
-    <script type="module" src="js/25-code-snippets.js"></script>
-    <script type="module" src="js/26-tables-data.js"></script>
-    <script type="module" src="js/27-toasts-notifications.js"></script>
-    <script type="module" src="js/28-modal-manager.js"></script>
-    <script type="module" src="js/29-dropdown-menus.js"></script>
-    <script type="module" src="js/30-app-bootstrap.js"></script>
+    <!-- Consolidated app logic. The former js/01–js/30 modules were
+         generated boilerplate that never wired any control; they are
+         retained as inert stubs and superseded by js/app.js. -->
+    <script src="js/app.js" defer></script>
 </body>
 </html>
