@@ -1,0 +1,1130 @@
+/* =============================================================
+ * PikSearch — File 41 · Token hotfix + Liquid Glass Plus
+ *
+ * 1) HOTFIX: defines every --og-* custom property that was
+ *    referenced across styles/01–40 but never declared (73 tokens).
+ *    Without these, var() made paddings, radii, durations, font
+ *    sizes and shadows "invalid at computed-value time" and the
+ *    design system silently collapsed.
+ * 2) LIQUID GLASS PLUS: upgraded glassmorphism — deeper blur with
+ *    saturation, specular gradient borders, pointer-tracked light
+ *    (--mx/--my set from JS), glass buttons/toggles/scrollbars and
+ *    an animated monochrome aurora backdrop.
+ *
+ * NOTE: rules here are intentionally UNLAYERED so they win over the
+ * @layer declarations in files 01–40 (unlayered > layered in the
+ * cascade). Palette contract preserved: pure black & white only.
+ * ============================================================= */
+
+/* ---------- 1. Missing design tokens ------------------------- */
+:root {
+  /* grayscale ramp (monochrome contract) */
+  --og-black-100: #f5f5f5;
+  --og-black-200: #e5e5e5;
+  --og-black-400: #6e6e6e;
+  --og-black-500: #4a4a4a;
+  --og-black-600: #333333;
+  --og-black-700: #262626;
+  --og-black-800: #1a1a1a;
+  --og-black-900: #0d0d0d;
+  --og-black-opaque: #000000;
+  --og-gray-1: #161616;
+  --og-gray-2: #1f1f1f;
+  --og-gray-3: #2a2a2a;
+  --og-gray-4: #3d3d3d;
+  --og-gray-6: #8a8a8a;
+  --og-gray-7: #a6a6a6;
+  --og-gray-8: #c2c2c2;
+
+  /* spacing scale (4px base) */
+  --og-space-1: 4px;
+  --og-space-2: 8px;
+  --og-space-3: 12px;
+  --og-space-5: 20px;
+  --og-space-6: 24px;
+  --og-space-7: 28px;
+  --og-space-8: 32px;
+  --og-space-10: 40px;
+  --og-space-16: 64px;
+
+  /* radii */
+  --og-radius-xs: 6px;
+  --og-radius-sm: 10px;
+  --og-radius-md: 14px;
+  --og-radius-xl: 28px;
+  --og-radius-2xl: 32px;
+
+  /* typography */
+  --og-text-sm: 0.875rem;
+  --og-text-lg: 1.125rem;
+  --og-text-xl: 1.25rem;
+  --og-text-2xl: 1.5rem;
+  --og-text-3xl: 1.875rem;
+  --og-text-4xl: 2.25rem;
+  --og-leading-normal: 1.5;
+  --og-font-mono: ui-monospace, "SF Mono", "Cascadia Code", Menlo, Consolas, monospace;
+
+  /* motion */
+  --og-dur-instant: 60ms;
+  --og-dur-fast: 150ms;
+  --og-dur-base: 220ms;
+  --og-dur-normal: 260ms;
+  --og-dur-slow: 420ms;
+  --og-dur-spring: 560ms;
+  --og-ease-emphasize: cubic-bezier(0.2, 0.9, 0.25, 1.2);
+  --og-ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* elevation */
+  --og-elev-4:
+    0 24px 48px -12px rgba(0, 0, 0, 0.75),
+    0 12px 24px -8px rgba(0, 0, 0, 0.6),
+    0 2px 6px rgba(0, 0, 0, 0.5);
+
+  /* glass variants */
+  --og-glass-blur-thin: blur(10px) saturate(1.25);
+  --og-glass-blur-thick: blur(32px) saturate(1.7) brightness(1.06);
+  --og-glass-border-bottom: rgba(255, 255, 255, 0.06);
+  --og-glass-shadow:
+    0 18px 40px -12px rgba(0, 0, 0, 0.7),
+    0 4px 12px rgba(0, 0, 0, 0.45);
+  --og-surface-inset: rgba(255, 255, 255, 0.03);
+
+  /* icon accents (monochrome-safe grays) */
+  --og-icon-brand: #ffffff;
+  --og-icon-danger: #d4d4d4;
+  --og-icon-info: #bdbdbd;
+  --og-icon-success: #e8e8e8;
+  --og-icon-warning: #cfcfcf;
+
+  /* misc */
+  --og-accent-soft: rgba(255, 255, 255, 0.1);
+  --og-score: #d9d9d9;
+  --og-mask-src: none;
+}
+
+/* ---------- 1b. DARK BASE TOKENS — the missing defaults ---------
+ * styles/31 only defines --og-white, --og-black, --og-text-*,
+ * --og-surface(-raised) and --og-hairline(-strong) inside
+ * [data-ps-theme='light'] (plus a prefers-color-scheme media query).
+ * With no attribute set — or explicitly dark — these tokens are
+ * UNDEFINED, so color rules fell back to inherited black-on-black
+ * (invisible titles) and browser-default link blue. These defaults
+ * restore the intended black-first design. Scoped with :not() so
+ * the light theme's layered overrides keep winning when active. */
+:root:not([data-ps-theme='light']) {
+  --og-black: #000000;
+  --og-white: #ffffff;
+  --og-bg: #000000;
+  --og-bg-elevated: #0d0d0d;
+  --og-text: #ffffff;
+  --og-text-primary: #f2f2f2;
+  --og-text-secondary: rgba(255, 255, 255, 0.72);
+  --og-text-muted: rgba(255, 255, 255, 0.55);
+  --og-text-faint: rgba(255, 255, 255, 0.38);
+  --og-surface: rgba(255, 255, 255, 0.06);
+  --og-surface-strong: rgba(255, 255, 255, 0.12);
+  --og-surface-raised: rgba(18, 18, 18, 0.78);
+  --og-hairline: rgba(255, 255, 255, 0.10);
+  --og-hairline-strong: rgba(255, 255, 255, 0.24);
+  --og-accent: #ffffff;
+  --og-on-accent: #000000;
+  --og-focus-ring: rgba(255, 255, 255, 0.85);
+  --og-elev-1: 0 1px 2px rgba(0, 0, 0, 0.5);
+  --og-elev-2: 0 6px 18px -4px rgba(0, 0, 0, 0.6);
+  --og-elev-3: 0 16px 36px -10px rgba(0, 0, 0, 0.7);
+}
+
+/* Monochrome contract: the icon system file set a BLUE accent
+ * (#3b82f6) which violates the black & white palette. */
+:root {
+  --og-icon-accent: rgba(255, 255, 255, 0.78);
+}
+
+html[data-theme="paper"] {
+  --og-icon-accent: rgba(0, 0, 0, 0.72);
+}
+
+/* ---------- 2. Liquid Glass Plus — material upgrade ---------- */
+
+/* Deeper, more optical glass recipe everywhere the base tokens flow */
+:root {
+  --og-glass-blur: blur(22px) saturate(1.6) brightness(1.05);
+  --og-glass-tint: rgba(255, 255, 255, 0.06);
+  --og-glass-tint-strong: rgba(255, 255, 255, 0.12);
+  --og-glass-border-top: rgba(255, 255, 255, 0.28);
+  --og-glass-inner-highlight:
+    inset 0 1px 0 rgba(255, 255, 255, 0.14),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.35);
+}
+
+/* Animated monochrome aurora behind the app — gives the glass
+   something real to refract. Pure CSS, grayscale, GPU-friendly. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: -20vmax;
+  z-index: -2;
+  pointer-events: none;
+  background:
+    radial-gradient(38vmax 30vmax at 18% 22%, rgba(255, 255, 255, 0.10), transparent 62%),
+    radial-gradient(30vmax 26vmax at 82% 12%, rgba(255, 255, 255, 0.07), transparent 60%),
+    radial-gradient(42vmax 34vmax at 68% 82%, rgba(255, 255, 255, 0.08), transparent 64%),
+    radial-gradient(26vmax 22vmax at 28% 88%, rgba(255, 255, 255, 0.05), transparent 58%);
+  filter: blur(40px);
+  animation: ps-aurora-drift 36s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+/* Fine film grain for material depth (SVG turbulence, data-free) */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 2147483000;
+  pointer-events: none;
+  opacity: 0.028;
+  background-image: repeating-conic-gradient(rgba(255,255,255,0.6) 0 0.00007turn, transparent 0.00007turn 0.00021turn);
+  background-size: 170px 170px;
+  mix-blend-mode: overlay;
+}
+
+@keyframes ps-aurora-drift {
+  0%   { transform: translate3d(-3%, -2%, 0) rotate(0.001deg) scale(1); }
+  50%  { transform: translate3d(2.5%, 2%, 0) rotate(0.001deg) scale(1.06); }
+  100% { transform: translate3d(-1.5%, 3%, 0) rotate(0.001deg) scale(1.02); }
+}
+
+/* Pointer-tracked specular light on any glass surface.
+   JS writes --mx/--my (percent) on pointermove. */
+.search-box,
+.settings-panel,
+.modal-content,
+.search-suggestions,
+.filter-dropdown-content,
+.notification,
+.quick-action,
+.btn,
+.export-btn,
+.filter-btn,
+.tab,
+.result-item,
+.sidebar-section,
+.security-status,
+.search-context,
+.advanced-search,
+.search-operators,
+.analytics-chart {
+  --mx: 50%;
+  --my: 0%;
+}
+
+.search-box::before,
+.settings-panel::before,
+.modal-content::before,
+.search-suggestions::before,
+.filter-dropdown-content::before,
+.quick-action::before,
+.btn::before,
+.export-btn::before,
+.filter-btn::before,
+.result-item::before,
+.sidebar-section::before,
+.security-status::before,
+.search-context::before,
+.advanced-search::before,
+.search-operators::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: radial-gradient(220px 160px at var(--mx) var(--my),
+      rgba(255, 255, 255, 0.13), rgba(255, 255, 255, 0.04) 45%, transparent 72%);
+  opacity: 0;
+  transition: opacity var(--og-dur-fast, 150ms) ease;
+  z-index: 0;
+}
+
+.search-box:hover::before,
+.settings-panel:hover::before,
+.modal-content:hover::before,
+.search-suggestions:hover::before,
+.filter-dropdown-content:hover::before,
+.quick-action:hover::before,
+.btn:hover::before,
+.export-btn:hover::before,
+.filter-btn:hover::before,
+.result-item:hover::before,
+.sidebar-section:hover::before,
+.security-status:hover::before,
+.search-context:hover::before,
+.advanced-search:hover::before,
+.search-operators:hover::before {
+  opacity: 1;
+}
+
+/* Surfaces that receive the ::before lens need positioning + clip */
+.result-item,
+.sidebar-section,
+.security-status,
+.search-context,
+.search-operators,
+.quick-action,
+.btn,
+.export-btn,
+.filter-btn {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.result-item > *,
+.sidebar-section > *,
+.security-status > *,
+.search-context > *,
+.search-operators > *,
+.quick-action > *,
+.btn > *,
+.export-btn > *,
+.filter-btn > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* ---- Glass surfaces: cards, sidebar blocks, context ---------- */
+.result-item,
+.sidebar-section,
+.security-status,
+.search-context,
+.advanced-search,
+.search-operators {
+  background: linear-gradient(150deg, rgba(255, 255, 255, 0.075), rgba(255, 255, 255, 0.028) 55%, rgba(255, 255, 255, 0.05));
+  -webkit-backdrop-filter: blur(18px) saturate(1.5);
+  backdrop-filter: blur(18px) saturate(1.5);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  border-radius: var(--og-radius-lg, 16px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.3),
+    0 12px 28px -10px rgba(0, 0, 0, 0.6);
+}
+
+.result-item {
+  padding: var(--og-space-5, 20px) var(--og-space-6, 24px);
+  transition: transform var(--og-dur-base, 220ms) var(--og-ease-out-quint, ease),
+              border-color var(--og-dur-fast, 150ms) ease,
+              box-shadow var(--og-dur-base, 220ms) ease;
+}
+
+.result-item:hover {
+  transform: translateY(-2px);
+  border-color: rgba(255, 255, 255, 0.22);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.16),
+    0 18px 36px -12px rgba(0, 0, 0, 0.7);
+}
+
+.result-item:focus-within {
+  border-color: rgba(255, 255, 255, 0.35);
+}
+
+.sidebar-section,
+.security-status,
+.search-context,
+.search-operators {
+  padding: var(--og-space-5, 20px);
+  margin-block-end: var(--og-space-5, 20px);
+}
+
+.advanced-search {
+  padding: var(--og-space-6, 24px);
+  margin-block-end: var(--og-space-5, 20px);
+}
+
+/* ---- Hero search box: the centrepiece glass lens ------------- */
+.search-box {
+  background:
+    linear-gradient(150deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.05) 60%),
+    rgba(10, 10, 10, 0.45);
+  -webkit-backdrop-filter: blur(26px) saturate(1.7) brightness(1.07);
+  backdrop-filter: blur(26px) saturate(1.7) brightness(1.07);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.22),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.4),
+    0 24px 56px -16px rgba(0, 0, 0, 0.8),
+    0 0 0 0 rgba(255, 255, 255, 0);
+  transition: box-shadow var(--og-dur-base, 220ms) ease,
+              border-color var(--og-dur-fast, 150ms) ease,
+              transform var(--og-dur-base, 220ms) var(--og-ease-out-quint, ease);
+}
+
+.search-box:focus-within {
+  border-color: rgba(255, 255, 255, 0.42);
+  transform: translateY(-1px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.26),
+    0 24px 56px -16px rgba(0, 0, 0, 0.8),
+    0 0 0 5px rgba(255, 255, 255, 0.07),
+    0 0 42px rgba(255, 255, 255, 0.10);
+}
+
+.search-input {
+  background: transparent;
+  color: var(--og-white, #fff);
+  caret-color: #fff;
+}
+
+.search-input::placeholder {
+  color: rgba(255, 255, 255, 0.38);
+}
+
+/* ---- Buttons: frosted pills with press physics ---------------- */
+.btn,
+.export-btn,
+.filter-btn,
+.quick-action,
+.voice-search,
+.nav-btn,
+.close-btn {
+  -webkit-backdrop-filter: blur(14px) saturate(1.4);
+  backdrop-filter: blur(14px) saturate(1.4);
+  transition: transform var(--og-dur-fast, 150ms) var(--og-ease-out-quint, ease),
+              box-shadow var(--og-dur-fast, 150ms) ease,
+              background var(--og-dur-fast, 150ms) ease,
+              border-color var(--og-dur-fast, 150ms) ease,
+              color var(--og-dur-fast, 150ms) ease;
+}
+
+.btn:hover,
+.export-btn:hover,
+.filter-btn:hover,
+.quick-action:hover,
+.voice-search:hover,
+.nav-btn:hover,
+.close-btn:hover {
+  transform: translateY(-1px);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.btn:active,
+.export-btn:active,
+.filter-btn:active,
+.quick-action:active,
+.voice-search:active,
+.nav-btn:active,
+.close-btn:active {
+  transform: translateY(0) scale(0.97);
+}
+
+.btn-primary {
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.96), rgba(255, 255, 255, 0.82));
+  color: #000;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    0 10px 24px -8px rgba(0, 0, 0, 0.7);
+  font-weight: 600;
+}
+
+.btn-primary:hover {
+  background: #ffffff;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 1),
+    0 14px 30px -8px rgba(0, 0, 0, 0.75),
+    0 0 24px rgba(255, 255, 255, 0.14);
+}
+
+.btn-secondary,
+.filter-btn,
+.export-btn,
+.quick-action {
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.10), rgba(255, 255, 255, 0.04));
+  color: var(--og-white, #fff);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.10);
+}
+
+.filter-btn.active,
+.filter-btn[aria-expanded="true"] {
+  background: rgba(255, 255, 255, 0.16);
+  border-color: rgba(255, 255, 255, 0.38);
+  color: #fff;
+}
+
+/* Quick actions row */
+.quick-action {
+  border-radius: var(--og-radius-pill, 999px);
+  text-decoration: none;
+}
+
+/* ---- Dropdown menus ------------------------------------------ */
+.filter-dropdown {
+  position: relative;
+}
+
+.filter-dropdown-content {
+  background: linear-gradient(170deg, rgba(28, 28, 28, 0.86), rgba(12, 12, 12, 0.82));
+  -webkit-backdrop-filter: blur(24px) saturate(1.6);
+  backdrop-filter: blur(24px) saturate(1.6);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: var(--og-radius-md, 14px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    0 20px 44px -12px rgba(0, 0, 0, 0.8);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-6px) scale(0.98);
+  transform-origin: top center;
+  transition: opacity var(--og-dur-fast, 150ms) ease,
+              transform var(--og-dur-fast, 150ms) var(--og-ease-out-quint, ease),
+              visibility var(--og-dur-fast, 150ms);
+  z-index: var(--og-z-dropdown, 1000);
+}
+
+.filter-dropdown.is-open .filter-dropdown-content,
+.filter-dropdown:focus-within .filter-dropdown-content {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+}
+
+.filter-option {
+  padding: var(--og-space-2, 8px) var(--og-space-4, 16px);
+  border-radius: var(--og-radius-xs, 6px);
+  cursor: pointer;
+  transition: background var(--og-dur-instant, 60ms) ease, color var(--og-dur-instant, 60ms) ease;
+}
+
+.filter-option:hover,
+.filter-option:focus-visible {
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  outline: none;
+}
+
+.filter-option[aria-selected="true"] {
+  background: rgba(255, 255, 255, 0.16);
+  color: #fff;
+}
+
+/* ---- Suggestions listbox -------------------------------------- */
+.search-suggestions {
+  background: linear-gradient(170deg, rgba(26, 26, 26, 0.9), rgba(10, 10, 10, 0.86));
+  -webkit-backdrop-filter: blur(28px) saturate(1.6);
+  backdrop-filter: blur(28px) saturate(1.6);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.14),
+    0 24px 48px -12px rgba(0, 0, 0, 0.85);
+}
+
+.suggestion-item {
+  transition: background var(--og-dur-instant, 60ms) ease;
+}
+
+.suggestion-item:hover,
+.suggestion-item[aria-selected="true"],
+.suggestion-item.is-active {
+  background: rgba(255, 255, 255, 0.10);
+}
+
+.suggestion-item .suggestion-icon {
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.suggestion-item mark {
+  background: transparent;
+  color: #fff;
+  font-weight: 700;
+}
+
+/* ---- Tabs: glass underline ------------------------------------ */
+.search-tabs {
+  -webkit-backdrop-filter: blur(16px) saturate(1.5);
+  backdrop-filter: blur(16px) saturate(1.5);
+  background: linear-gradient(180deg, rgba(8, 8, 8, 0.72), rgba(8, 8, 8, 0.5));
+  border-block-end: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.tab {
+  border-block-end: 2px solid transparent;
+  position: relative;
+  transition: color var(--og-dur-fast, 150ms) ease;
+}
+
+.tab.active {
+  color: #fff;
+  border-block-end-color: #fff;
+  text-shadow: 0 0 18px rgba(255, 255, 255, 0.45);
+}
+
+/* ---- Settings panel & modal: thick glass ---------------------- */
+.settings-panel {
+  background: linear-gradient(200deg, rgba(24, 24, 24, 0.82), rgba(8, 8, 8, 0.78));
+  -webkit-backdrop-filter: blur(34px) saturate(1.7) brightness(1.05);
+  backdrop-filter: blur(34px) saturate(1.7) brightness(1.05);
+  border-inline-start: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow:
+    inset 1px 0 0 rgba(255, 255, 255, 0.08),
+    -30px 0 60px -20px rgba(0, 0, 0, 0.8);
+}
+
+.modal-content {
+  background: linear-gradient(160deg, rgba(30, 30, 30, 0.82), rgba(12, 12, 12, 0.78));
+  -webkit-backdrop-filter: blur(30px) saturate(1.65);
+  backdrop-filter: blur(30px) saturate(1.65);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+}
+
+.modal-backdrop {
+  background: rgba(0, 0, 0, 0.55);
+  -webkit-backdrop-filter: blur(10px) saturate(1.2);
+  backdrop-filter: blur(10px) saturate(1.2);
+}
+
+/* ---- Toggle switches: glass track, liquid thumb ---------------- */
+.toggle-switch .toggle-slider {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+/* NOTE: must be ~ (general sibling), not + — a visually-hidden label
+   span sits between the input and the slider in the markup, so the
+   original adjacent-sibling rule could never match and toggles
+   always looked OFF. */
+.toggle-switch input:checked ~ .toggle-slider {
+  background: rgba(255, 255, 255, 0.92);
+  border-color: rgba(255, 255, 255, 0.9);
+  box-shadow:
+    0 0 16px rgba(255, 255, 255, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+.toggle-switch .toggle-slider::before {
+  background: linear-gradient(160deg, #3a3a3a, #161616);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  transition: transform var(--og-dur-base, 220ms) var(--og-ease-spring, cubic-bezier(0.34, 1.56, 0.64, 1)),
+              background var(--og-dur-fast, 150ms) ease;
+}
+
+.toggle-switch input:checked ~ .toggle-slider::before {
+  background: linear-gradient(160deg, #1a1a1a, #000);
+  transform: translateX(20px);
+}
+
+.toggle-switch input:focus-visible ~ .toggle-slider {
+  outline: 2px solid #fff;
+  outline-offset: 3px;
+}
+
+/* ---- Form controls --------------------------------------------- */
+.form-input,
+.setting-control,
+select.form-input,
+select.setting-control {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: var(--og-radius-sm, 10px);
+  color: #fff;
+  padding: 10px 14px;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  transition: border-color var(--og-dur-fast, 150ms) ease, box-shadow var(--og-dur-fast, 150ms) ease;
+  color-scheme: dark;
+}
+
+.form-input:focus,
+.setting-control:focus {
+  outline: none;
+  border-color: rgba(255, 255, 255, 0.45);
+  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.08);
+}
+
+.form-input::placeholder {
+  color: rgba(255, 255, 255, 0.32);
+}
+
+/* ---- Header: floating glass bar --------------------------------- */
+.header {
+  -webkit-backdrop-filter: blur(20px) saturate(1.55);
+  backdrop-filter: blur(20px) saturate(1.55);
+  background: linear-gradient(180deg, rgba(8, 8, 8, 0.66), rgba(8, 8, 8, 0.4));
+  border-block-end: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.security-badge {
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: var(--og-radius-pill, 999px);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+
+/* ---- Status pulse ------------------------------------------------ */
+.status-indicator {
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.8), 0 0 2px #fff;
+}
+
+/* ---- Notification toast ------------------------------------------ */
+.notification {
+  background: linear-gradient(160deg, rgba(30, 30, 30, 0.9), rgba(14, 14, 14, 0.86));
+  -webkit-backdrop-filter: blur(24px) saturate(1.6);
+  backdrop-filter: blur(24px) saturate(1.6);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: var(--og-radius-pill, 999px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.14),
+    0 18px 40px -10px rgba(0, 0, 0, 0.8);
+}
+
+/* ---- Scroll to top ------------------------------------------------- */
+.scroll-to-top,
+.floating-action {
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.05));
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  -webkit-backdrop-filter: blur(16px) saturate(1.5);
+  backdrop-filter: blur(16px) saturate(1.5);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.18),
+    0 12px 28px -8px rgba(0, 0, 0, 0.7);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(12px);
+  transition: opacity var(--og-dur-base, 220ms) ease,
+              transform var(--og-dur-base, 220ms) var(--og-ease-out-quint, ease),
+              visibility var(--og-dur-base, 220ms);
+  cursor: pointer;
+}
+
+.scroll-to-top.is-visible,
+.floating-action.is-visible {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+}
+
+/* ---- Glass scrollbar ---------------------------------------------- */
+.custom-scrollbar::-webkit-scrollbar {
+  inline-size: 10px;
+  block-size: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.14);
+  border: 2px solid transparent;
+  border-radius: 999px;
+  background-clip: padding-box;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.28);
+  background-clip: padding-box;
+}
+
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.22) transparent;
+}
+
+/* ---- Selection, focus, misc polish --------------------------------- */
+::selection {
+  background: rgba(255, 255, 255, 0.85);
+  color: #000;
+}
+
+:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.85);
+  outline-offset: 2px;
+}
+
+.skip-link {
+  position: fixed;
+  inset-block-start: -100px;
+  inset-inline-start: 16px;
+  z-index: 2147483001;
+  padding: 10px 18px;
+  border-radius: 999px;
+  background: #fff;
+  color: #000;
+  font-weight: 600;
+  text-decoration: none;
+  transition: inset-block-start var(--og-dur-fast, 150ms) ease;
+}
+
+.skip-link:focus-visible {
+  inset-block-start: 12px;
+}
+
+.visually-hidden,
+.visually-hidden-focusable:not(:focus):not(:focus-within) {
+  position: absolute !important;
+  inline-size: 1px !important;
+  block-size: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0 0 0 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+/* Search context + filters row (were unstyled) */
+.search-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--og-space-3, 12px);
+  margin-block-end: var(--og-space-5, 20px);
+}
+
+.search-context {
+  margin-block-end: var(--og-space-5, 20px);
+}
+
+.context-title {
+  display: flex;
+  align-items: center;
+  gap: var(--og-space-2, 8px);
+  font-weight: 600;
+  color: #fff;
+  margin-block-end: var(--og-space-2, 8px);
+}
+
+/* Empty state for results */
+.ps-empty-state {
+  padding: var(--og-space-10, 40px) var(--og-space-6, 24px);
+  text-align: center;
+  color: rgba(255, 255, 255, 0.55);
+  background: linear-gradient(150deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
+  border: 1px dashed rgba(255, 255, 255, 0.18);
+  border-radius: var(--og-radius-lg, 16px);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+}
+
+.ps-empty-state i {
+  font-size: 2rem;
+  margin-block-end: var(--og-space-3, 12px);
+  opacity: 0.6;
+}
+
+/* Result badges (verified / recent chips injected by JS) */
+.result-badges {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.result-badge {
+  font-size: 0.6875rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.07);
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.result-favicon {
+  inline-size: 26px;
+  block-size: 26px;
+  display: inline-grid;
+  place-items: center;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.07);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.result-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Skeleton shimmer while "searching" */
+.ps-skeleton {
+  border-radius: var(--og-radius-lg, 16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background:
+    linear-gradient(100deg, transparent 30%, rgba(255, 255, 255, 0.07) 50%, transparent 70%),
+    rgba(255, 255, 255, 0.03);
+  background-size: 200% 100%, 100% 100%;
+  animation: ps-shimmer 1.2s linear infinite;
+  block-size: 96px;
+}
+
+@keyframes ps-shimmer {
+  from { background-position: 200% 0, 0 0; }
+  to   { background-position: -100% 0, 0 0; }
+}
+
+/* Light ("paper") theme: flip the glass to frosted-white */
+html[data-theme="paper"] body::before {
+  background:
+    radial-gradient(38vmax 30vmax at 18% 22%, rgba(0, 0, 0, 0.08), transparent 62%),
+    radial-gradient(30vmax 26vmax at 82% 12%, rgba(0, 0, 0, 0.05), transparent 60%),
+    radial-gradient(42vmax 34vmax at 68% 82%, rgba(0, 0, 0, 0.06), transparent 64%);
+}
+
+html[data-theme="paper"] .search-box,
+html[data-theme="paper"] .result-item,
+html[data-theme="paper"] .sidebar-section,
+html[data-theme="paper"] .security-status,
+html[data-theme="paper"] .settings-panel,
+html[data-theme="paper"] .modal-content,
+html[data-theme="paper"] .search-suggestions,
+html[data-theme="paper"] .filter-dropdown-content,
+html[data-theme="paper"] .notification {
+  background: linear-gradient(150deg, rgba(255, 255, 255, 0.72), rgba(255, 255, 255, 0.5));
+  border-color: rgba(0, 0, 0, 0.10);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    0 16px 36px -12px rgba(0, 0, 0, 0.25);
+}
+
+html[data-theme="paper"] .btn-primary {
+  background: linear-gradient(160deg, #111, #000);
+  color: #fff;
+  border-color: #000;
+}
+
+html[data-theme="paper"] .btn-secondary,
+html[data-theme="paper"] .filter-btn,
+html[data-theme="paper"] .export-btn,
+html[data-theme="paper"] .quick-action {
+  background: rgba(255, 255, 255, 0.55);
+  color: #111;
+  border-color: rgba(0, 0, 0, 0.12);
+}
+
+html[data-theme="paper"] .form-input,
+html[data-theme="paper"] .setting-control {
+  background: rgba(255, 255, 255, 0.6);
+  color: #111;
+  border-color: rgba(0, 0, 0, 0.14);
+  color-scheme: light;
+}
+
+html[data-theme="paper"] ::selection {
+  background: #111;
+  color: #fff;
+}
+
+/* Paper: tabs bar + tabs must flip to frosted white too */
+html[data-theme="paper"] .search-tabs {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.82), rgba(255, 255, 255, 0.62));
+  border-block-end-color: rgba(0, 0, 0, 0.08);
+}
+
+html[data-theme="paper"] .tab {
+  color: rgba(0, 0, 0, 0.55);
+}
+
+html[data-theme="paper"] .tab:hover,
+html[data-theme="paper"] .tab.active {
+  color: #000;
+  border-block-end-color: #000;
+  text-shadow: none;
+}
+
+html[data-theme="paper"] .header {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.55));
+  border-block-end-color: rgba(0, 0, 0, 0.08);
+}
+
+html[data-theme="paper"] .toggle-switch input:checked ~ .toggle-slider {
+  background: #111;
+  border-color: #111;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.25);
+}
+
+html[data-theme="paper"] .toggle-switch input:checked ~ .toggle-slider::before {
+  background: linear-gradient(160deg, #fff, #e8e8e8);
+}
+
+html[data-theme="paper"] .toggle-switch input:focus-visible ~ .toggle-slider {
+  outline-color: #000;
+}
+
+html[data-theme="paper"] .search-input {
+  color: #111;
+  caret-color: #000;
+}
+
+html[data-theme="paper"] .search-input::placeholder {
+  color: rgba(0, 0, 0, 0.4);
+}
+
+html[data-theme="paper"] .filter-option:hover,
+html[data-theme="paper"] .filter-option:focus-visible,
+html[data-theme="paper"] .filter-option[aria-selected="true"] {
+  background: rgba(0, 0, 0, 0.08);
+  color: #000;
+}
+
+html[data-theme="paper"] .suggestion-item:hover,
+html[data-theme="paper"] .suggestion-item[aria-selected="true"],
+html[data-theme="paper"] .suggestion-item.is-active {
+  background: rgba(0, 0, 0, 0.07);
+}
+
+html[data-theme="paper"] .suggestion-item mark {
+  color: #000;
+}
+
+html[data-theme="paper"] .ps-empty-state {
+  background: rgba(255, 255, 255, 0.6);
+  border-color: rgba(0, 0, 0, 0.2);
+  color: rgba(0, 0, 0, 0.6);
+}
+
+html[data-theme="paper"] .result-badge {
+  border-color: rgba(0, 0, 0, 0.2);
+  background: rgba(0, 0, 0, 0.05);
+  color: rgba(0, 0, 0, 0.65);
+}
+
+html[data-theme="paper"] .result-favicon {
+  border-color: rgba(0, 0, 0, 0.15);
+  background: rgba(0, 0, 0, 0.06);
+  color: #000;
+}
+
+/* ---- Motion & transparency preferences ----------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  body::before {
+    animation: none;
+  }
+
+  .ps-skeleton {
+    animation: none;
+  }
+
+  .result-item,
+  .btn,
+  .quick-action,
+  .filter-btn,
+  .export-btn,
+  .search-box {
+    transition: none;
+  }
+}
+
+html[data-motion="reduced"] body::before {
+  animation: none;
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .search-box,
+  .result-item,
+  .sidebar-section,
+  .security-status,
+  .settings-panel,
+  .modal-content,
+  .search-suggestions,
+  .filter-dropdown-content,
+  .notification,
+  .header,
+  .search-tabs {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    background: #0d0d0d;
+  }
+}
+
+html[data-transparency="reduced"] .search-box,
+html[data-transparency="reduced"] .settings-panel,
+html[data-transparency="reduced"] .modal-content {
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  background: #0d0d0d;
+}
+
+/* ---- Small screens --------------------------------------------------- */
+@media (max-width: 640px) {
+  .search-box {
+    border-radius: var(--og-radius-xl, 28px);
+  }
+
+  .search-actions {
+    inline-size: 100%;
+    display: flex;
+    gap: var(--og-space-2, 8px);
+  }
+
+  .search-actions .btn {
+    flex: 1;
+    justify-content: center;
+  }
+
+  .settings-panel {
+    inline-size: 100%;
+  }
+}
+
+
+/* ---- [hidden] must always win over display rules ---------------- */
+[hidden] {
+  display: none !important;
+}
+
+
+/* ---- Compact search mode: hero collapses once results exist ----- */
+.main-search {
+  transition: padding var(--og-dur-slow, 420ms) var(--og-ease-out-quint, ease);
+}
+
+body.has-results .main-search {
+  min-block-size: 0;
+  padding-block: var(--og-space-6, 24px) var(--og-space-4, 16px);
+}
+
+body.has-results .search-title,
+body.has-results .search-subtitle,
+body.has-results .quick-actions {
+  display: none;
+}
+
+body.has-results .search-container {
+  gap: 0;
+}
+
+/* ---- Modal: fully removed from the a11y/paint tree when closed -- */
+.modal {
+  visibility: hidden;
+  transition: visibility var(--og-dur-normal, 260ms);
+}
+
+.modal.is-open {
+  visibility: visible;
+}
+
+.modal.is-open .modal-backdrop {
+  opacity: 1;
+  visibility: visible;
+}
+
+
+/* ---- Stacking fix: suggestions must float above quick actions ---
+   .search-box creates a stacking context (backdrop-filter), so its
+   whole subtree — including the z-index:1000 suggestions list —
+   painted below the later-in-DOM .quick-actions row. */
+.search-box {
+  z-index: 30;
+}
+
+.main-search {
+  position: relative;
+  z-index: 1;
+}
