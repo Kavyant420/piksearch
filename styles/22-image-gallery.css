@@ -1,0 +1,192 @@
+/* =============================================================
+ * PikSearch — premium monochrome search interface
+ * File 22 · Image Gallery
+ *
+ * Part of the open-glass-ui facade integration layer.
+ * Renderer contract: renderer="auto" (CSS-first default, WebGL only
+ * for an owned image/canvas/video source — see 37-webgl-canvas.css).
+ * Palette contract: pure black & white everywhere except icon glyphs.
+ * A11y contract: semantic DOM, accessible names preserved, reduced
+ * motion/transparency honoured, forced-colors fallbacks provided.
+ *
+ * License: MIT. Assets self-authored or public-domain/MIT.
+ * Inspiration references (non-copied): pmndrs/react-three-fiber,
+ * Uiverse community patterns, iOS 26 liquid-glass material language.
+ * ============================================================= */
+
+/* =============================================================
+ * PikSearch - 22-image-gallery.css
+ * Masonry-ish image grid (CSS columns), hover zoom-lift, lightbox
+ * overlay. Images are owned sources eligible for WebGL refraction.
+ * ============================================================= */
+@layer og.gallery {
+  .og-masonry {
+  columns: 4 220px;
+  column-gap: var(--og-space-4);
+}
+  .og-masonry > * {
+  break-inside: avoid;
+  margin-block-end: var(--og-space-4);
+}
+  .og-thumb {
+  position: relative;
+  border-radius: var(--og-radius-lg);
+  overflow: hidden;
+  cursor: zoom-in;
+  background: var(--og-black-300);
+  border: 0;
+  padding: 0;
+  display: block;
+  inline-size: 100%;
+}
+  .og-thumb img {
+  inline-size: 100%;
+  display: block;
+  transition: transform var(--og-dur-slow) var(--og-ease-out-quint), filter var(--og-dur-base);
+  filter: grayscale(1);
+}
+  .og-thumb:hover img, .og-thumb:focus-visible img {
+  transform: scale(1.04);
+  filter: grayscale(0.85);
+}
+  .og-thumb__caption {
+  position: absolute;
+  inset-inline: 0;
+  inset-block-end: 0;
+  padding: var(--og-space-3);
+  font-size: var(--og-text-xs);
+  background: linear-gradient(transparent, rgba(0,0,0,0.85));
+  opacity: 0;
+  transition: opacity var(--og-dur-fast);
+}
+  .og-thumb:hover .og-thumb__caption, .og-thumb:focus-within .og-thumb__caption {
+  opacity: 1;
+}
+  .og-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: var(--og-z-modal);
+  display: grid;
+  place-items: center;
+  background: rgba(0,0,0,0.92);
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+}
+  .og-lightbox[hidden] {
+  display: none;
+}
+  .og-lightbox img {
+  max-block-size: 82vh;
+  max-inline-size: 90vw;
+  border-radius: var(--og-radius-lg);
+  box-shadow: var(--og-glass-shadow);
+}
+}
+
+/* --- Extended recipe set (component variants & states) --------- */
+
+.og-gallery-toolbar {
+  display: flex;
+  gap: var(--og-space-3);
+  align-items: center;
+  margin-block-end: var(--og-space-5);
+  flex-wrap: wrap;
+}
+
+.og-thumb--portrait {
+  aspect-ratio: 3/4;
+}
+
+.og-thumb--wide {
+  aspect-ratio: 16/9;
+}
+
+.og-thumb__size-tag {
+  position: absolute;
+  inset-block-start: 8px;
+  inset-inline-end: 8px;
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: rgba(0,0,0,0.6);
+  color: var(--og-white);
+}
+
+.og-lightbox__figure {
+  display: grid;
+  gap: var(--og-space-3);
+  justify-items: center;
+}
+
+.og-lightbox__caption {
+  color: var(--og-text-secondary);
+  font-size: var(--og-text-sm);
+  max-inline-size: 60ch;
+  text-align: center;
+}
+
+.og-lightbox__nav {
+  position: absolute;
+  inset-block: 0;
+  inline-size: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  pointer-events: none;
+}
+
+.og-lightbox__nav button {
+  pointer-events: auto;
+  margin-inline: var(--og-space-4);
+}
+
+.og-filmstrip {
+  display: flex;
+  gap: var(--og-space-2);
+  overflow-x: auto;
+  padding-block: var(--og-space-3);
+}
+
+.og-filmstrip img {
+  inline-size: 72px;
+  block-size: 48px;
+  object-fit: cover;
+  border-radius: 6px;
+  opacity: 0.5;
+  cursor: pointer;
+  filter: grayscale(1);
+}
+
+.og-filmstrip img.is-current {
+  opacity: 1;
+  outline: 2px solid var(--og-white);
+}
+
+.og-lightbox__count {
+  font-family: var(--og-font-mono);
+  font-size: var(--og-text-xs);
+  color: var(--og-text-muted);
+}
+
+.og-image-meta-row {
+  display: flex;
+  gap: var(--og-space-4);
+  font-size: var(--og-text-xs);
+  color: var(--og-text-faint);
+}
+
+.og-similar-strip {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: var(--og-space-2);
+}
+
+.og-thumb:focus-visible {
+  outline: 2px solid var(--og-focus-ring);
+  outline-offset: 2px;
+}
+
+.og-thumb[aria-disabled='true'] {
+  opacity: 0.4;
+  pointer-events: none;
+}

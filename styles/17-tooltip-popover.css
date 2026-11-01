@@ -1,0 +1,152 @@
+/* =============================================================
+ * PikSearch — premium monochrome search interface
+ * File 17 · Tooltip Popover
+ *
+ * Part of the open-glass-ui facade integration layer.
+ * Renderer contract: renderer="auto" (CSS-first default, WebGL only
+ * for an owned image/canvas/video source — see 37-webgl-canvas.css).
+ * Palette contract: pure black & white everywhere except icon glyphs.
+ * A11y contract: semantic DOM, accessible names preserved, reduced
+ * motion/transparency honoured, forced-colors fallbacks provided.
+ *
+ * License: MIT. Assets self-authored or public-domain/MIT.
+ * Inspiration references (non-copied): pmndrs/react-three-fiber,
+ * Uiverse community patterns, iOS 26 liquid-glass material language.
+ * ============================================================= */
+
+/* =============================================================
+ * PikSearch - 17-tooltip-popover.css
+ * Delay-aware tooltip with arrow, popover card recipe, info-dot
+ * pattern used across settings screens.
+ * ============================================================= */
+@layer og.tip {
+  .og-tip {
+  position: absolute;
+  z-index: var(--og-z-tooltip);
+  padding: var(--og-space-2) var(--og-space-3);
+  max-inline-size: 260px;
+  font-size: var(--og-text-xs);
+  color: var(--og-white);
+  background: rgba(255,255,255,0.1);
+  -webkit-backdrop-filter: var(--og-glass-blur-thin);
+  backdrop-filter: var(--og-glass-blur-thin);
+  border: 1px solid var(--og-glass-border-top);
+  border-radius: var(--og-radius-sm);
+  box-shadow: var(--og-elev-3);
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(4px) scale(0.98);
+  transition: opacity var(--og-dur-fast), transform var(--og-dur-fast) var(--og-ease-spring);
+}
+  .og-tip[data-show="true"] {
+  opacity: 1;
+  transform: none;
+}
+  .og-popover {
+  position: absolute;
+  z-index: var(--og-z-popover);
+  inline-size: min(340px, 92vw);
+  padding: var(--og-space-4);
+  animation: og-pop-in var(--og-dur-base) var(--og-ease-spring) both;
+}
+  .og-popover[hidden] {
+  display: none;
+}
+  .og-info-dot {
+  display: inline-grid;
+  place-items: center;
+  inline-size: 16px;
+  block-size: 16px;
+  border-radius: 50%;
+  border: 1px solid var(--og-hairline-strong);
+  font-size: 10px;
+  color: var(--og-text-muted);
+  cursor: help;
+  background: transparent;
+}
+  @keyframes og-pop-in { from { opacity: 0; transform: scale(0.94) translateY(6px); } to { opacity: 1; transform: none; } }
+}
+
+/* --- Extended recipe set (component variants & states) --------- */
+
+.og-tip--below {
+  transform-origin: top center;
+}
+
+.og-popover__title {
+  font-weight: 700;
+  margin-block-end: var(--og-space-2);
+}
+
+.og-popover__body {
+  font-size: var(--og-text-sm);
+  color: var(--og-text-secondary);
+  display: grid;
+  gap: var(--og-space-3);
+}
+
+.og-popover__footer {
+  display: flex;
+  justify-content: space-between;
+  margin-block-start: var(--og-space-4);
+}
+
+.og-info-dot:hover {
+  border-color: var(--og-white);
+  color: var(--og-white);
+}
+
+.og-hovercard {
+  position: absolute;
+  z-index: var(--og-z-popover);
+  inline-size: 280px;
+  padding: var(--og-space-4);
+}
+
+.og-hovercard__avatar {
+  inline-size: 44px;
+  block-size: 44px;
+  border-radius: 50%;
+  background: var(--og-black-400);
+}
+
+.og-callout {
+  border-inline-start: 2px solid var(--og-hairline-strong);
+  padding-inline-start: var(--og-space-3);
+  font-size: var(--og-text-sm);
+  color: var(--og-text-secondary);
+}
+
+.og-anchor-shift {
+  transition: left var(--og-dur-fast) var(--og-ease-standard), top var(--og-dur-fast) var(--og-ease-standard);
+}
+
+.og-tip-singleton {
+  will-change: opacity, transform;
+}
+
+.og-popover--settings {
+  inline-size: min(420px, 94vw);
+}
+
+.og-preview-frame {
+  border-radius: var(--og-radius-md);
+  overflow: hidden;
+  aspect-ratio: 16/9;
+  background: var(--og-black-300);
+}
+
+.og-site-preview {
+  display: grid;
+  grid-template-columns: 84px 1fr;
+  gap: var(--og-space-3);
+  align-items: start;
+}
+
+.og-site-preview img {
+  inline-size: 84px;
+  block-size: 60px;
+  object-fit: cover;
+  border-radius: 6px;
+  filter: grayscale(1);
+}

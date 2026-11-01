@@ -1,0 +1,274 @@
+/* =============================================================
+ * PikSearch — premium monochrome search interface
+ * File 07 · Search Core
+ *
+ * Part of the open-glass-ui facade integration layer.
+ * Renderer contract: renderer="auto" (CSS-first default, WebGL only
+ * for an owned image/canvas/video source — see 37-webgl-canvas.css).
+ * Palette contract: pure black & white everywhere except icon glyphs.
+ * A11y contract: semantic DOM, accessible names preserved, reduced
+ * motion/transparency honoured, forced-colors fallbacks provided.
+ *
+ * License: MIT. Assets self-authored or public-domain/MIT.
+ * Inspiration references (non-copied): pmndrs/react-three-fiber,
+ * Uiverse community patterns, iOS 26 liquid-glass material language.
+ * ============================================================= */
+
+/* =============================================================
+ * PikSearch - 07-search-core.css
+ * The search field itself: giant liquid-glass bar on hero, compact
+ * variant under the sticky header, submit affordance, clear button,
+ * engine badge row.
+ * ============================================================= */
+@layer og.search {
+  .og-search {
+  position: relative;
+  inline-size: 100%;
+}
+  .og-search__field {
+  inline-size: 100%;
+  padding: var(--og-space-4) var(--og-space-8);
+  padding-inline-start: calc(var(--og-space-8) + 2rem);
+  font-size: var(--og-text-lg);
+  background: transparent;
+  border: 0;
+  outline: none;
+  caret-color: var(--og-white);
+}
+  .og-search__field::placeholder {
+  color: var(--og-text-faint);
+}
+  .og-search__icon {
+  position: absolute;
+  inset-inline-start: var(--og-space-4);
+  top: 50%;
+  translate: 0 -50%;
+  color: var(--og-text-muted);
+  pointer-events: none;
+}
+  .og-search__clear {
+  position: absolute;
+  inset-inline-end: var(--og-space-4);
+  top: 50%;
+  translate: 0 -50%;
+  display: grid;
+  place-items: center;
+  inline-size: 28px;
+  block-size: 28px;
+  border-radius: 50%;
+  background: var(--og-surface-strong);
+  color: var(--og-text-secondary);
+  cursor: pointer;
+  visibility: hidden;
+  border: 0;
+}
+  .og-search[data-filled="true"] .og-search__clear {
+  visibility: visible;
+}
+  .og-search__submit {
+  position: absolute;
+  inset-inline-end: var(--og-space-2);
+  top: 50%;
+  translate: 0 -50%;
+  padding: var(--og-space-2) var(--og-space-4);
+  border-radius: var(--og-radius-pill);
+  background: var(--og-white);
+  color: var(--og-black);
+  font-weight: 700;
+  cursor: pointer;
+  border: 0;
+  transition: transform var(--og-dur-fast) var(--og-ease-spring);
+}
+  .og-search__submit:hover {
+  transform: scale(1.05);
+}
+  .og-search--hero {
+  max-inline-size: 680px;
+  margin-inline: auto;
+}
+  .og-search--hero .og-search__field {
+  font-size: var(--og-text-xl);
+  padding-block: var(--og-space-5);
+}
+  .og-search--compact .og-search__field {
+  font-size: var(--og-text-sm);
+  padding-block: var(--og-space-2);
+}
+  .og-engines {
+  display: flex;
+  justify-content: center;
+  gap: var(--og-space-2);
+  margin-block-start: var(--og-space-4);
+  flex-wrap: wrap;
+}
+  .og-engine-chip {
+  padding: var(--og-space-1) var(--og-space-3);
+  border-radius: var(--og-radius-pill);
+  border: 1px solid var(--og-hairline);
+  font-size: var(--og-text-xs);
+  color: var(--og-text-muted);
+  cursor: pointer;
+  transition: all var(--og-dur-fast);
+  background: transparent;
+}
+  .og-engine-chip[aria-pressed="true"] {
+  background: var(--og-white);
+  color: var(--og-black);
+  border-color: var(--og-white);
+}
+  .og-results-meta {
+  display: flex;
+  gap: var(--og-space-4);
+  color: var(--og-text-muted);
+  font-size: var(--og-text-sm);
+}
+}
+
+/* --- Extended recipe set (component variants & states) --------- */
+
+.og-search__kbd-hint {
+  position: absolute;
+  inset-inline-end: 84px;
+  top: 50%;
+  translate: 0 -50%;
+  opacity: 0.45;
+  pointer-events: none;
+}
+
+.og-search--hero .og-glass {
+  padding: var(--og-space-1);
+}
+
+.og-search__field::-webkit-search-cancel-button {
+  appearance: none;
+}
+
+.og-search__hotkeys {
+  display: flex;
+  gap: var(--og-space-2);
+  justify-content: center;
+  margin-block-start: var(--og-space-3);
+}
+
+.og-combobox-list {
+  position: absolute;
+  inset-inline: var(--og-space-2);
+  inset-block-start: calc(100% + var(--og-space-2));
+  z-index: var(--og-z-popover);
+  padding: var(--og-space-2);
+  display: grid;
+  gap: 2px;
+}
+
+.og-combobox-list[hidden] {
+  display: none;
+}
+
+.og-combobox-list [role='option'] {
+  text-align: start;
+  cursor: pointer;
+  border-radius: var(--og-radius-sm);
+}
+
+.og-combobox-list [role='option'].is-active {
+  background: var(--og-accent-soft);
+  color: var(--og-white);
+}
+
+.og-search__meta-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-block: var(--og-space-4);
+}
+
+.og-engines--compact {
+  justify-content: flex-start;
+  margin-block-start: 0;
+}
+
+.og-engine-chip img {
+  inline-size: 14px;
+  block-size: 14px;
+  filter: grayscale(1);
+}
+
+.og-search__voice {
+  position: absolute;
+  inset-inline-end: 108px;
+  top: 50%;
+  translate: 0 -50%;
+  border: 0;
+  background: transparent;
+  color: var(--og-text-muted);
+  cursor: pointer;
+}
+
+.og-search-history {
+  display: grid;
+  gap: var(--og-space-2);
+  padding: var(--og-space-3);
+}
+
+.og-history-item {
+  display: flex;
+  align-items: center;
+  gap: var(--og-space-3);
+  padding: var(--og-space-2);
+  border-radius: var(--og-radius-sm);
+  cursor: pointer;
+  font-size: var(--og-text-sm);
+  color: var(--og-text-secondary);
+}
+
+.og-history-item:hover {
+  background: var(--og-accent-soft);
+  color: var(--og-white);
+}
+
+.og-query-token {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: var(--og-radius-pill);
+  border: 1px solid var(--og-hairline-strong);
+  font-size: var(--og-text-xs);
+  margin-inline-end: var(--og-space-2);
+}
+
+.og-search-suggestions-heading {
+  font-size: var(--og-text-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--og-text-faint);
+  padding-inline: var(--og-space-3);
+}
+
+.og-zero-cta {
+  margin-block-start: var(--og-space-4);
+}
+
+.og-search-form-row {
+  display: flex;
+  gap: var(--og-space-3);
+  align-items: center;
+}
+
+.og-engine-chip:focus-visible {
+  outline: 2px solid var(--og-focus-ring);
+  outline-offset: 2px;
+}
+
+.og-engine-chip[aria-disabled='true'] {
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+.og-history-item:focus-visible {
+  outline: 2px solid var(--og-focus-ring);
+  outline-offset: 2px;
+}
+
+.og-history-item[aria-disabled='true'] {
+  opacity: 0.4;
+  pointer-events: none;
+}

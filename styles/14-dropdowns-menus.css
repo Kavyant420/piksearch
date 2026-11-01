@@ -1,0 +1,168 @@
+/* =============================================================
+ * PikSearch — premium monochrome search interface
+ * File 14 · Dropdowns Menus
+ *
+ * Part of the open-glass-ui facade integration layer.
+ * Renderer contract: renderer="auto" (CSS-first default, WebGL only
+ * for an owned image/canvas/video source — see 37-webgl-canvas.css).
+ * Palette contract: pure black & white everywhere except icon glyphs.
+ * A11y contract: semantic DOM, accessible names preserved, reduced
+ * motion/transparency honoured, forced-colors fallbacks provided.
+ *
+ * License: MIT. Assets self-authored or public-domain/MIT.
+ * Inspiration references (non-copied): pmndrs/react-three-fiber,
+ * Uiverse community patterns, iOS 26 liquid-glass material language.
+ * ============================================================= */
+
+/* =============================================================
+ * PikSearch - 14-dropdowns-menus.css
+ * Menu recipe with roving tabindex support, separators, checkable
+ * items. Keyboard model implemented in 14-menus.js.
+ * ============================================================= */
+@layer og.menu {
+  .og-menu-anchor {
+  position: relative;
+  display: inline-block;
+}
+  .og-menu {
+  position: absolute;
+  inset-block-start: calc(100% + var(--og-space-2));
+  inset-inline-end: 0;
+  min-inline-size: 220px;
+  padding: var(--og-space-2);
+  z-index: var(--og-z-popover);
+  transform-origin: top right;
+  animation: og-menu-in var(--og-dur-fast) var(--og-ease-spring) both;
+}
+  .og-menu[hidden] {
+  display: none;
+}
+  .og-menu__item {
+  display: flex;
+  align-items: center;
+  gap: var(--og-space-3);
+  inline-size: 100%;
+  padding: var(--og-space-2) var(--og-space-3);
+  border-radius: var(--og-radius-sm);
+  font-size: var(--og-text-sm);
+  color: var(--og-text-secondary);
+  cursor: pointer;
+  text-align: start;
+  border: 0;
+  background: transparent;
+}
+  .og-menu__item:hover, .og-menu__item:focus-visible {
+  background: var(--og-accent-soft);
+  color: var(--og-white);
+  outline: none;
+}
+  .og-menu__item[role="menuitemcheckbox"][aria-checked="true"]::before {
+  content: "\2713";
+  font-weight: 800;
+}
+  .og-menu__sep {
+  block-size: 1px;
+  background: var(--og-hairline);
+  margin-block: var(--og-space-2);
+  border: 0;
+}
+  .og-menu__label {
+  padding: var(--og-space-2) var(--og-space-3);
+  font-size: var(--og-text-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--og-text-faint);
+}
+  @keyframes og-menu-in { from { transform: scale(0.95) translateY(-4px); opacity: 0; } to { transform: none; opacity: 1; } }
+}
+
+/* --- Extended recipe set (component variants & states) --------- */
+
+.og-menu--start {
+  inset-inline-end: auto;
+  inset-inline-start: 0;
+  transform-origin: top left;
+}
+
+.og-menu__item kbd {
+  margin-inline-start: auto;
+}
+
+.og-menu__submenu-parent {
+  position: relative;
+}
+
+.og-context-menu {
+  position: fixed;
+  inset-block-start: 0;
+  inset-inline-start: 0;
+}
+
+.og-select-menu-trigger {
+  display: flex;
+  align-items: center;
+  gap: var(--og-space-2);
+}
+
+.og-filter-menu {
+  min-inline-size: 280px;
+}
+
+.og-menu__hint {
+  padding: var(--og-space-2) var(--og-space-3);
+  font-size: var(--og-text-xs);
+  color: var(--og-text-faint);
+}
+
+.og-menu__danger {
+  color: var(--og-white);
+  font-weight: 700;
+}
+
+.og-menu__danger:hover {
+  background: var(--og-white);
+  color: var(--og-black);
+}
+
+.og-overflow-menu {
+  visibility: hidden;
+}
+
+.og-menu__icon {
+  inline-size: 16px;
+  display: grid;
+  place-items: center;
+  color: var(--og-text-muted);
+}
+
+.og-menu__shortcut {
+  margin-inline-start: auto;
+  font-family: var(--og-font-mono);
+  font-size: var(--og-text-xs);
+  color: var(--og-text-faint);
+}
+
+.og-menu--center {
+  inset-inline: auto 50%;
+  translate: -50% 0;
+}
+
+.og-menu-scroll {
+  max-block-size: 320px;
+  overflow: auto;
+}
+
+.og-menu__radio[aria-checked='true']::before {
+  content: '\25CF';
+  font-size: 10px;
+}
+
+.og-menu__item:focus-visible {
+  outline: 2px solid var(--og-focus-ring);
+  outline-offset: 2px;
+}
+
+.og-menu__item[aria-disabled='true'] {
+  opacity: 0.4;
+  pointer-events: none;
+}

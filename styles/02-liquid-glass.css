@@ -1,0 +1,357 @@
+/* =============================================================
+ * PikSearch — premium monochrome search interface
+ * File 02 · Liquid Glass
+ *
+ * Part of the open-glass-ui facade integration layer.
+ * Renderer contract: renderer="auto" (CSS-first default, WebGL only
+ * for an owned image/canvas/video source — see 37-webgl-canvas.css).
+ * Palette contract: pure black & white everywhere except icon glyphs.
+ * A11y contract: semantic DOM, accessible names preserved, reduced
+ * motion/transparency honoured, forced-colors fallbacks provided.
+ *
+ * License: MIT. Assets self-authored or public-domain/MIT.
+ * Inspiration references (non-copied): pmndrs/react-three-fiber,
+ * Uiverse community patterns, iOS 26 liquid-glass material language.
+ * ============================================================= */
+
+/* =============================================================
+ * PikSearch - 02-liquid-glass.css
+ * iOS 26 "Liquid Glass" material system (CSS-first, renderer="auto").
+ * .og-glass is the base recipe; variants tune the refraction illusion
+ * via layered gradients, edge speculars and backdrop-filter. The WebGL
+ * renderer (open-glass-ui/webgl) upgrades ONLY owned canvas hosts.
+ * ============================================================= */
+@layer og.glass {
+  .og-glass {
+    position: relative;
+    isolation: isolate;
+    background:
+      linear-gradient(135deg, var(--og-glass-tint-strong), var(--og-glass-tint) 55%, transparent),
+      var(--og-surface);
+    -webkit-backdrop-filter: var(--og-glass-blur);
+    backdrop-filter: var(--og-glass-blur);
+    border-radius: var(--og-radius-fluid);
+    box-shadow: var(--og-glass-shadow), var(--og-glass-inner-highlight);
+    overflow: hidden;
+  }
+  /* Specular rim: top light catch, bottom shadow edge (gradient border trick) */
+  .og-glass::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(160deg,
+      var(--og-glass-border-top) 0%,
+      transparent 38%,
+      transparent 62%,
+      var(--og-glass-border-bottom) 100%);
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+            mask-composite: exclude;
+    pointer-events: none;
+    z-index: 2;
+  }
+  /* Soft internal lens highlight following the corner curvature */
+  .og-glass::after {
+    content: "";
+    position: absolute;
+    inset: -30% -10% auto -10%;
+    height: 60%;
+    background: radial-gradient(60% 100% at 30% 0%,
+      rgba(255,255,255,0.17) 0%,
+      transparent 70%);
+    pointer-events: none;
+    z-index: 1;
+  }
+  .og-glass > * {
+  position: relative;
+  z-index: 3;
+}
+
+  /* ---------- Thickness variants ---------- */
+  .og-glass--thin {
+  backdrop-filter: var(--og-glass-blur-thin);
+  -webkit-backdrop-filter: var(--og-glass-blur-thin);
+}
+  .og-glass--thick {
+  backdrop-filter: var(--og-glass-blur-thick);
+  -webkit-backdrop-filter: var(--og-glass-blur-thick);
+}
+  .og-glass--clear {
+  background: rgba(255,255,255,0.02);
+}
+  .og-glass--solid {
+  background: var(--og-black-200);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+  /* ---------- Tonal variants (monochrome only) ---------- */
+  .og-glass--dark {
+  background: linear-gradient(180deg, rgba(0,0,0,0.55), rgba(0,0,0,0.75));
+}
+  .og-glass--light {
+  background: linear-gradient(180deg, rgba(255,255,255,0.14), rgba(255,255,255,0.05));
+}
+  .og-glass--invert {
+  background: var(--og-white);
+  color: var(--og-black);
+  --og-glass-border-top: rgba(0,0,0,0.18);
+}
+
+  /* ---------- Shape recipes ---------- */
+  .og-glass--pill {
+  border-radius: var(--og-radius-pill);
+}
+  .og-glass--card {
+  border-radius: var(--og-radius-xl);
+}
+  .og-glass--sheet {
+  border-radius: var(--og-radius-2xl) var(--og-radius-2xl) 0 0;
+}
+  .og-glass--circle {
+  border-radius: 50%;
+  aspect-ratio: 1;
+}
+
+  /* ---------- Interactive glass (buttons / toggles live here) ---------- */
+  .og-glass--interactive {
+    cursor: pointer;
+    transition:
+      transform var(--og-dur-fast) var(--og-ease-spring),
+      box-shadow var(--og-dur-base) var(--og-ease-standard),
+      background-color var(--og-dur-base) var(--og-ease-standard);
+  }
+  .og-glass--interactive:hover {
+    background:
+      linear-gradient(135deg, var(--og-glass-tint-strong), var(--og-glass-tint)),
+      var(--og-surface-strong);
+    transform: translateY(-1px) scale(1.005);
+  }
+  .og-glass--interactive:active {
+    transform: translateY(0) scale(0.985);
+    box-shadow: var(--og-elev-1), var(--og-glass-inner-highlight);
+  }
+
+  /* ---------- Liquid morph on focus-within (glass "gels") ---------- */
+  .og-glass--morph:focus-within {
+    border-radius: calc(var(--og-radius-fluid) + 6px);
+    box-shadow: var(--og-glass-shadow), var(--og-glass-inner-highlight),
+                0 0 0 4px rgba(255,255,255,0.06);
+  }
+
+  /* ---------- Floating tab-bar / toolbar recipe (iOS 26 style) ---------- */
+  .og-glass--bar {
+    display: flex;
+    align-items: center;
+    gap: var(--og-space-2);
+    padding: var(--og-space-2);
+    border-radius: var(--og-radius-xl);
+  }
+  .og-glass--bar .og-glass__item {
+    flex: 1;
+    display: grid;
+    place-items: center;
+    padding-block: var(--og-space-2);
+    border-radius: var(--og-radius-lg);
+    transition: background var(--og-dur-fast) var(--og-ease-standard);
+  }
+  .og-glass--bar .og-glass__item[aria-current="true"],
+  .og-glass--bar .og-glass__item.is-active {
+    background: rgba(255,255,255,0.16);
+    box-shadow: var(--og-glass-inner-highlight);
+  }
+
+  /* ---------- Layered depth: stacked glass sheets ---------- */
+  .og-glass-stack {
+  display: grid;
+}
+  .og-glass-stack > * {
+  grid-area: 1 / 1;
+}
+  .og-glass-stack > :nth-child(1) {
+  transform: translateY(8px) scale(0.94);
+  opacity: 0.35;
+  filter: blur(1px);
+}
+  .og-glass-stack > :nth-child(2) {
+  transform: translateY(4px) scale(0.97);
+  opacity: 0.6;
+}
+
+  /* ---------- Renderer hooks (renderer="auto") ---------- */
+  [data-og-renderer="css"] {
+  --og-render-hint: css;
+}
+  [data-og-renderer="webgl"] > canvas[data-og-refract] {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+    border-radius: inherit;
+  }
+
+  /* ---------- Fallback: no backdrop-filter support ---------- */
+  @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+    .og-glass {
+  background: rgba(20,20,20,0.92);
+}
+    .og-glass--light {
+  background: rgba(240,240,240,0.92);
+}
+  }
+
+  /* ---------- Reduced transparency: flatten all glass ---------- */
+  @media (prefers-reduced-transparency: reduce) {
+    .og-glass {
+      -webkit-backdrop-filter: none;
+      backdrop-filter: none;
+      background: var(--og-black-200);
+    }
+    .og-glass::before, .og-glass::after {
+  display: none;
+}
+  }
+
+  /* ---------- Forced colors: single System-on boundary ---------- */
+  @media (forced-colors: active) {
+    .og-glass {
+      background: Canvas;
+      border: 1px solid CanvasText;
+      box-shadow: none;
+      forced-color-adjust: auto;
+    }
+    .og-glass::before, .og-glass::after {
+  display: none;
+}
+    .og-glass--bar .og-glass__item[aria-current="true"] {
+      background: Highlight;
+      color: HighlightText;
+    }
+  }
+}
+
+/* --- Extended recipe set (component variants & states) --------- */
+
+.og-glass--frost {
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: var(--og-glass-blur-thin) saturate(120%);
+  -webkit-backdrop-filter: var(--og-glass-blur-thin) saturate(120%);
+}
+
+.og-glass--smoke {
+  background: rgba(0,0,0,0.5);
+  backdrop-filter: var(--og-glass-blur) blur(6px);
+  border-radius: var(--og-radius-xl);
+}
+
+.og-glass--chrome {
+  background: linear-gradient(180deg, rgba(255,255,255,0.22), rgba(255,255,255,0.04) 45%, rgba(0,0,0,0.3));
+  box-shadow: var(--og-glass-shadow), inset 0 1px 0 rgba(255,255,255,0.35);
+}
+
+.og-glass--depth-l1 {
+  transform: translateZ(0);
+  box-shadow: var(--og-elev-1), var(--og-glass-inner-highlight);
+}
+
+.og-glass--depth-l2 {
+  transform: translateZ(0);
+  box-shadow: var(--og-elev-2), var(--og-glass-inner-highlight);
+}
+
+.og-glass--depth-l3 {
+  transform: translateZ(0);
+  box-shadow: var(--og-elev-3), var(--og-glass-inner-highlight);
+}
+
+.og-glass__separator {
+  block-size: 1px;
+  margin-inline: var(--og-space-3);
+  background: linear-gradient(90deg, transparent, var(--og-hairline-strong), transparent);
+}
+
+.og-glass__label {
+  font-size: var(--og-text-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--og-text-muted);
+  padding-inline: var(--og-space-3);
+}
+
+.og-glass__content {
+  padding: var(--og-space-4);
+  display: grid;
+  gap: var(--og-space-3);
+}
+
+.og-glass__bleed {
+  margin: calc(var(--og-space-4) * -1);
+  border-radius: inherit;
+  overflow: hidden;
+}
+
+.og-glass-group {
+  display: grid;
+  gap: var(--og-space-3);
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+}
+
+.og-glass-group--stack {
+  grid-auto-flow: row;
+  grid-auto-columns: unset;
+}
+
+.og-glass[data-pressed='true'] {
+  transform: scale(0.985);
+  box-shadow: var(--og-elev-1), var(--og-glass-inner-highlight);
+}
+
+.og-glass--hero-panel {
+  padding: clamp(var(--og-space-5), 4vw, var(--og-space-8));
+  border-radius: calc(var(--og-radius-fluid) + 10px);
+}
+
+.og-refract-edge {
+  position: relative;
+  overflow: hidden;
+  border-radius: inherit;
+}
+
+.og-refract-edge::after {
+  content: '';
+  position: absolute;
+  inset: auto 0 0 0;
+  block-size: 40%;
+  background: linear-gradient(transparent, rgba(255,255,255,0.05));
+  pointer-events: none;
+}
+
+.og-glass--nested {
+  box-shadow: none;
+  border: 1px solid var(--og-hairline);
+  background: var(--og-surface);
+}
+
+.og-glass-toolbar {
+  display: flex;
+  align-items: center;
+  gap: var(--og-space-2);
+  padding: var(--og-space-2) var(--og-space-3);
+  border-radius: var(--og-radius-lg);
+}
+
+.og-glass-toolbar__spacer {
+  flex: 1;
+}
+
+.og-glass-divider-v {
+  inline-size: 1px;
+  block-size: 22px;
+  background: var(--og-hairline-strong);
+  margin-inline: var(--og-space-2);
+}

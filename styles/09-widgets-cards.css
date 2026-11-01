@@ -1,0 +1,233 @@
+/* =============================================================
+ * PikSearch — premium monochrome search interface
+ * File 09 · Widgets Cards
+ *
+ * Part of the open-glass-ui facade integration layer.
+ * Renderer contract: renderer="auto" (CSS-first default, WebGL only
+ * for an owned image/canvas/video source — see 37-webgl-canvas.css).
+ * Palette contract: pure black & white everywhere except icon glyphs.
+ * A11y contract: semantic DOM, accessible names preserved, reduced
+ * motion/transparency honoured, forced-colors fallbacks provided.
+ *
+ * License: MIT. Assets self-authored or public-domain/MIT.
+ * Inspiration references (non-copied): pmndrs/react-three-fiber,
+ * Uiverse community patterns, iOS 26 liquid-glass material language.
+ * ============================================================= */
+
+/* =============================================================
+ * PikSearch - 09-widgets-cards.css
+ * Knowledge panel, weather widget, calculator card, stock sparkline
+ * frame, definition card - all glass cards, all monochrome.
+ * ============================================================= */
+@layer og.widgets {
+  .og-widget {
+  padding: var(--og-space-5);
+}
+  .og-widget__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-block-end: var(--og-space-4);
+}
+  .og-widget__title {
+  font-size: var(--og-text-sm);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: var(--og-tracking-wide);
+  color: var(--og-text-muted);
+}
+  .og-kp {
+  display: grid;
+  gap: var(--og-space-4);
+}
+  .og-kp__image {
+  aspect-ratio: 16/9;
+  border-radius: var(--og-radius-lg);
+  background: linear-gradient(135deg, var(--og-black-300), var(--og-black-100));
+  overflow: hidden;
+}
+  .og-kp__facts {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--og-space-2) var(--og-space-4);
+  font-size: var(--og-text-sm);
+}
+  .og-kp__fact-label {
+  color: var(--og-text-muted);
+}
+  .og-weather {
+  display: flex;
+  align-items: baseline;
+  gap: var(--og-space-3);
+}
+  .og-weather__temp {
+  font-size: var(--og-text-4xl);
+  font-weight: 300;
+  letter-spacing: -0.04em;
+}
+  .og-weather__days {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: var(--og-space-2);
+  margin-block-start: var(--og-space-4);
+  text-align: center;
+  font-size: var(--og-text-xs);
+  list-style: none;
+}
+  .og-calc {
+  display: grid;
+  gap: var(--og-space-3);
+}
+  .og-calc__display {
+  text-align: end;
+  font-size: var(--og-text-2xl);
+  font-family: var(--og-font-mono);
+  padding: var(--og-space-3);
+  background: var(--og-surface-inset);
+  border-radius: var(--og-radius-md);
+}
+  .og-calc__keys {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--og-space-2);
+}
+  .og-spark {
+  inline-size: 100%;
+  block-size: 64px;
+}
+  .og-spark path.line {
+  fill: none;
+  stroke: var(--og-white);
+  stroke-width: 1.5;
+}
+  .og-def__word {
+  font-size: var(--og-text-2xl);
+}
+  .og-def__phonetic {
+  color: var(--og-text-muted);
+  font-family: var(--og-font-mono);
+  font-size: var(--og-text-sm);
+}
+  .og-def__meaning {
+  margin-block-start: var(--og-space-3);
+}
+}
+
+/* --- Extended recipe set (component variants & states) --------- */
+
+.og-widget__body {
+  display: grid;
+  gap: var(--og-space-3);
+}
+
+.og-widget__footer {
+  margin-block-start: var(--og-space-4);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: var(--og-text-xs);
+}
+
+.og-widget__source {
+  color: var(--og-text-faint);
+  text-decoration: none;
+}
+
+.og-widget__status {
+  font-size: var(--og-text-xs);
+  color: var(--og-text-muted);
+}
+
+.og-kp__related {
+  display: flex;
+  gap: var(--og-space-2);
+  flex-wrap: wrap;
+}
+
+.og-weather__place {
+  color: var(--og-text-secondary);
+  font-size: var(--og-text-sm);
+}
+
+.og-weather__desc {
+  color: var(--og-text-muted);
+  font-size: var(--og-text-sm);
+}
+
+.og-calc__keys button {
+  min-block-size: 44px;
+  border-radius: var(--og-radius-md);
+  background: var(--og-surface);
+  border: 1px solid var(--og-hairline);
+  cursor: pointer;
+  font-size: var(--og-text-lg);
+  color: var(--og-white);
+}
+
+.og-calc__keys button:hover {
+  background: var(--og-surface-strong);
+}
+
+.og-calc__keys button[data-op] {
+  background: var(--og-white);
+  color: var(--og-black);
+  font-weight: 700;
+}
+
+.og-def ol {
+  margin-inline-start: var(--og-space-4);
+  list-style: decimal;
+  color: var(--og-text-secondary);
+}
+
+.og-def__pos {
+  font-style: italic;
+  color: var(--og-text-muted);
+  font-size: var(--og-text-sm);
+}
+
+.og-stock__delta {
+  font-family: var(--og-font-mono);
+  font-size: var(--og-text-sm);
+}
+
+.og-stock__row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--og-space-3);
+}
+
+.og-unit-conv {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: var(--og-space-3);
+  align-items: center;
+}
+
+.og-card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(260px, 100%), 1fr));
+  gap: var(--og-space-4);
+}
+
+.og-widget--tall {
+  grid-row: span 2;
+}
+
+.og-widget__pin {
+  position: absolute;
+  inset-block-start: 10px;
+  inset-inline-end: 10px;
+}
+
+.og-mini-chart {
+  block-size: 48px;
+  inline-size: 100%;
+}
+
+.og-stat-row {
+  display: flex;
+  gap: var(--og-space-5);
+  font-size: var(--og-text-sm);
+}

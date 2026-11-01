@@ -1,0 +1,278 @@
+/* =============================================================
+ * PikSearch — premium monochrome search interface
+ * File 10 · Buttons Actions
+ *
+ * Part of the open-glass-ui facade integration layer.
+ * Renderer contract: renderer="auto" (CSS-first default, WebGL only
+ * for an owned image/canvas/video source — see 37-webgl-canvas.css).
+ * Palette contract: pure black & white everywhere except icon glyphs.
+ * A11y contract: semantic DOM, accessible names preserved, reduced
+ * motion/transparency honoured, forced-colors fallbacks provided.
+ *
+ * License: MIT. Assets self-authored or public-domain/MIT.
+ * Inspiration references (non-copied): pmndrs/react-three-fiber,
+ * Uiverse community patterns, iOS 26 liquid-glass material language.
+ * ============================================================= */
+
+/* =============================================================
+ * PikSearch - 10-buttons-actions.css
+ * Forty-recipe compatible button set: filled, tinted, gray, bordered,
+ * plain, glass. Semantic button elements only.
+ * ============================================================= */
+@layer og.buttons {
+  .og-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--og-space-2);
+  padding: var(--og-space-2) var(--og-space-5);
+  min-block-size: 40px;
+  border-radius: var(--og-radius-pill);
+  font-weight: 600;
+  font-size: var(--og-text-sm);
+  cursor: pointer;
+  user-select: none;
+  border: 1px solid transparent;
+  transition: transform var(--og-dur-instant) var(--og-ease-spring), background var(--og-dur-fast), color var(--og-dur-fast), border-color var(--og-dur-fast), box-shadow var(--og-dur-fast);
+}
+  .og-btn:active {
+  transform: scale(0.97);
+}
+  .og-btn:disabled, .og-btn[aria-disabled="true"] {
+  opacity: 0.4;
+  pointer-events: none;
+}
+  .og-btn--filled {
+  background: var(--og-white);
+  color: var(--og-black);
+}
+  .og-btn--filled:hover {
+  background: var(--og-gray-8);
+  box-shadow: 0 0 20px rgba(255,255,255,0.18);
+}
+  .og-btn--tinted {
+  background: var(--og-accent-soft);
+  color: var(--og-white);
+}
+  .og-btn--tinted:hover {
+  background: rgba(255,255,255,0.2);
+}
+  .og-btn--gray {
+  background: var(--og-black-400);
+  color: var(--og-text-secondary);
+}
+  .og-btn--gray:hover {
+  background: var(--og-black-500);
+  color: var(--og-white);
+}
+  .og-btn--bordered {
+  border-color: var(--og-hairline-strong);
+  color: var(--og-text-secondary);
+}
+  .og-btn--bordered:hover {
+  color: var(--og-white);
+  border-color: var(--og-white);
+}
+  .og-btn--plain {
+  color: var(--og-text-secondary);
+}
+  .og-btn--plain:hover {
+  color: var(--og-white);
+  background: var(--og-accent-soft);
+}
+  .og-btn--glass {
+  background: transparent;
+  -webkit-backdrop-filter: var(--og-glass-blur-thin);
+  backdrop-filter: var(--og-glass-blur-thin);
+  border-color: var(--og-glass-border-top);
+  color: var(--og-white);
+  box-shadow: var(--og-glass-inner-highlight);
+}
+  .og-btn--sm {
+  min-block-size: 30px;
+  padding-inline: var(--og-space-3);
+  font-size: var(--og-text-xs);
+}
+  .og-btn--lg {
+  min-block-size: 52px;
+  padding-inline: var(--og-space-7);
+  font-size: var(--og-text-base);
+}
+  .og-btn--icon {
+  inline-size: 40px;
+  padding-inline: 0;
+}
+  .og-btn--block {
+  inline-size: 100%;
+}
+  .og-iconbtn {
+  display: grid;
+  place-items: center;
+  inline-size: 36px;
+  block-size: 36px;
+  border-radius: 50%;
+  color: var(--og-text-secondary);
+  cursor: pointer;
+  border: 0;
+  background: transparent;
+  transition: background var(--og-dur-fast), color var(--og-dur-fast);
+}
+  .og-iconbtn:hover {
+  background: var(--og-accent-soft);
+  color: var(--og-white);
+}
+  .og-iconbtn[aria-pressed="true"] {
+  color: var(--og-black);
+  background: var(--og-white);
+}
+}
+
+/* --- Extended recipe set (component variants & states) --------- */
+
+.og-btn-group {
+  display: inline-flex;
+  gap: var(--og-space-2);
+}
+
+.og-btn-group--joined {
+  gap: 0;
+}
+
+.og-btn-group--joined > .og-btn {
+  border-radius: 0;
+}
+
+.og-btn-group--joined > :first-child {
+  border-start-start-radius: var(--og-radius-pill);
+  border-end-start-radius: var(--og-radius-pill);
+}
+
+.og-btn-group--joined > :last-child {
+  border-start-end-radius: var(--og-radius-pill);
+  border-end-end-radius: var(--og-radius-pill);
+}
+
+.og-btn__icon-leading svg {
+  inline-size: 1.1em;
+  block-size: 1.1em;
+}
+
+.og-btn--loading {
+  pointer-events: none;
+  opacity: 0.65;
+}
+
+.og-fab {
+  position: fixed;
+  inset-block-end: calc(var(--og-space-6) + env(safe-area-inset-bottom, 0px));
+  inset-inline-end: var(--og-space-6);
+  inline-size: 56px;
+  block-size: 56px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  z-index: var(--og-z-sticky);
+}
+
+.og-iconbtn--sm {
+  inline-size: 28px;
+  block-size: 28px;
+}
+
+.og-seg-btn[aria-pressed='true'] svg {
+  fill: currentColor;
+}
+
+.og-linkbtn {
+  background: none;
+  border: 0;
+  padding: 0;
+  color: var(--og-text-secondary);
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  font: inherit;
+}
+
+.og-linkbtn:hover {
+  color: var(--og-white);
+}
+
+.og-btn--danger-zone {
+  border-color: var(--og-white);
+  color: var(--og-white);
+}
+
+.og-btn--danger-zone:hover {
+  background: var(--og-white);
+  color: var(--og-black);
+}
+
+.og-action-bar {
+  display: flex;
+  gap: var(--og-space-2);
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.og-btn__badge {
+  font-size: 10px;
+  background: var(--og-black);
+  color: var(--og-white);
+  border-radius: 8px;
+  padding: 1px 6px;
+  font-weight: 800;
+}
+
+.og-iconbtn-stack {
+  display: flex;
+  gap: var(--og-space-1);
+}
+
+.og-btn[aria-haspopup='menu']::after {
+  content: '';
+  inline-size: 0;
+  block-size: 0;
+  border-inline-start: 4px solid transparent;
+  border-inline-end: 4px solid transparent;
+  border-block-start: 5px solid currentColor;
+  margin-inline-start: 2px;
+}
+
+.og-more-menu {
+  margin-inline-start: auto;
+}
+
+.og-btn--submit-search {
+  min-inline-size: 96px;
+}
+
+.og-btn:focus-visible {
+  outline: 2px solid var(--og-focus-ring);
+  outline-offset: 2px;
+}
+
+.og-btn[aria-disabled='true'] {
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+.og-iconbtn:focus-visible {
+  outline: 2px solid var(--og-focus-ring);
+  outline-offset: 2px;
+}
+
+.og-iconbtn[aria-disabled='true'] {
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+.og-linkbtn:focus-visible {
+  outline: 2px solid var(--og-focus-ring);
+  outline-offset: 2px;
+}
+
+.og-linkbtn[aria-disabled='true'] {
+  opacity: 0.4;
+  pointer-events: none;
+}

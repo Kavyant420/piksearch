@@ -1,0 +1,132 @@
+/* =============================================================
+ * PikSearch — premium monochrome search interface
+ * File 33 · Motion System
+ *
+ * Part of the open-glass-ui facade integration layer.
+ * Renderer contract: renderer="auto" (CSS-first default, WebGL only
+ * for an owned image/canvas/video source — see 37-webgl-canvas.css).
+ * Palette contract: pure black & white everywhere except icon glyphs.
+ * A11y contract: semantic DOM, accessible names preserved, reduced
+ * motion/transparency honoured, forced-colors fallbacks provided.
+ *
+ * License: MIT. Assets self-authored or public-domain/MIT.
+ * Inspiration references (non-copied): pmndrs/react-three-fiber,
+ * Uiverse community patterns, iOS 26 liquid-glass material language.
+ * ============================================================= */
+
+/* =============================================================
+ * PikSearch - 33-motion-system.css
+ * Named transitions & keyframes reused by JS controllers: spring
+ * pop, sheet rise, liquid morph, parallax drift, stagger reveal.
+ * ============================================================= */
+@layer og.motion {
+  .og-pop {
+  animation: og-pop var(--og-dur-spring) var(--og-ease-spring) both;
+}
+  @keyframes og-pop { 0% { transform: scale(0.8); opacity: 0; } 60% { transform: scale(1.03); } 100% { transform: scale(1); opacity: 1; } }
+  .og-rise {
+  animation: og-rise var(--og-dur-slow) var(--og-ease-emphasize) both;
+}
+  @keyframes og-rise { from { transform: translateY(40px); opacity: 0; } to { transform: none; opacity: 1; } }
+  .og-liquid-in {
+  animation: og-liquid 900ms var(--og-ease-out-quint) both;
+}
+  @keyframes og-liquid { 0% { border-radius: 50%; transform: scale(0.6); opacity: 0; } 55% { border-radius: var(--og-radius-xl); } 100% { transform: scale(1); opacity: 1; } }
+  .og-stagger > * {
+  animation: og-rise var(--og-dur-slow) var(--og-ease-emphasize) both;
+}
+  .og-stagger > *:nth-child(1) {
+  animation-delay: 0ms;
+}
+  .og-stagger > *:nth-child(2) {
+  animation-delay: 60ms;
+}
+  .og-stagger > *:nth-child(3) {
+  animation-delay: 120ms;
+}
+  .og-stagger > *:nth-child(4) {
+  animation-delay: 180ms;
+}
+  .og-stagger > *:nth-child(5) {
+  animation-delay: 240ms;
+}
+  .og-stagger > *:nth-child(6) {
+  animation-delay: 300ms;
+}
+  .og-parallax {
+  will-change: transform;
+  transition: transform 120ms linear;
+}
+  .og-morph-target {
+  transition: border-radius var(--og-dur-slow) var(--og-ease-spring), transform var(--og-dur-slow) var(--og-ease-spring);
+}
+  @media (prefers-reduced-motion: reduce) {
+    .og-pop, .og-rise, .og-liquid-in, .og-stagger > * {
+  animation: none !important;
+  opacity: 1;
+  transform: none;
+}
+    .og-parallax {
+  transition: none;
+}
+  }
+}
+
+/* --- Extended recipe set (component variants & states) --------- */
+
+.og-spring-scale {
+  transition: transform var(--og-dur-spring) var(--og-ease-spring);
+}
+
+.og-spring-scale:hover {
+  transform: scale(1.03);
+}
+
+.og-tilt-host {
+  perspective: 900px;
+}
+
+.og-tilt {
+  transition: transform 150ms ease-out;
+  transform-style: preserve-3d;
+}
+
+.og-fade-swap {
+  animation: og-fade 300ms both;
+}
+
+@keyframes og-fade {
+  from { opacity: 0 } to { opacity: 1; }
+}
+
+.og-slide-x-enter {
+  animation: og-slide-x 350ms var(--og-ease-emphasize) both;
+}
+
+@keyframes og-slide-x {
+  from { transform: translateX(24px); }
+  from { opacity: 0 } to { transform: none; }
+  from { opacity: 1; }
+}
+
+.og-sheet-open {
+  animation: og-sheet 450ms var(--og-ease-spring) both;
+}
+
+@keyframes og-sheet {
+  from { transform: translateY(100%) } to { transform: none; }
+}
+
+.og-glow-pulse {
+  animation: og-glow 2.4s ease-in-out infinite alternate;
+}
+
+@keyframes og-glow {
+  from { box-shadow: 0 0 0 rgba(255,255,255,0) } to { box-shadow: 0 0 24px rgba(255,255,255,0.12); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .og-glow-pulse, .og-fade-swap {
+    animation: none;
+  }
+}

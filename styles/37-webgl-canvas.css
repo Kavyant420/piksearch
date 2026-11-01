@@ -1,0 +1,122 @@
+/* =============================================================
+ * PikSearch — premium monochrome search interface
+ * File 37 · Webgl Canvas
+ *
+ * Part of the open-glass-ui facade integration layer.
+ * Renderer contract: renderer="auto" (CSS-first default, WebGL only
+ * for an owned image/canvas/video source — see 37-webgl-canvas.css).
+ * Palette contract: pure black & white everywhere except icon glyphs.
+ * A11y contract: semantic DOM, accessible names preserved, reduced
+ * motion/transparency honoured, forced-colors fallbacks provided.
+ *
+ * License: MIT. Assets self-authored or public-domain/MIT.
+ * Inspiration references (non-copied): pmndrs/react-three-fiber,
+ * Uiverse community patterns, iOS 26 liquid-glass material language.
+ * ============================================================= */
+
+/* =============================================================
+ * PikSearch - 37-webgl-canvas.css
+ * Layout contracts for open-glass-ui/webgl canvases. Every canvas is
+ * absolutely positioned inside its OWNED host element, never affects
+ * flow, and is removed under reduced-transparency or power saver.
+ * ============================================================= */
+@layer og.webgl {
+  .og-gl-host {
+  position: relative;
+  isolation: isolate;
+}
+  .og-gl-host > canvas.og-gl {
+  position: absolute;
+  inset: 0;
+  inline-size: 100%;
+  block-size: 100%;
+  z-index: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  contain: strict;
+}
+  .og-gl-host > :not(canvas) {
+  position: relative;
+  z-index: 1;
+}
+  .og-gl-badge {
+  position: absolute;
+  inset-block-end: 6px;
+  inset-inline-end: 8px;
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  color: var(--og-text-faint);
+  z-index: 2;
+  user-select: none;
+}
+  @media (prefers-reduced-transparency: reduce) { .og-gl-host > canvas.og-gl { display: none; } }
+  @media (prefers-contrast: more) { .og-gl-host > canvas.og-gl { display: none; } }
+  html[data-power-saver="true"] canvas.og-gl {
+  display: none !important;
+}
+}
+
+/* --- Extended recipe set (component variants & states) --------- */
+
+.og-gl-host--hero {
+  block-size: 100svh;
+}
+
+.og-gl-host--card {
+  block-size: 220px;
+}
+
+.og-gl-host canvas.og-gl--paused {
+  opacity: 0.4;
+}
+
+.og-gl-fallback-grad {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(80% 60% at 30% 20%, var(--og-black-400), var(--og-black) 70%);
+  z-index: 0;
+}
+
+.og-gl-host[data-og-renderer='css'] .og-gl-fallback-grad {
+  display: block;
+}
+
+.og-gl-host[data-og-renderer='webgl'] .og-gl-fallback-grad {
+  display: none;
+}
+
+.og-gl-perf {
+  position: absolute;
+  inset-block-start: 8px;
+  inset-inline-start: 10px;
+  font-family: var(--og-font-mono);
+  font-size: 10px;
+  color: var(--og-text-faint);
+  z-index: 2;
+}
+
+.og-gl-host--rounded canvas.og-gl {
+  border-radius: var(--og-radius-xl);
+}
+
+canvas.og-gl {
+  image-rendering: auto;
+  touch-action: manipulation;
+}
+
+.og-no-webgl .og-gl-host > canvas.og-gl {
+  display: none;
+}
+
+.og-power-meter {
+  display: inline-flex;
+  gap: 3px;
+  align-items: end;
+  block-size: 12px;
+}
+
+.og-power-meter i {
+  inline-size: 3px;
+  background: var(--og-gray-2);
+  border-radius: 1px;
+}

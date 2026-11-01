@@ -1,0 +1,124 @@
+/* =============================================================
+ * PikSearch — premium monochrome search interface
+ * File 36 · Print Export
+ *
+ * Part of the open-glass-ui facade integration layer.
+ * Renderer contract: renderer="auto" (CSS-first default, WebGL only
+ * for an owned image/canvas/video source — see 37-webgl-canvas.css).
+ * Palette contract: pure black & white everywhere except icon glyphs.
+ * A11y contract: semantic DOM, accessible names preserved, reduced
+ * motion/transparency honoured, forced-colors fallbacks provided.
+ *
+ * License: MIT. Assets self-authored or public-domain/MIT.
+ * Inspiration references (non-copied): pmndrs/react-three-fiber,
+ * Uiverse community patterns, iOS 26 liquid-glass material language.
+ * ============================================================= */
+
+/* =============================================================
+ * PikSearch - 36-print-export.css
+ * Print/export stylesheet: results become a clean black-on-white
+ * document with URLs revealed after link text; glass flattens.
+ * ============================================================= */
+@layer og.print {
+  @media print {
+    html, body {
+  background: #fff !important;
+  color: #000 !important;
+}
+    .og-header, .og-footer, .og-search__submit, .og-toast-region, .og-hero-canvas, .og-grain, .og-vignette, .og-menu-toggle {
+  display: none !important;
+}
+    .og-glass, .og-result {
+  background: #fff !important;
+  border: 1px solid #000 !important;
+  box-shadow: none !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+  color: #000 !important;
+}
+    .og-result__title {
+  color: #000 !important;
+  text-decoration: none;
+}
+    main a[href^="http"]::after {
+  content: " (" attr(href) ")";
+  font-size: 9pt;
+  color: #333;
+  word-break: break-all;
+}
+    .og-grid--results {
+  grid-template-columns: 1fr !important;
+}
+    @page { margin: 18mm; }
+  }
+}
+
+/* --- Extended recipe set (component variants & states) --------- */
+
+@media print {
+  .og-container {
+    inline-size: 100% !important;
+  }
+}
+
+@media print {
+  .og-fab, .og-scroll-hint, .og-lightbox {
+    display: none !important;
+  }
+}
+
+@media print {
+  .og-thumb img {
+    filter: none !important;
+  }
+}
+
+@media print {
+  .og-codeblock {
+    white-space: pre-wrap;
+    page-break-inside: avoid;
+  }
+}
+
+@media print {
+  .og-table-wrap {
+    overflow: visible;
+    border: 1px solid #000;
+  }
+}
+
+@media print {
+  .og-result {
+    page-break-inside: avoid;
+  }
+}
+
+@media print {
+  .og-footer__cols {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media print {
+  abbr[title]::after {
+    content: ' (' attr(title) ')';
+  }
+}
+
+@media print {
+  .og-widget {
+    border: 1px solid #000 !important;
+  }
+}
+
+@page {
+  :first-child {
+    margin: 22mm;
+  }
+}
+
+@media print {
+  .og-hero-canvas, .og-orbital {
+    display: none !important;
+  }
+}

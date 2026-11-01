@@ -1,0 +1,298 @@
+/* =============================================================
+ * PikSearch — premium monochrome search interface
+ * File 06 · Navigation
+ *
+ * Part of the open-glass-ui facade integration layer.
+ * Renderer contract: renderer="auto" (CSS-first default, WebGL only
+ * for an owned image/canvas/video source — see 37-webgl-canvas.css).
+ * Palette contract: pure black & white everywhere except icon glyphs.
+ * A11y contract: semantic DOM, accessible names preserved, reduced
+ * motion/transparency honoured, forced-colors fallbacks provided.
+ *
+ * License: MIT. Assets self-authored or public-domain/MIT.
+ * Inspiration references (non-copied): pmndrs/react-three-fiber,
+ * Uiverse community patterns, iOS 26 liquid-glass material language.
+ * ============================================================= */
+
+/* =============================================================
+ * PikSearch - 06-navigation.css
+ * Sticky glass header, floating pill nav, breadcrumb rail, mobile
+ * slide-over drawer. All controls are semantic nav/a/button DOM.
+ * ============================================================= */
+@layer og.nav {
+  .og-header {
+  position: sticky;
+  top: 0;
+  z-index: var(--og-z-header);
+  block-size: var(--og-header-h);
+  display: flex;
+  align-items: center;
+}
+  .og-header__inner {
+  inline-size: min(100% - (var(--og-gutter) * 2), var(--og-container-wide));
+  margin-inline: auto;
+  display: flex;
+  align-items: center;
+  gap: var(--og-space-5);
+}
+  .og-logo {
+  display: flex;
+  align-items: center;
+  gap: var(--og-space-3);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+  .og-nav {
+  display: flex;
+  align-items: center;
+  gap: var(--og-space-1);
+}
+  .og-nav__link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--og-space-2);
+  padding: var(--og-space-2) var(--og-space-4);
+  border-radius: var(--og-radius-pill);
+  color: var(--og-text-secondary);
+  font-size: var(--og-text-sm);
+  font-weight: 550;
+  transition: color var(--og-dur-fast), background var(--og-dur-fast);
+  text-decoration: none;
+}
+  .og-nav__link:hover {
+  color: var(--og-white);
+  background: var(--og-accent-soft);
+}
+  .og-nav__link[aria-current="page"] {
+  color: var(--og-black);
+  background: var(--og-white);
+}
+  .og-breadcrumb {
+  display: flex;
+  gap: var(--og-space-2);
+  font-size: var(--og-text-sm);
+  color: var(--og-text-muted);
+  list-style: none;
+}
+  .og-breadcrumb li + li::before {
+  content: "/";
+  margin-inline-end: var(--og-space-2);
+}
+  .og-drawer {
+  position: fixed;
+  inset-block: 0;
+  inset-inline-end: 0;
+  inline-size: min(84vw, 360px);
+  z-index: var(--og-z-modal);
+  transform: translateX(100%);
+  transition: transform var(--og-dur-slow) var(--og-ease-emphasize);
+  padding: var(--og-space-5);
+}
+  .og-drawer[data-open="true"] {
+  transform: translateX(0);
+}
+  .og-drawer__scrim {
+  position: fixed;
+  inset: 0;
+  z-index: calc(var(--og-z-modal) - 1);
+  background: rgba(0,0,0,0.6);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--og-dur-base);
+}
+  .og-drawer__scrim[data-open="true"] {
+  opacity: 1;
+  pointer-events: auto;
+}
+  .og-menu-toggle {
+  display: none;
+}
+  @media (max-width: 860px) {
+    .og-nav--desktop {
+  display: none;
+}
+    .og-menu-toggle {
+  display: inline-grid;
+  place-items: center;
+}
+  }
+}
+
+/* --- Extended recipe set (component variants & states) --------- */
+
+.og-header__brand-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--og-space-2);
+  text-decoration: none;
+  color: var(--og-white);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+
+.og-nav__group {
+  display: flex;
+  gap: var(--og-space-1);
+  align-items: center;
+}
+
+.og-nav__divider {
+  inline-size: 1px;
+  block-size: 20px;
+  background: var(--og-hairline);
+  margin-inline: var(--og-space-2);
+}
+
+.og-nav__cta {
+  margin-inline-start: auto;
+  display: flex;
+  gap: var(--og-space-2);
+  align-items: center;
+}
+
+.og-drawer__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-block-end: var(--og-space-5);
+}
+
+.og-drawer__list {
+  display: grid;
+  gap: var(--og-space-2);
+  list-style: none;
+  padding: 0;
+}
+
+.og-drawer__link {
+  display: flex;
+  align-items: center;
+  gap: var(--og-space-3);
+  padding: var(--og-space-3);
+  border-radius: var(--og-radius-md);
+  color: var(--og-text-secondary);
+  text-decoration: none;
+  font-weight: 550;
+}
+
+.og-drawer__link:hover {
+  background: var(--og-accent-soft);
+  color: var(--og-white);
+}
+
+.og-drawer__section {
+  font-size: var(--og-text-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--og-text-faint);
+  margin-block: var(--og-space-4) var(--og-space-2);
+}
+
+.og-breadcrumb a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.og-breadcrumb a:hover {
+  color: var(--og-white);
+  text-decoration: underline;
+}
+
+.og-tabs-nav {
+  display: flex;
+  gap: var(--og-space-5);
+  border-block-end: 1px solid var(--og-hairline);
+}
+
+.og-tabs-nav a {
+  padding: var(--og-space-3) 0;
+  color: var(--og-text-muted);
+  text-decoration: none;
+  font-size: var(--og-text-sm);
+  border-block-end: 2px solid transparent;
+  margin-block-end: -1px;
+}
+
+.og-tabs-nav a[aria-current='page'] {
+  color: var(--og-white);
+  border-block-end-color: var(--og-white);
+}
+
+.og-header.is-condensed {
+  --og-header-h: 60px;
+  box-shadow: var(--og-elev-2);
+}
+
+.og-skip-target {
+  scroll-margin-top: calc(var(--og-header-h) + var(--og-space-4));
+}
+
+.og-brand-dot {
+  inline-size: 8px;
+  block-size: 8px;
+  border-radius: 50%;
+  background: var(--og-white);
+}
+
+.og-nav-count {
+  font-size: 10px;
+  opacity: 0.7;
+  font-variant-numeric: tabular-nums;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .og-drawer {
+    transition: none;
+  }
+}
+
+@media (forced-colors: active) {
+  .og-nav__link[aria-current='page'] {
+    background: Highlight;
+    color: HighlightText;
+  }
+}
+
+.og-nav__link:focus-visible {
+  outline: 2px solid var(--og-focus-ring);
+  outline-offset: 2px;
+}
+
+.og-header[data-hidden='true'] {
+  translate: 0 -100%;
+  transition: translate var(--og-dur-base) var(--og-ease-emphasize);
+}
+
+.og-header {
+  transition: translate var(--og-dur-base) var(--og-ease-emphasize);
+}
+
+.og-logo:hover .og-brand-dot {
+  scale: 1.4;
+  transition: scale var(--og-dur-fast) var(--og-ease-spring);
+}
+
+.og-drawer[data-open='false'] {
+  visibility: hidden;
+}
+
+.og-menu-toggle[aria-expanded='true'] svg {
+  rotate: 90deg;
+}
+
+.og-menu-toggle svg {
+  transition: rotate var(--og-dur-base) var(--og-ease-spring);
+}
+
+.og-breadcrumb [aria-current='page'] {
+  color: var(--og-white);
+}
+
+.og-nav__badge {
+  font-size: 9px;
+  background: var(--og-white);
+  color: var(--og-black);
+  border-radius: 6px;
+  padding: 0 4px;
+  font-weight: 800;
+}

@@ -1,0 +1,185 @@
+/* =============================================================
+ * PikSearch — premium monochrome search interface
+ * File 16 · Slider Scrollbar
+ *
+ * Part of the open-glass-ui facade integration layer.
+ * Renderer contract: renderer="auto" (CSS-first default, WebGL only
+ * for an owned image/canvas/video source — see 37-webgl-canvas.css).
+ * Palette contract: pure black & white everywhere except icon glyphs.
+ * A11y contract: semantic DOM, accessible names preserved, reduced
+ * motion/transparency honoured, forced-colors fallbacks provided.
+ *
+ * License: MIT. Assets self-authored or public-domain/MIT.
+ * Inspiration references (non-copied): pmndrs/react-three-fiber,
+ * Uiverse community patterns, iOS 26 liquid-glass material language.
+ * ============================================================= */
+
+/* =============================================================
+ * PikSearch - 16-slider-scrollbar.css
+ * Range slider with liquid thumb, custom scroll rails, marquee.
+ * Fill geometry updated by 16-slider.js.
+ * ============================================================= */
+@layer og.slider {
+  .og-range {
+  position: relative;
+  block-size: 36px;
+  display: flex;
+  align-items: center;
+}
+  .og-range input[type="range"] {
+  inline-size: 100%;
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+}
+  .og-range__rail {
+  position: absolute;
+  inset-inline: 0;
+  block-size: 4px;
+  border-radius: 4px;
+  background: var(--og-black-500);
+  pointer-events: none;
+}
+  .og-range__fill {
+  position: absolute;
+  block-size: 4px;
+  border-radius: 4px;
+  background: var(--og-white);
+  pointer-events: none;
+}
+  .og-range input::-webkit-slider-thumb {
+  appearance: none;
+  inline-size: 22px;
+  block-size: 22px;
+  border-radius: 50%;
+  background: var(--og-white);
+  box-shadow: var(--og-elev-2);
+  border: 0;
+  transition: transform var(--og-dur-fast) var(--og-ease-spring);
+}
+  .og-range input:active::-webkit-slider-thumb {
+  transform: scale(1.2);
+}
+  .og-range input::-moz-range-thumb {
+  inline-size: 22px;
+  block-size: 22px;
+  border-radius: 50%;
+  background: var(--og-white);
+  border: 0;
+}
+  .og-scrollrail {
+  overflow: auto;
+  scrollbar-width: thin;
+  overscroll-behavior: contain;
+}
+  .og-marquee {
+  overflow: hidden;
+  mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+}
+  .og-marquee__track {
+  display: flex;
+  gap: var(--og-space-6);
+  width: max-content;
+  animation: og-marquee 30s linear infinite;
+}
+  .og-marquee:hover .og-marquee__track {
+  animation-play-state: paused;
+}
+  @keyframes og-marquee { to { transform: translateX(-50%); } }
+}
+
+/* --- Extended recipe set (component variants & states) --------- */
+
+.og-range__bubble {
+  position: absolute;
+  inset-block-start: -22px;
+  translate: -50% 0;
+  font-size: 11px;
+  font-family: var(--og-font-mono);
+  color: var(--og-text-secondary);
+  pointer-events: none;
+}
+
+.og-range input:focus-visible::-webkit-slider-thumb {
+  outline: 2px solid var(--og-focus-ring);
+  outline-offset: 2px;
+}
+
+.og-range--tall {
+  block-size: 56px;
+}
+
+.og-rail-track {
+  position: relative;
+  block-size: 6px;
+  border-radius: 6px;
+  background: var(--og-black-500);
+}
+
+.og-rail-knob {
+  position: absolute;
+  top: 50%;
+  translate: -50% -50%;
+  inline-size: 20px;
+  block-size: 20px;
+  border-radius: 50%;
+  background: var(--og-white);
+  box-shadow: var(--og-elev-2);
+  cursor: grab;
+}
+
+.og-rail-knob:active {
+  cursor: grabbing;
+  scale: 1.15;
+}
+
+.og-scrollbar-custom {
+  block-size: 6px;
+  border-radius: 6px;
+  background: var(--og-black-400);
+  margin-block: var(--og-space-2);
+}
+
+.og-scrollbar-custom i {
+  display: block;
+  block-size: 100%;
+  border-radius: 6px;
+  background: var(--og-gray-3);
+}
+
+.og-snap-row {
+  display: flex;
+  gap: var(--og-space-3);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+}
+
+.og-snap-row > * {
+  scroll-snap-align: start;
+  flex: none;
+}
+
+.og-range-ticks {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  color: var(--og-text-faint);
+  padding-inline: 2px;
+}
+
+.og-dual-range {
+  position: relative;
+  block-size: 36px;
+}
+
+.og-dual-range input {
+  position: absolute;
+  inset-inline: 0;
+  pointer-events: none;
+  appearance: none;
+  background: transparent;
+}
+
+.og-dual-range input::-webkit-slider-thumb {
+  pointer-events: auto;
+}

@@ -1,0 +1,172 @@
+/* =============================================================
+ * PikSearch — premium monochrome search interface
+ * File 18 · Loading Skeletons
+ *
+ * Part of the open-glass-ui facade integration layer.
+ * Renderer contract: renderer="auto" (CSS-first default, WebGL only
+ * for an owned image/canvas/video source — see 37-webgl-canvas.css).
+ * Palette contract: pure black & white everywhere except icon glyphs.
+ * A11y contract: semantic DOM, accessible names preserved, reduced
+ * motion/transparency honoured, forced-colors fallbacks provided.
+ *
+ * License: MIT. Assets self-authored or public-domain/MIT.
+ * Inspiration references (non-copied): pmndrs/react-three-fiber,
+ * Uiverse community patterns, iOS 26 liquid-glass material language.
+ * ============================================================= */
+
+/* =============================================================
+ * PikSearch - 18-loading-skeletons.css
+ * Shimmer skeletons (grayscale sweep), spinner ring, indeterminate
+ * bar. Reduced-motion freezes shimmer.
+ * ============================================================= */
+@layer og.load {
+  .og-skel {
+  position: relative;
+  overflow: hidden;
+  background: var(--og-black-400);
+  border-radius: var(--og-radius-sm);
+}
+  .og-skel::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
+  animation: og-shimmer 1.6s var(--og-ease-standard) infinite;
+}
+  @keyframes og-shimmer { to { transform: translateX(100%); } }
+  .og-skel--text {
+  block-size: 0.9em;
+  margin-block: 0.35em;
+}
+  .og-skel--title {
+  block-size: 1.4em;
+  inline-size: 60%;
+}
+  .og-skel--thumb {
+  aspect-ratio: 16/9;
+  border-radius: var(--og-radius-lg);
+}
+  .og-spinner {
+  inline-size: 28px;
+  block-size: 28px;
+  border-radius: 50%;
+  border: 2px solid var(--og-black-600);
+  border-block-start-color: var(--og-white);
+  animation: og-spin 0.8s linear infinite;
+}
+  @keyframes og-spin { to { rotate: 360deg; } }
+  .og-progress {
+  block-size: 3px;
+  border-radius: 3px;
+  background: var(--og-black-500);
+  overflow: hidden;
+}
+  .og-progress i {
+  display: block;
+  block-size: 100%;
+  inline-size: 30%;
+  background: var(--og-white);
+  animation: og-indet 1.2s var(--og-ease-standard) infinite;
+}
+  @keyframes og-indet { 0% { transform: translateX(-100%); } 100% { transform: translateX(340%); } }
+  @media (prefers-reduced-motion: reduce) {
+    .og-skel::after, .og-spinner, .og-progress i {
+  animation: none;
+}
+    .og-spinner {
+  border-block-start-color: var(--og-gray-4);
+}
+  }
+}
+
+/* --- Extended recipe set (component variants & states) --------- */
+
+.og-result-skel {
+  display: grid;
+  gap: var(--og-space-3);
+  padding: var(--og-space-5);
+  border-radius: var(--og-radius-xl);
+}
+
+.og-skel--circle {
+  inline-size: 40px;
+  block-size: 40px;
+  border-radius: 50%;
+}
+
+.og-skel--pill {
+  inline-size: 120px;
+  block-size: 24px;
+  border-radius: 12px;
+}
+
+.og-skel--row {
+  display: grid;
+  grid-template-columns: 40px 1fr 80px;
+  gap: var(--og-space-3);
+  align-items: center;
+}
+
+.og-load-overlay {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: rgba(0,0,0,0.45);
+  border-radius: inherit;
+}
+
+.og-dots i {
+  display: inline-block;
+  inline-size: 6px;
+  block-size: 6px;
+  margin-inline: 2px;
+  border-radius: 50%;
+  background: var(--og-gray-3);
+  animation: og-dot 1s infinite;
+}
+
+.og-dots i:nth-child(2) {
+  animation-delay: 0.15s;
+}
+
+.og-dots i:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+.og-progress-determinate i {
+  animation: none;
+  transition: inline-size var(--og-dur-base) linear;
+}
+
+.og-skel-gallery {
+  columns: 4 160px;
+  column-gap: var(--og-space-4);
+}
+
+.og-skel-gallery > div {
+  break-inside: avoid;
+  margin-block-end: var(--og-space-4);
+}
+
+.og-boot-screen {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: var(--og-black);
+  z-index: calc(var(--og-z-modal) + 10);
+  transition: opacity var(--og-dur-slow);
+}
+
+.og-boot-screen[data-done='true'] {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.og-latency-note {
+  font-size: var(--og-text-xs);
+  color: var(--og-text-faint);
+  font-variant-numeric: tabular-nums;
+}

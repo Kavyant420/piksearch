@@ -1,0 +1,188 @@
+/* =============================================================
+ * PikSearch — premium monochrome search interface
+ * File 15 · Tabs Switchers
+ *
+ * Part of the open-glass-ui facade integration layer.
+ * Renderer contract: renderer="auto" (CSS-first default, WebGL only
+ * for an owned image/canvas/video source — see 37-webgl-canvas.css).
+ * Palette contract: pure black & white everywhere except icon glyphs.
+ * A11y contract: semantic DOM, accessible names preserved, reduced
+ * motion/transparency honoured, forced-colors fallbacks provided.
+ *
+ * License: MIT. Assets self-authored or public-domain/MIT.
+ * Inspiration references (non-copied): pmndrs/react-three-fiber,
+ * Uiverse community patterns, iOS 26 liquid-glass material language.
+ * ============================================================= */
+
+/* =============================================================
+ * PikSearch - 15-tabs-switchers.css
+ * Pill tabs with sliding glass indicator (transform-driven),
+ * segmented control recipe. ARIA tablist semantics required.
+ * ============================================================= */
+@layer og.tabs {
+  .og-tabs {
+  position: relative;
+}
+  .og-tablist {
+  display: flex;
+  gap: var(--og-space-1);
+  padding: var(--og-space-1);
+  border-radius: var(--og-radius-pill);
+  background: var(--og-surface);
+  border: 1px solid var(--og-hairline);
+}
+  .og-tab {
+  flex: 1;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--og-space-2);
+  padding: var(--og-space-2) var(--og-space-4);
+  border-radius: var(--og-radius-pill);
+  font-size: var(--og-text-sm);
+  font-weight: 550;
+  color: var(--og-text-muted);
+  cursor: pointer;
+  background: transparent;
+  border: 0;
+  transition: color var(--og-dur-fast);
+  position: relative;
+  z-index: 2;
+}
+  .og-tab[aria-selected="true"] {
+  color: var(--og-black);
+}
+  .og-tab-indicator {
+  position: absolute;
+  z-index: 1;
+  border-radius: var(--og-radius-pill);
+  background: var(--og-white);
+  box-shadow: var(--og-elev-2);
+  transition: transform var(--og-dur-base) var(--og-ease-spring), inline-size var(--og-dur-base) var(--og-ease-spring);
+}
+  .og-tabpanel[hidden] {
+  display: none;
+}
+  .og-tabpanel {
+  animation: og-panel-in var(--og-dur-base) var(--og-ease-standard) both;
+}
+  @keyframes og-panel-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+  .og-segmented {
+  display: inline-flex;
+  border: 1px solid var(--og-hairline-strong);
+  border-radius: var(--og-radius-pill);
+  overflow: hidden;
+}
+  .og-segmented button {
+  padding: var(--og-space-1) var(--og-space-4);
+  font-size: var(--og-text-xs);
+  color: var(--og-text-muted);
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+  .og-segmented button[aria-pressed="true"] {
+  background: var(--og-white);
+  color: var(--og-black);
+  font-weight: 700;
+}
+}
+
+/* --- Extended recipe set (component variants & states) --------- */
+
+.og-tabs--vertical {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: var(--og-space-5);
+}
+
+.og-tabs--vertical .og-tablist {
+  flex-direction: column;
+  border-radius: var(--og-radius-lg);
+}
+
+.og-tabs--vertical .og-tab {
+  justify-content: start;
+}
+
+.og-tab__count {
+  font-size: 10px;
+  padding: 1px 6px;
+  border-radius: 8px;
+  background: var(--og-surface-strong);
+  color: var(--og-text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.og-tabpanel--flush {
+  padding: 0;
+}
+
+.og-tabpanel__section {
+  display: grid;
+  gap: var(--og-space-4);
+  padding-block: var(--og-space-4);
+}
+
+.og-pillnav {
+  display: flex;
+  gap: var(--og-space-1);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.og-pillnav::-webkit-scrollbar {
+  display: none;
+}
+
+.og-pillnav button {
+  white-space: nowrap;
+}
+
+.og-tabs-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--og-space-4);
+}
+
+.og-tabpanel__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(240px, 100%), 1fr));
+  gap: var(--og-space-4);
+}
+
+.og-tab[disabled] {
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+.og-result-subtabs {
+  margin-block-start: var(--og-space-3);
+}
+
+.og-tabpanel-empty {
+  padding: var(--og-space-6);
+  text-align: center;
+  color: var(--og-text-muted);
+}
+
+.og-tab:focus-visible {
+  outline: 2px solid var(--og-focus-ring);
+  outline-offset: 2px;
+}
+
+.og-tab[aria-disabled='true'] {
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+.og-segmented button:focus-visible {
+  outline: 2px solid var(--og-focus-ring);
+  outline-offset: 2px;
+}
+
+.og-segmented button[aria-disabled='true'] {
+  opacity: 0.4;
+  pointer-events: none;
+}

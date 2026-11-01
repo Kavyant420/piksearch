@@ -1,0 +1,250 @@
+/* =============================================================
+ * PikSearch — premium monochrome search interface
+ * File 05 · Color Monochrome
+ *
+ * Part of the open-glass-ui facade integration layer.
+ * Renderer contract: renderer="auto" (CSS-first default, WebGL only
+ * for an owned image/canvas/video source — see 37-webgl-canvas.css).
+ * Palette contract: pure black & white everywhere except icon glyphs.
+ * A11y contract: semantic DOM, accessible names preserved, reduced
+ * motion/transparency honoured, forced-colors fallbacks provided.
+ *
+ * License: MIT. Assets self-authored or public-domain/MIT.
+ * Inspiration references (non-copied): pmndrs/react-three-fiber,
+ * Uiverse community patterns, iOS 26 liquid-glass material language.
+ * ============================================================= */
+
+/* =============================================================
+ * PikSearch - 05-color-monochrome.css
+ * Enforces the premiumistic black & white rule: every surface,
+ * border, shadow and text role resolves to the gray ramp. Color is
+ * permitted ONLY inside icon glyphs (.og-icon[data-hue]).
+ * ============================================================= */
+@layer og.color {
+  .og-page {
+  background: var(--og-black);
+  color: var(--og-white);
+}
+  .og-band {
+  background: var(--og-black-100);
+  border-block: 1px solid var(--og-hairline);
+}
+  .og-chip-mono {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--og-space-2);
+  padding: 0.25em 0.75em;
+  border: 1px solid var(--og-hairline-strong);
+  border-radius: var(--og-radius-pill);
+  font-size: var(--og-text-xs);
+  color: var(--og-text-secondary);
+}
+  .og-divider {
+  block-size: 1px;
+  background: linear-gradient(90deg, transparent, var(--og-hairline-strong), transparent);
+  border: 0;
+}
+  .og-vignette {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(120% 90% at 50% 0%, transparent 55%, rgba(0,0,0,0.55) 100%);
+  z-index: var(--og-z-raised);
+}
+  .og-grain {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.05;
+  mix-blend-mode: overlay;
+  z-index: var(--og-z-raised);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='0.6'/%3E%3C/svg%3E");
+}
+  .og-icon[data-hue="success"] {
+  color: var(--og-icon-success);
+}
+  .og-icon[data-hue="warning"] {
+  color: var(--og-icon-warning);
+}
+  .og-icon[data-hue="danger"] {
+  color: var(--og-icon-danger);
+}
+  .og-icon[data-hue="info"] {
+  color: var(--og-icon-info);
+}
+  .og-icon[data-hue="brand"] {
+  color: var(--og-icon-brand);
+}
+  .og-icon:not([data-hue]) {
+  color: currentColor;
+}
+  html[data-mono-strict] *:not(.og-icon):not(.og-icon *) {
+  filter: grayscale(1) contrast(1.02);
+}
+  html[data-mono-strict] .og-icon, html[data-mono-strict] .og-icon * {
+  filter: none;
+}
+  @media (forced-colors: active) {
+    .og-chip-mono, .og-divider {
+  border-color: CanvasText;
+  background: Canvas;
+}
+  }
+}
+
+/* --- Extended recipe set (component variants & states) --------- */
+
+.og-tone-strip {
+  display: flex;
+  gap: 2px;
+  padding: 3px;
+  border-radius: 10px;
+  background: var(--og-black-300);
+}
+
+.og-tone-strip i {
+  inline-size: 22px;
+  block-size: 22px;
+  border-radius: 6px;
+}
+
+.og-swatch-black {
+  background: var(--og-black);
+  border: 1px solid var(--og-hairline);
+}
+
+.og-swatch-gray {
+  background: var(--og-gray-2);
+}
+
+.og-swatch-white {
+  background: var(--og-white);
+}
+
+.og-bg-deep {
+  background: radial-gradient(120% 100% at 50% -20%, var(--og-black-300), var(--og-black) 70%);
+}
+
+.og-bg-flat {
+  background: var(--og-black);
+}
+
+.og-bg-raised {
+  background: var(--og-black-200);
+}
+
+.og-bg-sunken {
+  background: var(--og-surface-inset);
+}
+
+.og-chip-invert {
+  background: var(--og-white);
+  color: var(--og-black);
+  border-color: transparent;
+}
+
+.og-outline-mono {
+  outline: 1px solid var(--og-hairline-strong);
+  outline-offset: 2px;
+}
+
+.og-hover-veil:hover {
+  background: var(--og-surface);
+}
+
+.og-active-veil[aria-expanded='true'] {
+  background: var(--og-surface-strong);
+}
+
+.og-cursor-caret-white {
+  caret-color: var(--og-white);
+}
+
+.og-scrollbar-dark {
+  scrollbar-color: var(--og-black-600) var(--og-black);
+}
+
+.og-print-safe {
+  forced-color-adjust: none;
+}
+
+.og-status-live {
+  color: var(--og-white);
+  font-weight: 600;
+}
+
+.og-status-dead {
+  color: var(--og-gray-3);
+}
+
+.og-hue-exception-note {
+  font-size: var(--og-text-xs);
+  color: var(--og-text-faint);
+  max-inline-size: 52ch;
+}
+
+@media (prefers-color-scheme: light) {
+  .og-bg-deep {
+    background: var(--og-white-50);
+  }
+}
+
+@media (forced-colors: active) {
+  .og-vignette, .og-grain {
+    display: none;
+  }
+}
+
+.og-tone-strip i:nth-child(2) {
+  background: var(--og-gray-4);
+}
+
+.og-tone-strip i:nth-child(3) {
+  background: var(--og-gray-6);
+}
+
+.og-tone-strip i:nth-child(4) {
+  background: var(--og-gray-8);
+}
+
+.og-inverse-zone {
+  background: var(--og-white);
+  color: var(--og-black);
+}
+
+.og-inverse-zone a {
+  color: var(--og-black);
+}
+
+.og-veil-strong:hover {
+  background: var(--og-surface-strong);
+}
+
+.og-edge-glow {
+  box-shadow: 0 0 0 1px rgba(255,255,255,0.06), 0 0 32px rgba(255,255,255,0.05);
+}
+
+.og-no-chroma {
+  filter: grayscale(1);
+}
+
+.og-paper-ink {
+  color: var(--og-black);
+  background: var(--og-white);
+}
+
+.og-ghost-white {
+  color: rgba(255,255,255,0.06);
+}
+
+.og-ink-shade-1 {
+  color: var(--og-gray-8);
+}
+
+.og-ink-shade-2 {
+  color: var(--og-gray-5);
+}
+
+.og-ink-shade-3 {
+  color: var(--og-gray-2);
+}

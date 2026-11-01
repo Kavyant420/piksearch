@@ -1,0 +1,119 @@
+/* =============================================================
+ * PikSearch — premium monochrome search interface
+ * File 32 · Responsive Fluid
+ *
+ * Part of the open-glass-ui facade integration layer.
+ * Renderer contract: renderer="auto" (CSS-first default, WebGL only
+ * for an owned image/canvas/video source — see 37-webgl-canvas.css).
+ * Palette contract: pure black & white everywhere except icon glyphs.
+ * A11y contract: semantic DOM, accessible names preserved, reduced
+ * motion/transparency honoured, forced-colors fallbacks provided.
+ *
+ * License: MIT. Assets self-authored or public-domain/MIT.
+ * Inspiration references (non-copied): pmndrs/react-three-fiber,
+ * Uiverse community patterns, iOS 26 liquid-glass material language.
+ * ============================================================= */
+
+/* =============================================================
+ * PikSearch - 32-responsive-fluid.css
+ * Fluid interpolation across four breakpoints + dynamic viewport
+ * units for mobile chrome, safe-area insets for notched devices.
+ * ============================================================= */
+@layer og.responsive {
+  :root {
+  --og-vh: 1vh;
+}
+  @supports (height: 100dvh) { :root { --og-vh: 1dvh; } }
+  .og-full-bleed {
+  margin-inline: calc(50% - 50vw);
+  inline-size: 100vw;
+}
+  .og-safe-bottom {
+  padding-block-end: env(safe-area-inset-bottom, 0px);
+}
+  .og-safe-x {
+  padding-inline: max(var(--og-gutter), env(safe-area-inset-left, 0px)) max(var(--og-gutter), env(safe-area-inset-right, 0px));
+}
+  @media (max-width: 480px) {
+    :root {
+  --og-header-h: 56px;
+}
+    .og-hide-xs {
+  display: none !important;
+}
+  }
+  @media (min-width: 481px) and (max-width: 768px) { .og-hide-sm { display: none !important; } }
+  @media (min-width: 769px) and (max-width: 1200px) { .og-hide-md { display: none !important; } }
+  @media (min-width: 1201px) { .og-hide-lg { display: none !important; } }
+  @media (hover: none) and (pointer: coarse) {
+    .og-hover-only {
+  display: none !important;
+}
+    .og-btn {
+  min-block-size: 48px;
+}
+  }
+  @media (hover: hover) { .og-touch-only { display: none !important; } }
+}
+
+/* --- Extended recipe set (component variants & states) --------- */
+
+.og-adaptive-img img {
+  inline-size: 100%;
+  block-size: auto;
+}
+
+.og-fluid-gap {
+  gap: clamp(var(--og-space-3), 2.5vw, var(--og-space-6));
+}
+
+.og-fluid-pad {
+  padding: clamp(var(--og-space-4), 3vw, var(--og-space-7));
+}
+
+.og-fluid-type {
+  font-size: clamp(var(--og-text-sm), 0.5vw + 0.8rem, var(--og-text-lg));
+}
+
+.og-two-up-mobile {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--og-space-3);
+}
+
+.og-touch-target-lg {
+  min-inline-size: 48px;
+  min-block-size: 48px;
+}
+
+@container (max-width: 400px) {
+  .og-hide-on-collapse {
+    display: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .og-stack-mobile {
+    display: grid;
+    gap: var(--og-space-4);
+  }
+}
+
+@media (max-width: 640px) {
+  .og-order-first-sm {
+    order: -1;
+  }
+}
+
+@media (min-width: 1400px) {
+  :root {
+    --og-container: 1320px;
+  }
+}
+
+@media (orientation: landscape) and (max-height: 500px) {
+  .og-hero-stage {
+    min-block-size: auto;
+    padding-block: var(--og-space-6);
+  }
+}
