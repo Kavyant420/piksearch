@@ -171,3 +171,138 @@
     border: 1px solid CanvasText;
   }
 }
+
+@media (forced-colors: active) {
+  .og-glass, .search-box, .header, .modal-content, .notification, .sidebar-section {
+    background: Canvas;
+    color: CanvasText;
+    border: 1px solid CanvasText;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    box-shadow: none;
+  }
+}
+
+@media (forced-colors: active) {
+  .btn, .filter-btn, .nav-btn {
+    border: 1px solid ButtonText;
+    background: ButtonFace;
+    color: ButtonText;
+  }
+}
+
+@media (forced-colors: active) {
+  .toggle-slider::before {
+    background: CanvasText;
+  }
+}
+
+@media (forced-colors: active) {
+  .og-glass::before, .og-glass::after, .glow-effect::after {
+    display: none;
+  }
+}
+
+@media (prefers-contrast: more) {
+  :root {
+    --og-hairline: rgba(255,255,255,0.4);
+    --og-text-muted: #d4d4d4;
+  }
+}
+
+@media (prefers-contrast: less) {
+  :root {
+    --og-hairline: rgba(255,255,255,0.06);
+  }
+}
+
+@media (forced-colors: active) {
+  :root {
+    --og-glass-blur: none;
+    --og-elev-1: none;
+    --og-elev-2: none;
+    --og-elev-3: none;
+  }
+}
+
+@media (forced-colors: active) {
+  .progress-bar {
+    background: Highlight;
+  }
+}
+
+@media (forced-colors: active) {
+  .toggle-slider {
+    background: ButtonFace;
+  }
+}
+
+@media (forced-colors: active) {
+  .search-input {
+    color: FieldText;
+    background: Field;
+  }
+}
+
+@media (forced-colors: active) {
+  .skip-link {
+    background: CanvasText;
+    color: Canvas;
+  }
+}
+
+@media (forced-colors: active) {
+  ::selection {
+    background: Highlight;
+    color: HighlightText;
+  }
+}
+
+@media (prefers-contrast: more) {
+  .search-title, .logo {
+    text-shadow: none;
+    letter-spacing: 0;
+  }
+}
+
+@media (prefers-contrast: more) {
+  img {
+    filter: contrast(1.15);
+  }
+}
+
+@media (forced-colors: active) {
+  .quick-action, .related-item {
+    border: 1px solid CanvasText;
+  }
+}
+
+@media (forced-colors: active) {
+  .security-badge {
+    border: 1px solid CanvasText;
+  }
+}
+
+@media (forced-colors: active) {
+  .metric-item {
+    border: 1px solid CanvasText;
+  }
+}
+
+@media (forced-colors: active) {
+  .toggle-slider {
+    forced-color-adjust: none;
+  }
+}
+
+@media (prefers-contrast: more) {
+  .search-box {
+    box-shadow: none;
+  }
+}
+
+@media (prefers-contrast: more) {
+  .og-glass::before {
+    opacity: 1;
+  }
+}

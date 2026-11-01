@@ -170,3 +170,138 @@
   color: var(--og-text-faint);
   font-variant-numeric: tabular-nums;
 }
+
+.ps-skeleton {
+  position: relative;
+  overflow: hidden;
+  background: var(--og-gray-1);
+  border-radius: var(--og-radius-md);
+  block-size: 14px;
+}
+
+.ps-skeleton::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.07), transparent);
+  background-size: 200% 100%;
+  animation: ps-shimmer 1.6s linear infinite;
+}
+
+.ps-skeleton--title {
+  block-size: 22px;
+  inline-size: 60%;
+}
+
+.ps-skeleton--line {
+  block-size: 12px;
+  inline-size: 100%;
+}
+
+.ps-skeleton--thumb {
+  block-size: 84px;
+  inline-size: 84px;
+  border-radius: var(--og-radius-lg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ps-skeleton::after {
+    animation: none;
+  }
+}
+
+@media (forced-colors: active) {
+  .ps-skeleton {
+    border: 1px solid CanvasText;
+  }
+}
+
+.ps-skeleton-group {
+  display: grid;
+  gap: var(--og-space-2);
+}
+
+.spinner {
+  inline-size: 22px;
+  block-size: 22px;
+  border-radius: 50%;
+  border: 2px solid var(--og-gray-2);
+  border-block-start-color: var(--og-white);
+  animation: ps-spin 0.8s linear infinite;
+}
+
+.spinner--lg {
+  inline-size: 40px;
+  block-size: 40px;
+  border-width: 3px;
+}
+
+.loading-bar {
+  block-size: 2px;
+  background: var(--og-gray-2);
+  overflow: hidden;
+  border-radius: 2px;
+}
+
+.loading-bar span {
+  display: block;
+  block-size: 100%;
+  inline-size: 30%;
+  background: var(--og-white);
+  animation: og-indeterminate 1.2s ease-in-out infinite;
+}
+
+@keyframes og-indeterminate {
+  from { transform: translateX(-100%) } to { transform: translateX(350%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spinner {
+    animation-duration: 2s;
+  }
+  , .loading-bar span {
+    animation: none;
+    inline-size: 100%;
+  }
+}
+
+.progressBar {
+  block-size: 2px;
+  background: var(--og-gray-2);
+  border-radius: 1px;
+  overflow: hidden;
+}
+
+.progressBar span {
+  display: block;
+  block-size: 100%;
+  background: var(--og-white);
+  transition: width var(--og-dur-normal) linear;
+}
+
+.responseTime, .resultCount {
+  font-family: var(--og-font-mono);
+  font-size: var(--og-text-xs);
+  color: var(--og-text-faint);
+}
+
+.loading-overlay {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: rgba(0,0,0,0.4);
+  border-radius: inherit;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .progressBar span {
+    transition: none;
+  }
+}
+
+@media print {
+  .progressBar {
+    display: none;
+  }
+}

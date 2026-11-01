@@ -186,3 +186,123 @@
   opacity: 0.4;
   pointer-events: none;
 }
+
+[role='tablist'] {
+  display: flex;
+  gap: var(--og-space-1);
+}
+
+[role='tab'] {
+  padding: var(--og-space-2) var(--og-space-4);
+  border-radius: var(--og-radius-md) var(--og-radius-md) 0 0;
+  color: var(--og-text-muted);
+  cursor: pointer;
+  border: 0;
+  background: transparent;
+}
+
+[role='tab'][aria-selected='true'] {
+  color: var(--og-white);
+  background: var(--og-gray-1);
+}
+
+[role='tab']:focus-visible {
+  outline: 2px solid var(--og-focus-ring);
+  outline-offset: 2px;
+}
+
+[role='tabpanel']:focus {
+  outline: none;
+}
+
+[hidden][role='tabpanel'] {
+  display: none;
+}
+
+.segmented {
+  display: inline-flex;
+  padding: 3px;
+  gap: 2px;
+  border-radius: var(--og-radius-pill);
+  background: var(--og-gray-1);
+  border: 1px solid var(--og-hairline);
+}
+
+.segmented button {
+  border: 0;
+  background: transparent;
+  color: var(--og-text-muted);
+  padding: 6px var(--og-space-4);
+  border-radius: var(--og-radius-pill);
+  cursor: pointer;
+  font-weight: 600;
+  font-size: var(--og-text-sm);
+}
+
+.segmented button[aria-selected='true'] {
+  background: var(--og-white);
+  color: var(--og-black);
+}
+
+.segmented button:focus-visible {
+  outline: 2px solid var(--og-focus-ring);
+  outline-offset: 2px;
+}
+
+.pill-tabs {
+  display: flex;
+  gap: var(--og-space-1);
+  flex-wrap: wrap;
+}
+
+.pill-tabs [role='tab'] {
+  border-radius: var(--og-radius-pill);
+  border: 1px solid var(--og-hairline);
+}
+
+.pill-tabs [role='tab'][aria-selected='true'] {
+  border-color: var(--og-white);
+}
+
+@media (max-width: 600px) {
+  .segmented {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 1fr;
+  }
+}
+
+.tab-count {
+  font-size: var(--og-text-xs);
+  color: var(--og-text-faint);
+  font-variant-numeric: tabular-nums;
+}
+
+.tabs-container.is-scrollable {
+  mask-image: linear-gradient(90deg, transparent, #000 24px, #000 calc(100% - 24px), transparent);
+}
+
+.tab-panel {
+  padding-block: var(--og-space-4);
+}
+
+[role='tab'] i {
+  color: var(--og-icon-accent);
+}
+
+[role='tab'][disabled] {
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [role='tab'] {
+    transition: none;
+  }
+}
+
+@media print {
+  .tabs-container {
+    display: none;
+  }
+}

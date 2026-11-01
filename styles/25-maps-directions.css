@@ -149,3 +149,139 @@
   font-size: 9px;
   color: var(--og-text-faint);
 }
+
+.og-map {
+  position: relative;
+  border-radius: var(--og-radius-xl);
+  overflow: hidden;
+  block-size: 320px;
+  border: 1px solid var(--og-hairline);
+  background: var(--og-gray-1);
+}
+
+.og-map__pin {
+  position: absolute;
+  transform: translate(-50%, -100%);
+  color: var(--og-icon-accent);
+}
+
+.og-map__overlay {
+  position: absolute;
+  inset-inline: var(--og-space-3);
+  inset-block-end: var(--og-space-3);
+  padding: var(--og-space-3);
+  border-radius: var(--og-radius-lg);
+  background: var(--og-surface-raised);
+  -webkit-backdrop-filter: var(--og-glass-blur);
+  backdrop-filter: var(--og-glass-blur);
+}
+
+@media (forced-colors: active) {
+  .og-map__overlay {
+    background: Canvas;
+  }
+}
+
+.map-grid {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: var(--og-space-4);
+}
+
+.route-step {
+  display: flex;
+  gap: var(--og-space-3);
+  padding: var(--og-space-3);
+  border-radius: var(--og-radius-md);
+}
+
+.route-step:hover {
+  background: var(--og-gray-1);
+}
+
+.route-num {
+  inline-size: 24px;
+  block-size: 24px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--og-gray-2);
+  font-size: var(--og-text-xs);
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.route-dist {
+  margin-inline-start: auto;
+  font-family: var(--og-font-mono);
+  font-size: var(--og-text-xs);
+  color: var(--og-text-faint);
+}
+
+@media (max-width: 800px) {
+  .map-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .og-map__pin {
+    transition: none;
+  }
+}
+
+.location-info {
+  display: grid;
+  gap: var(--og-space-2);
+  padding: var(--og-space-3);
+  border-radius: var(--og-radius-lg);
+  background: var(--og-surface);
+}
+
+.map-placeholder {
+  block-size: 240px;
+  border-radius: var(--og-radius-xl);
+  border: 1px dashed var(--og-hairline-strong);
+  display: grid;
+  place-items: center;
+  color: var(--og-text-faint);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .location-info {
+    transition: none;
+  }
+}
+
+@media print {
+  .map-placeholder {
+    border: 1px solid #000;
+  }
+}
+
+.location-name {
+  font-weight: 700;
+}
+
+.location-address {
+  font-size: var(--og-text-sm);
+  color: var(--og-text-muted);
+}
+
+.map-coords {
+  font-family: var(--og-font-mono);
+  font-size: var(--og-text-xs);
+  color: var(--og-text-faint);
+}
+
+@media (hover: hover) {
+  .og-map__pin:hover {
+    scale: 1.2;
+  }
+}
+
+@media print {
+  .og-map {
+    border: 1px solid #000;
+  }
+}

@@ -274,3 +274,60 @@
   opacity: 0.4;
   pointer-events: none;
 }
+
+.form-input:hover {
+  border-color: var(--og-hairline-strong);
+  box-shadow: var(--og-elev-1), var(--og-glass-inner-highlight);
+}
+
+.form-input:focus-visible {
+  outline: 2px solid var(--og-focus-ring);
+  outline-offset: 2px;
+}
+
+.form-input:active {
+  transform: scale(0.985);
+}
+
+.form-input[aria-disabled='true'] {
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+select.form-input {
+  appearance: none;
+  background-image: linear-gradient(45deg, transparent 50%, var(--og-text-muted) 50%), linear-gradient(135deg, var(--og-text-muted) 50%, transparent 50%);
+  background-position: calc(100% - 18px) 55%, calc(100% - 13px) 55%;
+  background-size: 5px 5px;
+  background-repeat: no-repeat;
+  padding-inline-end: var(--og-space-8);
+}
+
+textarea.form-input {
+  min-block-size: 90px;
+  resize: vertical;
+}
+
+input[type='search']::-webkit-search-cancel-button {
+  appearance: none;
+}
+
+input:-webkit-autofill {
+  box-shadow: 0 0 0 1000px var(--og-gray-1) inset;
+  -webkit-text-fill-color: var(--og-white);
+}
+
+label[for] {
+  cursor: pointer;
+}
+
+.form-group:has(input:required):not(:has(input:optional)) .form-label::after {
+  content: ' *';
+  color: var(--og-white);
+}
+
+@media (forced-colors: active) {
+  .form-input {
+    border: 1px solid CanvasText;
+  }
+}

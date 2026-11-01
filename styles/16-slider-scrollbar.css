@@ -183,3 +183,125 @@
 .og-dual-range input::-webkit-slider-thumb {
   pointer-events: auto;
 }
+
+input[type='range'] {
+  appearance: none;
+  inline-size: 100%;
+  block-size: 4px;
+  border-radius: var(--og-radius-pill);
+  background: var(--og-gray-2);
+  outline: none;
+}
+
+input[type='range']::-webkit-slider-thumb {
+  appearance: none;
+  inline-size: 18px;
+  block-size: 18px;
+  border-radius: 50%;
+  background: var(--og-white);
+  box-shadow: var(--og-elev-1);
+  cursor: grab;
+}
+
+input[type='range']::-moz-range-thumb {
+  inline-size: 18px;
+  block-size: 18px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--og-white);
+}
+
+input[type='range']:focus-visible {
+  outline: 2px solid var(--og-focus-ring);
+  outline-offset: 4px;
+}
+
+@media (forced-colors: active) {
+  input[type='range']::-webkit-slider-thumb {
+    background: CanvasText;
+  }
+}
+
+.og-scroll-snap-x {
+  display: flex;
+  gap: var(--og-space-3);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding-block-end: var(--og-space-2);
+}
+
+.og-scroll-snap-x > * {
+  scroll-snap-align: start;
+  flex-shrink: 0;
+}
+
+.thin-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: var(--og-gray-3) transparent;
+}
+
+.thin-scrollbar::-webkit-scrollbar {
+  inline-size: 6px;
+  block-size: 6px;
+}
+
+.thin-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--og-gray-3);
+  border-radius: 3px;
+}
+
+.no-scrollbar {
+  scrollbar-width: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+input[type='range']::-webkit-slider-runnable-track {
+  block-size: 4px;
+  border-radius: var(--og-radius-pill);
+}
+
+@supports not (scrollbar-width: thin) {
+  .thin-scrollbar::-webkit-scrollbar-thumb { background: var(--og-gray-3) };
+}
+
+@media (forced-colors: active) {
+  .thin-scrollbar::-webkit-scrollbar-thumb {
+    background: CanvasText;
+  }
+}
+
+.resultsPerPage {
+  inline-size: 72px;
+}
+
+.regionFilter, .timeFilter, .safeSearch, .language, .defaultRegion, .defaultSearch, .fileType, .siteFilter {
+  inline-size: 100%;
+}
+
+select[id^='default'], select#language, select#regionFilter {
+  padding: var(--og-space-2) var(--og-space-3);
+  border-radius: var(--og-radius-md);
+  border: 1px solid var(--og-hairline);
+  background: var(--og-gray-1);
+  color: var(--og-white);
+}
+
+input[type='range'] + output {
+  font-family: var(--og-font-mono);
+  font-size: var(--og-text-xs);
+  color: var(--og-text-muted);
+}
+
+@supports not (scrollbar-gutter: stable) {
+  .search-suggestions { overflow-y: scroll };
+}
+
+@media (forced-colors: active) {
+  select {
+    border: 1px solid CanvasText;
+    background: Field;
+  }
+}

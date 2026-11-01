@@ -120,3 +120,143 @@ canvas.og-gl {
   background: var(--og-gray-2);
   border-radius: 1px;
 }
+
+.particle-background {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.55;
+}
+
+.particle-background canvas {
+  inline-size: 100%;
+  block-size: 100%;
+  display: block;
+}
+
+.og-webgl-host {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border-radius: inherit;
+}
+
+.og-webgl-host > canvas {
+  position: absolute;
+  inset: 0;
+  inline-size: 100%;
+  block-size: 100%;
+}
+
+.og-webgl-host[data-renderer='css'] {
+  background: var(--og-surface);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .particle-background {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .og-webgl-host > canvas {
+    opacity: 0.2;
+  }
+}
+
+@media (forced-colors: active) {
+  .particle-background {
+    display: none;
+  }
+}
+
+.og-webgl-host[data-renderer='webgl'] {
+  contain: strict;
+}
+
+.og-webgl-fallback {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: radial-gradient(circle at 50% 40%, rgba(255,255,255,0.08), transparent 60%);
+}
+
+.og-webgl-host canvas[aria-hidden='true'] {
+  touch-action: none;
+}
+
+.grain-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.03;
+  mix-blend-mode: overlay;
+  background-image: repeating-conic-gradient(#fff 0% 0.0001%, transparent 0.0002% 0.0004%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .og-webgl-host[data-renderer='webgl'] {
+    visibility: collapse;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .og-webgl-host[data-renderer='css'] {
+    visibility: visible;
+  }
+}
+
+.particle-background[data-active='false'] {
+  display: none;
+}
+
+.og-webgl-host canvas {
+  image-rendering: auto;
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .grain-overlay {
+    display: none;
+  }
+}
+
+@media (forced-colors: active) {
+  .og-webgl-host > canvas {
+    display: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .particle-background {
+    opacity: 0.25;
+  }
+}
+
+@media (hover: hover) {
+  .og-webgl-host:hover > canvas {
+    filter: brightness(1.05);
+  }
+}
+
+@media (hover: none) {
+  .particle-background {
+    opacity: 0.3;
+  }
+}
+
+@supports not (backdrop-filter: blur(1px)) {
+  .og-webgl-fallback { display: none };
+}
+
+.og-webgl-host[data-quality='low'] > canvas {
+  image-rendering: pixelated;
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .grain-overlay {
+    display: none;
+  }
+}

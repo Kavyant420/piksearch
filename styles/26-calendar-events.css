@@ -142,3 +142,146 @@
   font-size: var(--og-text-xs);
   color: var(--og-text-faint);
 }
+
+.og-cal {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+}
+
+.og-cal__cell {
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  border-radius: var(--og-radius-md);
+  font-size: var(--og-text-sm);
+  color: var(--og-text-secondary);
+}
+
+.og-cal__cell[aria-selected='true'] {
+  background: var(--og-white);
+  color: var(--og-black);
+  font-weight: 700;
+}
+
+.og-cal__cell[data-has-event]::after {
+  content: '';
+  inline-size: 4px;
+  block-size: 4px;
+  border-radius: 50%;
+  background: var(--og-icon-accent);
+  position: absolute;
+  margin-block-start: 18px;
+}
+
+@media (forced-colors: active) {
+  .og-cal__cell[aria-selected='true'] {
+    background: Highlight;
+    color: HighlightText;
+  }
+}
+
+.og-cal__head {
+  font-size: var(--og-text-xs);
+  color: var(--og-text-faint);
+  text-align: center;
+  padding-block: var(--og-space-1);
+}
+
+.og-event-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--og-space-2);
+  padding: 3px var(--og-space-3);
+  border-radius: var(--og-radius-sm);
+  border: 1px solid var(--og-hairline);
+  font-size: var(--og-text-xs);
+}
+
+.og-event-dot {
+  inline-size: 6px;
+  block-size: 6px;
+  border-radius: 50%;
+  background: var(--og-icon-accent);
+}
+
+.og-cal__cell[aria-current='date'] {
+  box-shadow: inset 0 0 0 1px var(--og-white);
+}
+
+@media (max-width: 560px) {
+  .og-cal {
+    gap: 2px;
+  }
+}
+
+@media (forced-colors: active) {
+  .og-event-chip {
+    border: 1px solid CanvasText;
+  }
+}
+
+.calendar-event {
+  display: flex;
+  justify-content: space-between;
+  padding: var(--og-space-2) var(--og-space-3);
+  border-radius: var(--og-radius-md);
+  background: var(--og-gray-1);
+}
+
+.calendar-date {
+  font-family: var(--og-font-mono);
+  font-size: var(--og-text-xs);
+  color: var(--og-text-faint);
+}
+
+.event-time {
+  font-size: var(--og-text-xs);
+  color: var(--og-text-muted);
+}
+
+@media (max-width: 560px) {
+  .calendar-event {
+    flex-direction: column;
+    gap: var(--og-space-1);
+  }
+}
+
+@media print {
+  .calendar-event {
+    border: 1px solid #ccc;
+  }
+}
+
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-block-end: var(--og-space-3);
+}
+
+.calendar-nav {
+  border: 1px solid var(--og-hairline);
+  background: transparent;
+  color: var(--og-text-muted);
+  inline-size: 30px;
+  block-size: 30px;
+  border-radius: var(--og-radius-md);
+  cursor: pointer;
+}
+
+.calendar-nav:hover {
+  color: var(--og-white);
+}
+
+@media (forced-colors: active) {
+  .calendar-nav {
+    border: 1px solid ButtonText;
+  }
+}
+
+@media print {
+  .calendar-nav {
+    display: none;
+  }
+}

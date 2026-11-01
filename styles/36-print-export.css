@@ -122,3 +122,142 @@
     display: none !important;
   }
 }
+
+@page {
+}
+
+@media print {
+  body {
+    background: #fff !important;
+    color: #000 !important;
+  }
+}
+
+@media print {
+  .header, .search-box, .filter-controls, .particle-background, .progress-bar, .floating-action, .settings-panel, .notification {
+    display: none !important;
+  }
+}
+
+@media print {
+  .results-section {
+    display: block;
+  }
+}
+
+@media print {
+  a[href^='http']::after {
+    content: ' (' attr(href) ')';
+    font-size: 9pt;
+    color: #444;
+  }
+}
+
+@media print {
+  .results-list {
+    display: block;
+  }
+}
+
+@media print {
+  .result-item {
+    break-inside: avoid;
+    margin-block-end: 12mm;
+  }
+}
+
+@media print {
+  .sidebar-section {
+    border: 1px solid #ccc;
+    page-break-inside: avoid;
+  }
+}
+
+@media print {
+  img {
+    filter: grayscale(1);
+  }
+}
+
+@media print {
+  .search-title {
+    font-size: 20pt;
+  }
+}
+
+@media print {
+  * {
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+}
+
+@page :first {
+}
+
+@media screen {
+  .print-only {
+    display: none;
+  }
+}
+
+@media print {
+  .print-only {
+    display: initial;
+  }
+}
+
+@media print {
+  .breadcrumb {
+    display: none;
+  }
+}
+
+@media print {
+  .filter-btn {
+    border: 1px solid #999;
+  }
+}
+
+@media print {
+  .metric-value {
+    font-size: 12pt;
+  }
+}
+
+@page :blank {
+}
+
+@media print {
+  .result-link {
+    color: #000;
+    text-decoration: underline;
+  }
+}
+
+@media print {
+  .search-stats {
+    color: #444;
+  }
+}
+
+@media print {
+  .related-searches {
+    page-break-before: avoid;
+  }
+}
+
+@media print {
+  .history-item {
+    border-block-end: 1px solid #ddd;
+  }
+}
+
+@page { orphans: 3; widows: 3 } {
+}
+
+@media print {
+  .tip-text {
+    color: #333;
+  }
+}

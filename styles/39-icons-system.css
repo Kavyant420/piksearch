@@ -141,3 +141,157 @@
   place-items: center;
   font-weight: 900;
 }
+
+:root {
+  --og-icon-accent: #3b82f6;
+}
+
+i.fas, i.fab, i.far {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-style: normal;
+  line-height: 1;
+}
+
+i.fas[aria-hidden='true'], i.fab[aria-hidden='true'] {
+  pointer-events: none;
+}
+
+.status-indicator {
+  inline-size: 8px;
+  block-size: 8px;
+  border-radius: 50%;
+  background: var(--og-gray-4);
+  display: inline-block;
+  margin-inline-end: var(--og-space-2);
+}
+
+.status-indicator.online {
+  background: #10b981;
+  box-shadow: 0 0 8px rgba(16,185,129,0.6);
+}
+
+.status-indicator.warn {
+  background: #f59e0b;
+}
+
+.metric-value i, .perf-value i {
+  color: var(--og-icon-accent);
+}
+
+@media (forced-colors: active) {
+  i.fas, i.fab {
+    color: CanvasText;
+  }
+}
+
+.icon-lg {
+  font-size: var(--og-text-2xl);
+}
+
+.icon-sm {
+  font-size: var(--og-text-xs);
+}
+
+.icon-spin {
+  animation: ps-spin 1.2s linear infinite;
+}
+
+.icon-badge {
+  position: absolute;
+  inset-block-start: -4px;
+  inset-inline-end: -4px;
+  inline-size: 8px;
+  block-size: 8px;
+  border-radius: 50%;
+  background: #ef4444;
+  border: 1px solid var(--og-black);
+}
+
+.avatar {
+  inline-size: 36px;
+  block-size: 36px;
+  border-radius: 50%;
+  background: var(--og-gray-2);
+  display: grid;
+  place-items: center;
+  font-weight: 700;
+  font-size: var(--og-text-sm);
+}
+
+.monogram {
+  letter-spacing: 0.05em;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .icon-spin {
+    animation-duration: 3s;
+  }
+}
+
+@media (forced-colors: active) {
+  .status-indicator {
+    background: CanvasText;
+  }
+}
+
+.icon-button {
+  inline-size: 34px;
+  block-size: 34px;
+  display: grid;
+  place-items: center;
+  border-radius: var(--og-radius-md);
+  border: 1px solid var(--og-hairline);
+  background: transparent;
+  color: var(--og-text-muted);
+  cursor: pointer;
+}
+
+.icon-button:hover {
+  color: var(--og-white);
+  background: var(--og-gray-1);
+}
+
+.icon-button:focus-visible {
+  outline: 2px solid var(--og-focus-ring);
+  outline-offset: 2px;
+}
+
+.icon-pair {
+  display: inline-flex;
+  gap: var(--og-space-2);
+}
+
+@media (forced-colors: active) {
+  .icon-button {
+    border: 1px solid ButtonText;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .icon-button {
+    transition: none;
+  }
+}
+
+.status-dot {
+  inline-size: 8px;
+  block-size: 8px;
+  border-radius: 50%;
+  background: var(--og-gray-4);
+}
+
+.status-dot--active {
+  background: #10b981;
+}
+
+.icon-muted {
+  color: var(--og-text-faint);
+}
+
+@media (forced-colors: active) {
+  .feature-icon {
+    color: CanvasText;
+  }
+}

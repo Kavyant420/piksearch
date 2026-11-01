@@ -116,3 +116,161 @@
 .og-focus-first-run {
   outline: 2px dotted var(--og-focus-ring);
 }
+
+.keyboard-shortcuts {
+  display: grid;
+  gap: var(--og-space-2);
+}
+
+.shortcut-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--og-space-4);
+  padding: var(--og-space-2) 0;
+  border-block-end: 1px dashed var(--og-hairline);
+}
+
+.shortcut-key {
+  font-family: var(--og-font-mono);
+  font-size: var(--og-text-xs);
+  padding: 2px 8px;
+  border: 1px solid var(--og-hairline-strong);
+  border-radius: var(--og-radius-sm);
+  background: var(--og-gray-1);
+  box-shadow: 0 1px 0 var(--og-hairline-strong);
+}
+
+.sr-only {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: fixed;
+  inset-block-start: -100px;
+  inset-inline-start: var(--og-space-4);
+  z-index: 9999;
+  padding: var(--og-space-3) var(--og-space-5);
+  background: var(--og-white);
+  color: var(--og-black);
+  border-radius: var(--og-radius-md);
+  font-weight: 700;
+  text-decoration: none;
+  transition: inset-block-start var(--og-dur-fast) var(--og-ease-standard);
+}
+
+.skip-link:focus {
+  inset-block-start: var(--og-space-4);
+}
+
+[tabindex='-1']:focus-visible {
+  outline: none;
+}
+
+@media (forced-colors: active) {
+  .shortcut-key {
+    border: 1px solid CanvasText;
+  }
+}
+
+.kbd-help {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--og-space-2) var(--og-space-4);
+}
+
+.focus-trap-active {
+  outline: 1px dashed transparent;
+}
+
+button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
+  outline: 2px solid var(--og-focus-ring);
+  outline-offset: 2px;
+}
+
+[role='option']:focus {
+  background: var(--og-gray-1);
+  outline: none;
+}
+
+[aria-live] {
+  clip-path: unset;
+}
+
+.ps-outline-none:focus {
+  outline: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skip-link {
+    transition: none;
+  }
+}
+
+@media (forced-colors: active) {
+  *:focus-visible {
+    outline: 2px solid Highlight;
+  }
+}
+
+.keyboardShortcuts {
+  display: grid;
+  gap: var(--og-space-2);
+}
+
+.shortcut-desc {
+  color: var(--og-text-muted);
+  font-size: var(--og-text-sm);
+}
+
+[aria-keyshortcuts] {
+  cursor: help;
+}
+
+.visually-hidden-focusable:focus {
+  position: static;
+  inline-size: auto;
+  block-size: auto;
+  clip-path: none;
+  white-space: normal;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [aria-keyshortcuts] {
+    transition: none;
+  }
+}
+
+@media (forced-colors: active) {
+  .skip-link:focus {
+    outline: 2px solid Highlight;
+  }
+}
+
+.shortcut-keys {
+  display: flex;
+  gap: 4px;
+}
+
+.a11y-note {
+  font-size: var(--og-text-xs);
+  color: var(--og-text-faint);
+}
+
+main:focus {
+  outline: none;
+}
+
+@media (forced-colors: active) {
+  .shortcut-key {
+    border: 1px solid CanvasText;
+  }
+}
