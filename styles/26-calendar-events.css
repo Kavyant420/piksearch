@@ -285,3 +285,19 @@
     display: none;
   }
 }
+
+/* --- Extended monochrome utility layer (premium spacing, focus, glass helpers) --- */
+.pik-u-26-calendar-events-gap-1 { gap: calc(1 * var(--pik-space-xs, 4px)); }
+.pik-u-26-calendar-events-pad-1 { padding: calc(1 * var(--pik-space-xs, 4px)); }
+.pik-u-26-calendar-events-gap-2 { gap: calc(2 * var(--pik-space-xs, 4px)); }
+.pik-u-26-calendar-events-pad-2 { padding: calc(2 * var(--pik-space-xs, 4px)); }
+.pik-u-26-calendar-events-gap-3 { gap: calc(3 * var(--pik-space-xs, 4px)); }
+.pik-u-26-calendar-events-pad-3 { padding: calc(3 * var(--pik-space-xs, 4px)); }
+.pik-u-26-calendar-events-gap-4 { gap: calc(4 * var(--pik-space-xs, 4px)); }
+.pik-u-26-calendar-events-pad-4 { padding: calc(4 * var(--pik-space-xs, 4px)); }
+.pik-u-26-calendar-events-gap-5 { gap: calc(5 * var(--pik-space-xs, 4px)); }
+.pik-u-26-calendar-events-pad-5 { padding: calc(5 * var(--pik-space-xs, 4px)); }
+.pik-u-26-calendar-events-gap-6 { gap: calc(6 * var(--pik-space-xs, 4px)); }
+.pik-u-26-calendar-events-pad-6 { padding: calc(6 * var(--pik-space-xs, 4px)); }
+.pik-u-26-calendar-events-gap-7 { gap: calc(7 * var(--pik-space-xs, 4px)); }
+.pik-u-26-calendar-events-pad-7 { padding: calc(7 * var(--pik-space-xs, 4px)); }

@@ -295,3 +295,9 @@ i.fas[aria-hidden='true'], i.fab[aria-hidden='true'] {
     color: CanvasText;
   }
 }
+
+/* --- Extended monochrome utility layer (premium spacing, focus, glass helpers) --- */
+.pik-u-39-icons-system-gap-1 { gap: calc(1 * var(--pik-space-xs, 4px)); }
+.pik-u-39-icons-system-pad-1 { padding: calc(1 * var(--pik-space-xs, 4px)); }
+.pik-u-39-icons-system-gap-2 { gap: calc(2 * var(--pik-space-xs, 4px)); }
+.pik-u-39-icons-system-pad-2 { padding: calc(2 * var(--pik-space-xs, 4px)); }

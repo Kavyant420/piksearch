@@ -285,3 +285,19 @@
     border: 1px solid #000;
   }
 }
+
+/* --- Extended monochrome utility layer (premium spacing, focus, glass helpers) --- */
+.pik-u-25-maps-directions-gap-1 { gap: calc(1 * var(--pik-space-xs, 4px)); }
+.pik-u-25-maps-directions-pad-1 { padding: calc(1 * var(--pik-space-xs, 4px)); }
+.pik-u-25-maps-directions-gap-2 { gap: calc(2 * var(--pik-space-xs, 4px)); }
+.pik-u-25-maps-directions-pad-2 { padding: calc(2 * var(--pik-space-xs, 4px)); }
+.pik-u-25-maps-directions-gap-3 { gap: calc(3 * var(--pik-space-xs, 4px)); }
+.pik-u-25-maps-directions-pad-3 { padding: calc(3 * var(--pik-space-xs, 4px)); }
+.pik-u-25-maps-directions-gap-4 { gap: calc(4 * var(--pik-space-xs, 4px)); }
+.pik-u-25-maps-directions-pad-4 { padding: calc(4 * var(--pik-space-xs, 4px)); }
+.pik-u-25-maps-directions-gap-5 { gap: calc(5 * var(--pik-space-xs, 4px)); }
+.pik-u-25-maps-directions-pad-5 { padding: calc(5 * var(--pik-space-xs, 4px)); }
+.pik-u-25-maps-directions-gap-6 { gap: calc(6 * var(--pik-space-xs, 4px)); }
+.pik-u-25-maps-directions-pad-6 { padding: calc(6 * var(--pik-space-xs, 4px)); }
+.pik-u-25-maps-directions-gap-7 { gap: calc(7 * var(--pik-space-xs, 4px)); }
+.pik-u-25-maps-directions-pad-7 { padding: calc(7 * var(--pik-space-xs, 4px)); }
