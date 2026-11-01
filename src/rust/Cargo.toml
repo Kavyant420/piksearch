@@ -1,0 +1,22 @@
+[package]
+name = "piksearch-security-core"
+version = "1.0.0"
+edition = "2021"
+description = "Deterministic, server-safe sanitization + token utilities for PikSearch (open-glass-ui/core counterpart)."
+license = "MIT"
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+wasm-bindgen = { version = "0.2", optional = true }
+
+[features]
+default = []
+wasm = ["wasm-bindgen"]
+
+[profile.release]
+opt-level = "s"
+lto = true
+codegen-units = 1
+panic = "abort"

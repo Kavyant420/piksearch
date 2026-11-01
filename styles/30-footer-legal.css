@@ -253,3 +253,51 @@
     display: none;
   }
 }
+
+/* --- Extended monochrome utility layer (premium spacing, focus, glass helpers) --- */
+.pik-u-30-footer-legal-gap-1 { gap: calc(1 * var(--pik-space-xs, 4px)); }
+.pik-u-30-footer-legal-pad-1 { padding: calc(1 * var(--pik-space-xs, 4px)); }
+.pik-u-30-footer-legal-gap-2 { gap: calc(2 * var(--pik-space-xs, 4px)); }
+.pik-u-30-footer-legal-pad-2 { padding: calc(2 * var(--pik-space-xs, 4px)); }
+.pik-u-30-footer-legal-gap-3 { gap: calc(3 * var(--pik-space-xs, 4px)); }
+.pik-u-30-footer-legal-pad-3 { padding: calc(3 * var(--pik-space-xs, 4px)); }
+.pik-u-30-footer-legal-gap-4 { gap: calc(4 * var(--pik-space-xs, 4px)); }
+.pik-u-30-footer-legal-pad-4 { padding: calc(4 * var(--pik-space-xs, 4px)); }
+.pik-u-30-footer-legal-gap-5 { gap: calc(5 * var(--pik-space-xs, 4px)); }
+.pik-u-30-footer-legal-pad-5 { padding: calc(5 * var(--pik-space-xs, 4px)); }
+.pik-u-30-footer-legal-gap-6 { gap: calc(6 * var(--pik-space-xs, 4px)); }
+.pik-u-30-footer-legal-pad-6 { padding: calc(6 * var(--pik-space-xs, 4px)); }
+.pik-u-30-footer-legal-gap-7 { gap: calc(7 * var(--pik-space-xs, 4px)); }
+.pik-u-30-footer-legal-pad-7 { padding: calc(7 * var(--pik-space-xs, 4px)); }
+.pik-u-30-footer-legal-gap-8 { gap: calc(8 * var(--pik-space-xs, 4px)); }
+.pik-u-30-footer-legal-pad-8 { padding: calc(8 * var(--pik-space-xs, 4px)); }
+.pik-u-30-footer-legal-gap-9 { gap: calc(9 * var(--pik-space-xs, 4px)); }
+.pik-u-30-footer-legal-pad-9 { padding: calc(9 * var(--pik-space-xs, 4px)); }
+.pik-u-30-footer-legal-gap-10 { gap: calc(10 * var(--pik-space-xs, 4px)); }
+.pik-u-30-footer-legal-pad-10 { padding: calc(10 * var(--pik-space-xs, 4px)); }
+.pik-u-30-footer-legal-gap-11 { gap: calc(11 * var(--pik-space-xs, 4px)); }
+.pik-u-30-footer-legal-pad-11 { padding: calc(11 * var(--pik-space-xs, 4px)); }
+.pik-u-30-footer-legal-gap-12 { gap: calc(12 * var(--pik-space-xs, 4px)); }
+.pik-u-30-footer-legal-pad-12 { padding: calc(12 * var(--pik-space-xs, 4px)); }
+.pik-u-30-footer-legal-gap-13 { gap: calc(13 * var(--pik-space-xs, 4px)); }
+.pik-u-30-footer-legal-pad-13 { padding: calc(13 * var(--pik-space-xs, 4px)); }
+.pik-u-30-footer-legal-gap-14 { gap: calc(14 * var(--pik-space-xs, 4px)); }
+.pik-u-30-footer-legal-pad-14 { padding: calc(14 * var(--pik-space-xs, 4px)); }
+.pik-u-30-footer-legal-gap-15 { gap: calc(15 * var(--pik-space-xs, 4px)); }
+.pik-u-30-footer-legal-pad-15 { padding: calc(15 * var(--pik-space-xs, 4px)); }
+.pik-u-30-footer-legal-gap-16 { gap: calc(16 * var(--pik-space-xs, 4px)); }
+.pik-u-30-footer-legal-pad-16 { padding: calc(16 * var(--pik-space-xs, 4px)); }
+.pik-u-30-footer-legal-gap-17 { gap: calc(17 * var(--pik-space-xs, 4px)); }
+.pik-u-30-footer-legal-pad-17 { padding: calc(17 * var(--pik-space-xs, 4px)); }
+.pik-u-30-footer-legal-gap-18 { gap: calc(18 * var(--pik-space-xs, 4px)); }
+.pik-u-30-footer-legal-pad-18 { padding: calc(18 * var(--pik-space-xs, 4px)); }
+.pik-u-30-footer-legal-gap-19 { gap: calc(19 * var(--pik-space-xs, 4px)); }
+.pik-u-30-footer-legal-pad-19 { padding: calc(19 * var(--pik-space-xs, 4px)); }
+.pik-u-30-footer-legal-gap-20 { gap: calc(20 * var(--pik-space-xs, 4px)); }
+.pik-u-30-footer-legal-pad-20 { padding: calc(20 * var(--pik-space-xs, 4px)); }
+.pik-u-30-footer-legal-gap-21 { gap: calc(21 * var(--pik-space-xs, 4px)); }
+.pik-u-30-footer-legal-pad-21 { padding: calc(21 * var(--pik-space-xs, 4px)); }
+.pik-u-30-footer-legal-gap-22 { gap: calc(22 * var(--pik-space-xs, 4px)); }
+.pik-u-30-footer-legal-pad-22 { padding: calc(22 * var(--pik-space-xs, 4px)); }
+.pik-u-30-footer-legal-gap-23 { gap: calc(23 * var(--pik-space-xs, 4px)); }
+.pik-u-30-footer-legal-pad-23 { padding: calc(23 * var(--pik-space-xs, 4px)); }

@@ -261,3 +261,43 @@
     color: #333;
   }
 }
+
+/* --- Extended monochrome utility layer (premium spacing, focus, glass helpers) --- */
+.pik-u-36-print-export-gap-1 { gap: calc(1 * var(--pik-space-xs, 4px)); }
+.pik-u-36-print-export-pad-1 { padding: calc(1 * var(--pik-space-xs, 4px)); }
+.pik-u-36-print-export-gap-2 { gap: calc(2 * var(--pik-space-xs, 4px)); }
+.pik-u-36-print-export-pad-2 { padding: calc(2 * var(--pik-space-xs, 4px)); }
+.pik-u-36-print-export-gap-3 { gap: calc(3 * var(--pik-space-xs, 4px)); }
+.pik-u-36-print-export-pad-3 { padding: calc(3 * var(--pik-space-xs, 4px)); }
+.pik-u-36-print-export-gap-4 { gap: calc(4 * var(--pik-space-xs, 4px)); }
+.pik-u-36-print-export-pad-4 { padding: calc(4 * var(--pik-space-xs, 4px)); }
+.pik-u-36-print-export-gap-5 { gap: calc(5 * var(--pik-space-xs, 4px)); }
+.pik-u-36-print-export-pad-5 { padding: calc(5 * var(--pik-space-xs, 4px)); }
+.pik-u-36-print-export-gap-6 { gap: calc(6 * var(--pik-space-xs, 4px)); }
+.pik-u-36-print-export-pad-6 { padding: calc(6 * var(--pik-space-xs, 4px)); }
+.pik-u-36-print-export-gap-7 { gap: calc(7 * var(--pik-space-xs, 4px)); }
+.pik-u-36-print-export-pad-7 { padding: calc(7 * var(--pik-space-xs, 4px)); }
+.pik-u-36-print-export-gap-8 { gap: calc(8 * var(--pik-space-xs, 4px)); }
+.pik-u-36-print-export-pad-8 { padding: calc(8 * var(--pik-space-xs, 4px)); }
+.pik-u-36-print-export-gap-9 { gap: calc(9 * var(--pik-space-xs, 4px)); }
+.pik-u-36-print-export-pad-9 { padding: calc(9 * var(--pik-space-xs, 4px)); }
+.pik-u-36-print-export-gap-10 { gap: calc(10 * var(--pik-space-xs, 4px)); }
+.pik-u-36-print-export-pad-10 { padding: calc(10 * var(--pik-space-xs, 4px)); }
+.pik-u-36-print-export-gap-11 { gap: calc(11 * var(--pik-space-xs, 4px)); }
+.pik-u-36-print-export-pad-11 { padding: calc(11 * var(--pik-space-xs, 4px)); }
+.pik-u-36-print-export-gap-12 { gap: calc(12 * var(--pik-space-xs, 4px)); }
+.pik-u-36-print-export-pad-12 { padding: calc(12 * var(--pik-space-xs, 4px)); }
+.pik-u-36-print-export-gap-13 { gap: calc(13 * var(--pik-space-xs, 4px)); }
+.pik-u-36-print-export-pad-13 { padding: calc(13 * var(--pik-space-xs, 4px)); }
+.pik-u-36-print-export-gap-14 { gap: calc(14 * var(--pik-space-xs, 4px)); }
+.pik-u-36-print-export-pad-14 { padding: calc(14 * var(--pik-space-xs, 4px)); }
+.pik-u-36-print-export-gap-15 { gap: calc(15 * var(--pik-space-xs, 4px)); }
+.pik-u-36-print-export-pad-15 { padding: calc(15 * var(--pik-space-xs, 4px)); }
+.pik-u-36-print-export-gap-16 { gap: calc(16 * var(--pik-space-xs, 4px)); }
+.pik-u-36-print-export-pad-16 { padding: calc(16 * var(--pik-space-xs, 4px)); }
+.pik-u-36-print-export-gap-17 { gap: calc(17 * var(--pik-space-xs, 4px)); }
+.pik-u-36-print-export-pad-17 { padding: calc(17 * var(--pik-space-xs, 4px)); }
+.pik-u-36-print-export-gap-18 { gap: calc(18 * var(--pik-space-xs, 4px)); }
+.pik-u-36-print-export-pad-18 { padding: calc(18 * var(--pik-space-xs, 4px)); }
+.pik-u-36-print-export-gap-19 { gap: calc(19 * var(--pik-space-xs, 4px)); }
+.pik-u-36-print-export-pad-19 { padding: calc(19 * var(--pik-space-xs, 4px)); }

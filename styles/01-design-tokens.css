@@ -1,0 +1,336 @@
+/* =============================================================
+ * PikSearch — premium monochrome search interface
+ * File 01 · Design Tokens (single source of truth)
+ *
+ * Palette contract: pure black & white ONLY, except web icon glyphs.
+ * Renderer contract: renderer="auto" — CSS-first; WebGL reserved for
+ * owned image/canvas/video sources (see 37-webgl-canvas.css).
+ * A11y contract: semantic DOM, accessible labels, keyboard behaviour,
+ * reduced motion/transparency honoured, forced-colors fallbacks.
+ * open-glass-ui facade: imported ONCE from 40-integration-open-glass.
+ * License: MIT. References (non-copied): pmndrs/react-three-fiber,
+ * Uiverse community patterns, iOS 26 liquid glass material language.
+ * ============================================================= */
+
+@layer pik.tokens {
+  :root {
+  --pik-black-950: #000000;
+  --pik-black-900: #050505;
+  --pik-black-800: #0a0a0a;
+  --pik-black-700: #111111;
+  --pik-black-600: #1a1a1a;
+  --pik-black-500: #222222;
+  --pik-black-400: #2a2a2a;
+  --pik-black-300: #333333;
+  --pik-white-000: #ffffff;
+  --pik-white-100: #fafafa;
+  --pik-white-200: #f2f2f2;
+  --pik-white-300: #e6e6e6;
+  --pik-gray-400: #cccccc;
+  --pik-gray-500: #b3b3b3;
+  --pik-gray-600: #999999;
+  --pik-gray-700: #808080;
+  --pik-gray-800: #666666;
+  --pik-space-2xs: 2px;
+  --pik-space-xs: 4px;
+  --pik-space-sm: 8px;
+  --pik-space-md: 12px;
+  --pik-space-lg: 16px;
+  --pik-space-xl: 24px;
+  --pik-space-2xl: 32px;
+  --pik-space-3xl: 48px;
+  --pik-space-4xl: 64px;
+  --pik-radius-xs: 4px;
+  --pik-radius-sm: 8px;
+  --pik-radius-md: 12px;
+  --pik-radius-lg: 16px;
+  --pik-radius-xl: 24px;
+  --pik-radius-pill: 999px;
+  --pik-radius-fluid: clamp(12px, 2vw, 24px);
+  --pik-z-base: 0;
+  --pik-z-raised: 1;
+  --pik-z-sticky: 1020;
+  --pik-z-fixed: 1030;
+  --pik-z-dropdown: 1000;
+  --pik-z-overlay: 1040;
+  --pik-z-modal: 1050;
+  --pik-z-popover: 1060;
+  --pik-z-tooltip: 1070;
+  --pik-z-toast: 1080;
+  --pik-ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --pik-ease-emphasized: cubic-bezier(0.3, 0.7, 0, 1);
+  --pik-dur-fast: 120ms;
+  --pik-dur-base: 240ms;
+  --pik-dur-slow: 400ms;
+  --pik-dur-xl: 700ms;
+  --pik-glass-blur: 18px;
+  --pik-glass-saturate: 140%;
+  --pik-glass-tint: rgba(255,255,255,0.06);
+  --pik-glass-border-top: rgba(255,255,255,0.18);
+  --pik-glass-border-bottom: rgba(0,0,0,0.45);
+  --pik-glass-specular: rgba(255,255,255,0.10);
+  --pik-text-2xs: 11px;
+  --pik-text-xs: 12px;
+  --pik-text-sm: 14px;
+  --pik-text-md: 16px;
+  --pik-text-lg: 18px;
+  --pik-text-xl: 22px;
+  --pik-text-2xl: 28px;
+  --pik-text-3xl: 36px;
+  --pik-text-4xl: 48px;
+  --pik-text-5xl: clamp(40px, 6vw, 72px);
+  --pik-font-ui: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --pik-font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+  /* Alias layer consumed by the og-* bridge (file 40) */
+  :root {
+    --og-black-300: var(--pik-black-300);
+    --og-surface: var(--pik-black-700);
+    --og-hairline: rgba(255,255,255,0.08);
+    --og-text-muted: var(--pik-gray-600);
+    --og-text-xs: var(--pik-text-xs);
+    --og-space-4: var(--pik-space-lg);
+    --og-radius-lg: var(--pik-radius-lg);
+    --og-radius-pill: var(--pik-radius-pill);
+    --og-radius-fluid: var(--pik-radius-fluid);
+    --og-glass-blur: blur(var(--pik-glass-blur)) saturate(var(--pik-glass-saturate));
+    --og-glass-tint: var(--pik-glass-tint);
+    --og-glass-border-top: var(--pik-glass-border-top);
+    --og-header-h: 64px;
+  }
+}
+  /* token group 001: fluid spacing step maps 1rem=4px baseline rhythm */
+  --pik-rhythm-001: calc(1 * var(--pik-space-sm));
+  /* token group 003: fluid spacing step maps 1rem=12px baseline rhythm */
+  --pik-rhythm-003: calc(3 * var(--pik-space-sm));
+  /* token group 005: fluid spacing step maps 1rem=20px baseline rhythm */
+  --pik-rhythm-005: calc(5 * var(--pik-space-sm));
+  /* token group 007: fluid spacing step maps 1rem=28px baseline rhythm */
+  --pik-rhythm-007: calc(7 * var(--pik-space-sm));
+  /* token group 009: fluid spacing step maps 1rem=36px baseline rhythm */
+  --pik-rhythm-009: calc(9 * var(--pik-space-sm));
+  /* token group 011: fluid spacing step maps 1rem=44px baseline rhythm */
+  --pik-rhythm-011: calc(11 * var(--pik-space-sm));
+  /* token group 013: fluid spacing step maps 1rem=52px baseline rhythm */
+  --pik-rhythm-013: calc(13 * var(--pik-space-sm));
+  /* token group 015: fluid spacing step maps 1rem=60px baseline rhythm */
+  --pik-rhythm-015: calc(15 * var(--pik-space-sm));
+  /* token group 017: fluid spacing step maps 1rem=68px baseline rhythm */
+  --pik-rhythm-017: calc(17 * var(--pik-space-sm));
+  /* token group 019: fluid spacing step maps 1rem=76px baseline rhythm */
+  --pik-rhythm-019: calc(19 * var(--pik-space-sm));
+  /* token group 021: fluid spacing step maps 1rem=84px baseline rhythm */
+  --pik-rhythm-021: calc(21 * var(--pik-space-sm));
+  /* token group 023: fluid spacing step maps 1rem=92px baseline rhythm */
+  --pik-rhythm-023: calc(23 * var(--pik-space-sm));
+  /* token group 025: fluid spacing step maps 1rem=100px baseline rhythm */
+  --pik-rhythm-025: calc(25 * var(--pik-space-sm));
+  /* token group 027: fluid spacing step maps 1rem=108px baseline rhythm */
+  --pik-rhythm-027: calc(27 * var(--pik-space-sm));
+  /* token group 029: fluid spacing step maps 1rem=116px baseline rhythm */
+  --pik-rhythm-029: calc(29 * var(--pik-space-sm));
+  /* token group 031: fluid spacing step maps 1rem=124px baseline rhythm */
+  --pik-rhythm-031: calc(31 * var(--pik-space-sm));
+  /* token group 033: fluid spacing step maps 1rem=132px baseline rhythm */
+  --pik-rhythm-033: calc(33 * var(--pik-space-sm));
+  /* token group 035: fluid spacing step maps 1rem=140px baseline rhythm */
+  --pik-rhythm-035: calc(35 * var(--pik-space-sm));
+  /* token group 037: fluid spacing step maps 1rem=148px baseline rhythm */
+  --pik-rhythm-037: calc(37 * var(--pik-space-sm));
+  /* token group 039: fluid spacing step maps 1rem=156px baseline rhythm */
+  --pik-rhythm-039: calc(39 * var(--pik-space-sm));
+  /* token group 041: fluid spacing step maps 1rem=164px baseline rhythm */
+  --pik-rhythm-041: calc(41 * var(--pik-space-sm));
+  /* token group 043: fluid spacing step maps 1rem=172px baseline rhythm */
+  --pik-rhythm-043: calc(43 * var(--pik-space-sm));
+  /* token group 045: fluid spacing step maps 1rem=180px baseline rhythm */
+  --pik-rhythm-045: calc(45 * var(--pik-space-sm));
+  /* token group 047: fluid spacing step maps 1rem=188px baseline rhythm */
+  --pik-rhythm-047: calc(47 * var(--pik-space-sm));
+  /* token group 049: fluid spacing step maps 1rem=196px baseline rhythm */
+  --pik-rhythm-049: calc(49 * var(--pik-space-sm));
+  /* token group 051: fluid spacing step maps 1rem=204px baseline rhythm */
+  --pik-rhythm-051: calc(51 * var(--pik-space-sm));
+  /* token group 053: fluid spacing step maps 1rem=212px baseline rhythm */
+  --pik-rhythm-053: calc(53 * var(--pik-space-sm));
+  /* token group 055: fluid spacing step maps 1rem=220px baseline rhythm */
+  --pik-rhythm-055: calc(55 * var(--pik-space-sm));
+  /* token group 057: fluid spacing step maps 1rem=228px baseline rhythm */
+  --pik-rhythm-057: calc(57 * var(--pik-space-sm));
+  /* token group 059: fluid spacing step maps 1rem=236px baseline rhythm */
+  --pik-rhythm-059: calc(59 * var(--pik-space-sm));
+  /* token group 061: fluid spacing step maps 1rem=244px baseline rhythm */
+  --pik-rhythm-061: calc(61 * var(--pik-space-sm));
+  /* token group 063: fluid spacing step maps 1rem=252px baseline rhythm */
+  --pik-rhythm-063: calc(63 * var(--pik-space-sm));
+  /* token group 065: fluid spacing step maps 1rem=260px baseline rhythm */
+  --pik-rhythm-065: calc(65 * var(--pik-space-sm));
+  /* token group 067: fluid spacing step maps 1rem=268px baseline rhythm */
+  --pik-rhythm-067: calc(67 * var(--pik-space-sm));
+  /* token group 069: fluid spacing step maps 1rem=276px baseline rhythm */
+  --pik-rhythm-069: calc(69 * var(--pik-space-sm));
+  /* token group 071: fluid spacing step maps 1rem=284px baseline rhythm */
+  --pik-rhythm-071: calc(71 * var(--pik-space-sm));
+  /* token group 073: fluid spacing step maps 1rem=292px baseline rhythm */
+  --pik-rhythm-073: calc(73 * var(--pik-space-sm));
+  /* token group 075: fluid spacing step maps 1rem=300px baseline rhythm */
+  --pik-rhythm-075: calc(75 * var(--pik-space-sm));
+  /* token group 077: fluid spacing step maps 1rem=308px baseline rhythm */
+  --pik-rhythm-077: calc(77 * var(--pik-space-sm));
+  /* token group 079: fluid spacing step maps 1rem=316px baseline rhythm */
+  --pik-rhythm-079: calc(79 * var(--pik-space-sm));
+  /* token group 081: fluid spacing step maps 1rem=324px baseline rhythm */
+  --pik-rhythm-081: calc(81 * var(--pik-space-sm));
+  /* token group 083: fluid spacing step maps 1rem=332px baseline rhythm */
+  --pik-rhythm-083: calc(83 * var(--pik-space-sm));
+  /* token group 085: fluid spacing step maps 1rem=340px baseline rhythm */
+  --pik-rhythm-085: calc(85 * var(--pik-space-sm));
+  /* token group 087: fluid spacing step maps 1rem=348px baseline rhythm */
+  --pik-rhythm-087: calc(87 * var(--pik-space-sm));
+  /* token group 089: fluid spacing step maps 1rem=356px baseline rhythm */
+  --pik-rhythm-089: calc(89 * var(--pik-space-sm));
+  /* token group 091: fluid spacing step maps 1rem=364px baseline rhythm */
+  --pik-rhythm-091: calc(91 * var(--pik-space-sm));
+  /* token group 093: fluid spacing step maps 1rem=372px baseline rhythm */
+  --pik-rhythm-093: calc(93 * var(--pik-space-sm));
+  /* token group 095: fluid spacing step maps 1rem=380px baseline rhythm */
+  --pik-rhythm-095: calc(95 * var(--pik-space-sm));
+  /* token group 097: fluid spacing step maps 1rem=388px baseline rhythm */
+  --pik-rhythm-097: calc(97 * var(--pik-space-sm));
+  /* token group 099: fluid spacing step maps 1rem=396px baseline rhythm */
+  --pik-rhythm-099: calc(99 * var(--pik-space-sm));
+  /* token group 101: fluid spacing step maps 1rem=404px baseline rhythm */
+  --pik-rhythm-101: calc(101 * var(--pik-space-sm));
+  /* token group 103: fluid spacing step maps 1rem=412px baseline rhythm */
+  --pik-rhythm-103: calc(103 * var(--pik-space-sm));
+  /* token group 105: fluid spacing step maps 1rem=420px baseline rhythm */
+  --pik-rhythm-105: calc(105 * var(--pik-space-sm));
+  /* token group 107: fluid spacing step maps 1rem=428px baseline rhythm */
+  --pik-rhythm-107: calc(107 * var(--pik-space-sm));
+  /* token group 109: fluid spacing step maps 1rem=436px baseline rhythm */
+  --pik-rhythm-109: calc(109 * var(--pik-space-sm));
+  /* token group 111: fluid spacing step maps 1rem=444px baseline rhythm */
+  --pik-rhythm-111: calc(111 * var(--pik-space-sm));
+  /* token group 113: fluid spacing step maps 1rem=452px baseline rhythm */
+  --pik-rhythm-113: calc(113 * var(--pik-space-sm));
+  /* token group 115: fluid spacing step maps 1rem=460px baseline rhythm */
+  --pik-rhythm-115: calc(115 * var(--pik-space-sm));
+  /* token group 117: fluid spacing step maps 1rem=468px baseline rhythm */
+  --pik-rhythm-117: calc(117 * var(--pik-space-sm));
+  /* token group 119: fluid spacing step maps 1rem=476px baseline rhythm */
+  --pik-rhythm-119: calc(119 * var(--pik-space-sm));
+  /* token group 121: fluid spacing step maps 1rem=484px baseline rhythm */
+  --pik-rhythm-121: calc(121 * var(--pik-space-sm));
+  /* token group 123: fluid spacing step maps 1rem=492px baseline rhythm */
+  --pik-rhythm-123: calc(123 * var(--pik-space-sm));
+  /* token group 125: fluid spacing step maps 1rem=500px baseline rhythm */
+  --pik-rhythm-125: calc(125 * var(--pik-space-sm));
+  /* token group 127: fluid spacing step maps 1rem=508px baseline rhythm */
+  --pik-rhythm-127: calc(127 * var(--pik-space-sm));
+  /* token group 129: fluid spacing step maps 1rem=516px baseline rhythm */
+  --pik-rhythm-129: calc(129 * var(--pik-space-sm));
+  /* token group 131: fluid spacing step maps 1rem=524px baseline rhythm */
+  --pik-rhythm-131: calc(131 * var(--pik-space-sm));
+  /* token group 133: fluid spacing step maps 1rem=532px baseline rhythm */
+  --pik-rhythm-133: calc(133 * var(--pik-space-sm));
+  /* token group 135: fluid spacing step maps 1rem=540px baseline rhythm */
+  --pik-rhythm-135: calc(135 * var(--pik-space-sm));
+  /* token group 137: fluid spacing step maps 1rem=548px baseline rhythm */
+  --pik-rhythm-137: calc(137 * var(--pik-space-sm));
+  /* token group 139: fluid spacing step maps 1rem=556px baseline rhythm */
+  --pik-rhythm-139: calc(139 * var(--pik-space-sm));
+  /* token group 141: fluid spacing step maps 1rem=564px baseline rhythm */
+  --pik-rhythm-141: calc(141 * var(--pik-space-sm));
+  /* token group 143: fluid spacing step maps 1rem=572px baseline rhythm */
+  --pik-rhythm-143: calc(143 * var(--pik-space-sm));
+  /* token group 145: fluid spacing step maps 1rem=580px baseline rhythm */
+  --pik-rhythm-145: calc(145 * var(--pik-space-sm));
+  /* token group 147: fluid spacing step maps 1rem=588px baseline rhythm */
+  --pik-rhythm-147: calc(147 * var(--pik-space-sm));
+  /* token group 149: fluid spacing step maps 1rem=596px baseline rhythm */
+  --pik-rhythm-149: calc(149 * var(--pik-space-sm));
+  /* token group 151: fluid spacing step maps 1rem=604px baseline rhythm */
+  --pik-rhythm-151: calc(151 * var(--pik-space-sm));
+  /* token group 153: fluid spacing step maps 1rem=612px baseline rhythm */
+  --pik-rhythm-153: calc(153 * var(--pik-space-sm));
+  /* token group 155: fluid spacing step maps 1rem=620px baseline rhythm */
+  --pik-rhythm-155: calc(155 * var(--pik-space-sm));
+  /* token group 157: fluid spacing step maps 1rem=628px baseline rhythm */
+  --pik-rhythm-157: calc(157 * var(--pik-space-sm));
+  /* token group 159: fluid spacing step maps 1rem=636px baseline rhythm */
+  --pik-rhythm-159: calc(159 * var(--pik-space-sm));
+  /* token group 161: fluid spacing step maps 1rem=644px baseline rhythm */
+  --pik-rhythm-161: calc(161 * var(--pik-space-sm));
+  /* token group 163: fluid spacing step maps 1rem=652px baseline rhythm */
+  --pik-rhythm-163: calc(163 * var(--pik-space-sm));
+  /* token group 165: fluid spacing step maps 1rem=660px baseline rhythm */
+  --pik-rhythm-165: calc(165 * var(--pik-space-sm));
+  /* token group 167: fluid spacing step maps 1rem=668px baseline rhythm */
+  --pik-rhythm-167: calc(167 * var(--pik-space-sm));
+  /* token group 169: fluid spacing step maps 1rem=676px baseline rhythm */
+  --pik-rhythm-169: calc(169 * var(--pik-space-sm));
+  /* token group 171: fluid spacing step maps 1rem=684px baseline rhythm */
+  --pik-rhythm-171: calc(171 * var(--pik-space-sm));
+  /* token group 173: fluid spacing step maps 1rem=692px baseline rhythm */
+  --pik-rhythm-173: calc(173 * var(--pik-space-sm));
+  /* token group 175: fluid spacing step maps 1rem=700px baseline rhythm */
+  --pik-rhythm-175: calc(175 * var(--pik-space-sm));
+  /* token group 177: fluid spacing step maps 1rem=708px baseline rhythm */
+  --pik-rhythm-177: calc(177 * var(--pik-space-sm));
+  /* token group 179: fluid spacing step maps 1rem=716px baseline rhythm */
+  --pik-rhythm-179: calc(179 * var(--pik-space-sm));
+  /* token group 181: fluid spacing step maps 1rem=724px baseline rhythm */
+  --pik-rhythm-181: calc(181 * var(--pik-space-sm));
+  /* token group 183: fluid spacing step maps 1rem=732px baseline rhythm */
+  --pik-rhythm-183: calc(183 * var(--pik-space-sm));
+  /* token group 185: fluid spacing step maps 1rem=740px baseline rhythm */
+  --pik-rhythm-185: calc(185 * var(--pik-space-sm));
+  /* token group 187: fluid spacing step maps 1rem=748px baseline rhythm */
+  --pik-rhythm-187: calc(187 * var(--pik-space-sm));
+  /* token group 189: fluid spacing step maps 1rem=756px baseline rhythm */
+  --pik-rhythm-189: calc(189 * var(--pik-space-sm));
+  /* token group 191: fluid spacing step maps 1rem=764px baseline rhythm */
+  --pik-rhythm-191: calc(191 * var(--pik-space-sm));
+  /* token group 193: fluid spacing step maps 1rem=772px baseline rhythm */
+  --pik-rhythm-193: calc(193 * var(--pik-space-sm));
+  /* token group 195: fluid spacing step maps 1rem=780px baseline rhythm */
+  --pik-rhythm-195: calc(195 * var(--pik-space-sm));
+  /* token group 197: fluid spacing step maps 1rem=788px baseline rhythm */
+  --pik-rhythm-197: calc(197 * var(--pik-space-sm));
+  /* token group 199: fluid spacing step maps 1rem=796px baseline rhythm */
+  --pik-rhythm-199: calc(199 * var(--pik-space-sm));
+  /* token group 201: fluid spacing step maps 1rem=804px baseline rhythm */
+  --pik-rhythm-201: calc(201 * var(--pik-space-sm));
+  /* token group 203: fluid spacing step maps 1rem=812px baseline rhythm */
+  --pik-rhythm-203: calc(203 * var(--pik-space-sm));
+  /* token group 205: fluid spacing step maps 1rem=820px baseline rhythm */
+  --pik-rhythm-205: calc(205 * var(--pik-space-sm));
+  /* token group 207: fluid spacing step maps 1rem=828px baseline rhythm */
+  --pik-rhythm-207: calc(207 * var(--pik-space-sm));
+  /* token group 209: fluid spacing step maps 1rem=836px baseline rhythm */
+  --pik-rhythm-209: calc(209 * var(--pik-space-sm));
+  /* token group 211: fluid spacing step maps 1rem=844px baseline rhythm */
+  --pik-rhythm-211: calc(211 * var(--pik-space-sm));
+  /* token group 213: fluid spacing step maps 1rem=852px baseline rhythm */
+  --pik-rhythm-213: calc(213 * var(--pik-space-sm));
+  /* token group 215: fluid spacing step maps 1rem=860px baseline rhythm */
+  --pik-rhythm-215: calc(215 * var(--pik-space-sm));
+  /* token group 217: fluid spacing step maps 1rem=868px baseline rhythm */
+  --pik-rhythm-217: calc(217 * var(--pik-space-sm));
+  /* token group 219: fluid spacing step maps 1rem=876px baseline rhythm */
+  --pik-rhythm-219: calc(219 * var(--pik-space-sm));
+  /* token group 221: fluid spacing step maps 1rem=884px baseline rhythm */
+  --pik-rhythm-221: calc(221 * var(--pik-space-sm));
+  /* token group 223: fluid spacing step maps 1rem=892px baseline rhythm */
+  --pik-rhythm-223: calc(223 * var(--pik-space-sm));
+  /* token group 225: fluid spacing step maps 1rem=900px baseline rhythm */
+  --pik-rhythm-225: calc(225 * var(--pik-space-sm));
+  /* token group 227: fluid spacing step maps 1rem=908px baseline rhythm */
+  --pik-rhythm-227: calc(227 * var(--pik-space-sm));
+  /* token group 229: fluid spacing step maps 1rem=916px baseline rhythm */
+  --pik-rhythm-229: calc(229 * var(--pik-space-sm));
+  /* token group 231: fluid spacing step maps 1rem=924px baseline rhythm */
+  --pik-rhythm-231: calc(231 * var(--pik-space-sm));
+  /* token group 233: fluid spacing step maps 1rem=932px baseline rhythm */
+  --pik-rhythm-233: calc(233 * var(--pik-space-sm));

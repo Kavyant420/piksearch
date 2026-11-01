@@ -260,3 +260,43 @@ canvas.og-gl {
     display: none;
   }
 }
+
+/* --- Extended monochrome utility layer (premium spacing, focus, glass helpers) --- */
+.pik-u-37-webgl-canvas-gap-1 { gap: calc(1 * var(--pik-space-xs, 4px)); }
+.pik-u-37-webgl-canvas-pad-1 { padding: calc(1 * var(--pik-space-xs, 4px)); }
+.pik-u-37-webgl-canvas-gap-2 { gap: calc(2 * var(--pik-space-xs, 4px)); }
+.pik-u-37-webgl-canvas-pad-2 { padding: calc(2 * var(--pik-space-xs, 4px)); }
+.pik-u-37-webgl-canvas-gap-3 { gap: calc(3 * var(--pik-space-xs, 4px)); }
+.pik-u-37-webgl-canvas-pad-3 { padding: calc(3 * var(--pik-space-xs, 4px)); }
+.pik-u-37-webgl-canvas-gap-4 { gap: calc(4 * var(--pik-space-xs, 4px)); }
+.pik-u-37-webgl-canvas-pad-4 { padding: calc(4 * var(--pik-space-xs, 4px)); }
+.pik-u-37-webgl-canvas-gap-5 { gap: calc(5 * var(--pik-space-xs, 4px)); }
+.pik-u-37-webgl-canvas-pad-5 { padding: calc(5 * var(--pik-space-xs, 4px)); }
+.pik-u-37-webgl-canvas-gap-6 { gap: calc(6 * var(--pik-space-xs, 4px)); }
+.pik-u-37-webgl-canvas-pad-6 { padding: calc(6 * var(--pik-space-xs, 4px)); }
+.pik-u-37-webgl-canvas-gap-7 { gap: calc(7 * var(--pik-space-xs, 4px)); }
+.pik-u-37-webgl-canvas-pad-7 { padding: calc(7 * var(--pik-space-xs, 4px)); }
+.pik-u-37-webgl-canvas-gap-8 { gap: calc(8 * var(--pik-space-xs, 4px)); }
+.pik-u-37-webgl-canvas-pad-8 { padding: calc(8 * var(--pik-space-xs, 4px)); }
+.pik-u-37-webgl-canvas-gap-9 { gap: calc(9 * var(--pik-space-xs, 4px)); }
+.pik-u-37-webgl-canvas-pad-9 { padding: calc(9 * var(--pik-space-xs, 4px)); }
+.pik-u-37-webgl-canvas-gap-10 { gap: calc(10 * var(--pik-space-xs, 4px)); }
+.pik-u-37-webgl-canvas-pad-10 { padding: calc(10 * var(--pik-space-xs, 4px)); }
+.pik-u-37-webgl-canvas-gap-11 { gap: calc(11 * var(--pik-space-xs, 4px)); }
+.pik-u-37-webgl-canvas-pad-11 { padding: calc(11 * var(--pik-space-xs, 4px)); }
+.pik-u-37-webgl-canvas-gap-12 { gap: calc(12 * var(--pik-space-xs, 4px)); }
+.pik-u-37-webgl-canvas-pad-12 { padding: calc(12 * var(--pik-space-xs, 4px)); }
+.pik-u-37-webgl-canvas-gap-13 { gap: calc(13 * var(--pik-space-xs, 4px)); }
+.pik-u-37-webgl-canvas-pad-13 { padding: calc(13 * var(--pik-space-xs, 4px)); }
+.pik-u-37-webgl-canvas-gap-14 { gap: calc(14 * var(--pik-space-xs, 4px)); }
+.pik-u-37-webgl-canvas-pad-14 { padding: calc(14 * var(--pik-space-xs, 4px)); }
+.pik-u-37-webgl-canvas-gap-15 { gap: calc(15 * var(--pik-space-xs, 4px)); }
+.pik-u-37-webgl-canvas-pad-15 { padding: calc(15 * var(--pik-space-xs, 4px)); }
+.pik-u-37-webgl-canvas-gap-16 { gap: calc(16 * var(--pik-space-xs, 4px)); }
+.pik-u-37-webgl-canvas-pad-16 { padding: calc(16 * var(--pik-space-xs, 4px)); }
+.pik-u-37-webgl-canvas-gap-17 { gap: calc(17 * var(--pik-space-xs, 4px)); }
+.pik-u-37-webgl-canvas-pad-17 { padding: calc(17 * var(--pik-space-xs, 4px)); }
+.pik-u-37-webgl-canvas-gap-18 { gap: calc(18 * var(--pik-space-xs, 4px)); }
+.pik-u-37-webgl-canvas-pad-18 { padding: calc(18 * var(--pik-space-xs, 4px)); }
+.pik-u-37-webgl-canvas-gap-19 { gap: calc(19 * var(--pik-space-xs, 4px)); }
+.pik-u-37-webgl-canvas-pad-19 { padding: calc(19 * var(--pik-space-xs, 4px)); }
