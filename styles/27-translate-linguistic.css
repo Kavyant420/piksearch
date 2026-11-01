@@ -133,3 +133,128 @@
   font-size: var(--og-text-xs);
   color: var(--og-text-muted);
 }
+
+.og-lang-row {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: var(--og-space-3);
+  align-items: center;
+}
+
+.og-lang-chip {
+  padding: var(--og-space-2) var(--og-space-4);
+  border-radius: var(--og-radius-pill);
+  border: 1px solid var(--og-hairline);
+  font-size: var(--og-text-sm);
+}
+
+.og-script {
+  unicode-bidi: isolate;
+}
+
+[lang] {
+  font-variant-ligatures: contextual;
+}
+
+.lang-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--og-space-4);
+}
+
+.translation-out {
+  padding: var(--og-space-4);
+  border-radius: var(--og-radius-lg);
+  background: var(--og-gray-1);
+  border: 1px solid var(--og-hairline);
+  min-block-size: 120px;
+}
+
+.detected-lang {
+  font-size: var(--og-text-xs);
+  color: var(--og-text-faint);
+}
+
+.swap-languages {
+  inline-size: 36px;
+  block-size: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--og-hairline);
+  background: transparent;
+  color: var(--og-text-muted);
+  cursor: pointer;
+}
+
+.swap-languages:hover {
+  color: var(--og-white);
+  transform: rotate(180deg);
+  transition: transform var(--og-dur-normal) var(--og-ease-spring);
+}
+
+@media (max-width: 640px) {
+  .lang-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+[dir="rtl"] {
+  text-align: right;
+}
+
+.translation-result {
+  padding: var(--og-space-4);
+  border-radius: var(--og-radius-lg);
+  background: var(--og-gray-1);
+}
+
+.phonetic {
+  font-family: var(--og-font-mono);
+  color: var(--og-text-muted);
+  font-size: var(--og-text-sm);
+}
+
+.definition-list li {
+  padding-block: var(--og-space-2);
+  border-block-end: 1px solid var(--og-hairline);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .swap-languages {
+    transition: none;
+  }
+}
+
+@media print {
+  .translation-out {
+    border: 1px solid #000;
+  }
+}
+
+.translation-in {
+  min-block-size: 90px;
+}
+
+.synonym-chip {
+  display: inline-block;
+  margin: 2px;
+  padding: 2px 8px;
+  border-radius: var(--og-radius-sm);
+  background: var(--og-gray-2);
+  font-size: var(--og-text-xs);
+}
+
+.language-select {
+  inline-size: 100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .translation-out {
+    transition: none;
+  }
+}
+
+@media print {
+  .swap-languages {
+    display: none;
+  }
+}

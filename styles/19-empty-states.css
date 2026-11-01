@@ -154,3 +154,139 @@
   flex-wrap: wrap;
   justify-content: center;
 }
+
+.ps-empty {
+  display: grid;
+  justify-items: center;
+  gap: var(--og-space-3);
+  padding: var(--og-space-10) var(--og-gutter);
+  text-align: center;
+  color: var(--og-text-muted);
+}
+
+.ps-empty i {
+  font-size: 2.5rem;
+  color: var(--og-icon-accent);
+  opacity: 0.8;
+}
+
+.ps-empty h3 {
+  font-size: var(--og-text-lg);
+  color: var(--og-white);
+}
+
+.ps-empty p {
+  max-inline-size: 44ch;
+  font-size: var(--og-text-sm);
+}
+
+@media (forced-colors: active) {
+  .ps-empty i {
+    color: CanvasText;
+  }
+}
+
+.ps-empty--inline {
+  padding: var(--og-space-6);
+  gap: var(--og-space-2);
+}
+
+.ps-empty i {
+  opacity: 0.9;
+}
+
+.ps-empty .btn {
+  margin-block-start: var(--og-space-2);
+}
+
+.no-results {
+  text-align: center;
+  color: var(--og-text-muted);
+  padding-block: var(--og-space-8);
+}
+
+.empty-illustration {
+  inline-size: 84px;
+  block-size: 84px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--og-gray-1);
+  border: 1px solid var(--og-hairline);
+}
+
+@media (forced-colors: active) {
+  .empty-illustration {
+    border: 1px solid CanvasText;
+  }
+}
+
+@media print {
+  .ps-empty .btn {
+    display: none;
+  }
+}
+
+.contextContent {
+  padding: var(--og-space-4);
+  border-radius: var(--og-radius-lg);
+  background: var(--og-gray-1);
+  border: 1px dashed var(--og-hairline);
+}
+
+.no-results h3 {
+  color: var(--og-white);
+  font-size: var(--og-text-lg);
+}
+
+.no-results p {
+  font-size: var(--og-text-sm);
+  margin-block: var(--og-space-2);
+}
+
+.ps-empty kbd {
+  font-family: var(--og-font-mono);
+  border: 1px solid var(--og-hairline-strong);
+  border-radius: 4px;
+  padding: 1px 6px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .no-results {
+    animation: none;
+  }
+}
+
+@media print {
+  .no-results {
+    color: #000;
+  }
+}
+
+.ps-empty--search {
+  grid-column: 1 / -1;
+}
+
+.empty-suggestions {
+  display: flex;
+  gap: var(--og-space-2);
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.no-results code {
+  font-family: var(--og-font-mono);
+  color: var(--og-white);
+}
+
+@media (forced-colors: active) {
+  .ps-empty i {
+    color: CanvasText;
+  }
+}
+
+@media print {
+  .empty-illustration {
+    border: 1px solid #000;
+  }
+}

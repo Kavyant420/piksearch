@@ -130,3 +130,177 @@
     animation: none;
   }
 }
+
+@keyframes ps-pulse {
+  0% { box-shadow: 0 0 0 0 rgba(255,255,255,0.35) } 70% { box-shadow: 0 0 0 12px rgba(255,255,255,0) } 100% { box-shadow: 0 0 0 0 rgba(255,255,255,0); }
+}
+
+@keyframes ps-fade-up {
+  from { opacity: 0; }
+  from { transform: translateY(12px) } to { opacity: 1; }
+  from { transform: none; }
+}
+
+@keyframes ps-shimmer {
+  from { background-position: -200% 0 } to { background-position: 200% 0; }
+}
+
+.ps-enter {
+  animation: ps-fade-up var(--og-dur-slow) var(--og-ease-spring) both;
+}
+
+.ps-enter-delay-1 {
+  animation-delay: 60ms;
+}
+
+.ps-enter-delay-2 {
+  animation-delay: 120ms;
+}
+
+.ps-enter-delay-3 {
+  animation-delay: 180ms;
+}
+
+.progress-bar {
+  position: fixed;
+  inset-block-start: 0;
+  inset-inline-start: 0;
+  block-size: 2px;
+  inline-size: 0;
+  z-index: calc(var(--og-z-tooltip) + 1);
+  background: var(--og-white);
+  box-shadow: 0 0 12px rgba(255,255,255,0.6);
+  transition: inline-size var(--og-dur-normal) var(--og-ease-standard);
+}
+
+.page-transition {
+  position: fixed;
+  inset: 0;
+  z-index: calc(var(--og-z-modal) + 10);
+  display: grid;
+  place-items: center;
+  background: var(--og-black-opaque);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity var(--og-dur-normal) var(--og-ease-standard);
+}
+
+.page-transition.is-active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: all;
+}
+
+.loader {
+  inline-size: 44px;
+  block-size: 44px;
+  border-radius: 50%;
+  border: 2px solid var(--og-gray-2);
+  border-block-start-color: var(--og-white);
+  animation: ps-spin 0.9s linear infinite;
+}
+
+@keyframes ps-spin {
+  to { transform: rotate(360deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ps-enter, .loader {
+    animation-duration: 1ms;
+    animation-iteration-count: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition-duration: 1ms !important;
+  }
+}
+
+.og-transition-fade {
+  transition: opacity var(--og-dur-normal) var(--og-ease-standard);
+}
+
+.og-transition-slide {
+  transition: transform var(--og-dur-normal) var(--og-ease-spring);
+}
+
+.stagger > *:nth-child(1) {
+  animation-delay: 0ms;
+}
+
+.stagger > *:nth-child(2) {
+  animation-delay: 40ms;
+}
+
+.stagger > *:nth-child(3) {
+  animation-delay: 80ms;
+}
+
+.stagger > *:nth-child(4) {
+  animation-delay: 120ms;
+}
+
+.stagger > *:nth-child(5) {
+  animation-delay: 160ms;
+}
+
+.stagger > *:nth-child(n+6) {
+  animation-delay: 200ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stagger > * {
+    animation-delay: 0ms;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .og-parallax {
+    will-change: transform;
+  }
+}
+
+.easterEgg {
+  position: fixed;
+  inset-block-end: var(--og-space-4);
+  inset-inline: 0;
+  text-align: center;
+  font-size: var(--og-text-xs);
+  color: var(--og-text-faint);
+  pointer-events: none;
+}
+
+@keyframes ps-confetti {
+  from { transform: translateY(-10vh) rotate(0deg); }
+  from { opacity: 1 } to { transform: translateY(110vh) rotate(720deg); }
+  from { opacity: 0; }
+}
+
+.confetti-piece {
+  position: fixed;
+  inset-block-start: 0;
+  inline-size: 8px;
+  block-size: 14px;
+  background: var(--og-white);
+  animation: ps-confetti 2.6s linear forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .confetti-piece {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .result-item {
+    animation: ps-fade-up var(--og-dur-slow) var(--og-ease-standard) both;
+  }
+}
+
+@media print {
+  * {
+    animation: none !important;
+  }
+}

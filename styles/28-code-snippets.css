@@ -157,3 +157,125 @@
   display: block;
   text-decoration: line-through;
 }
+
+.og-code {
+  position: relative;
+}
+
+.og-code__copy {
+  position: absolute;
+  inset-block-start: var(--og-space-2);
+  inset-inline-end: var(--og-space-2);
+  padding: 4px 10px;
+  border-radius: var(--og-radius-sm);
+  border: 1px solid var(--og-hairline);
+  background: var(--og-surface-raised);
+  color: var(--og-text-muted);
+  cursor: pointer;
+  font-size: var(--og-text-xs);
+}
+
+.og-code__copy:hover {
+  color: var(--og-white);
+}
+
+@media print {
+  .og-code__copy {
+    display: none;
+  }
+}
+
+.code-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--og-space-2) var(--og-space-4);
+  border-block-end: 1px solid var(--og-hairline);
+  font-size: var(--og-text-xs);
+  color: var(--og-text-muted);
+}
+
+.code-lang {
+  font-family: var(--og-font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.snippet-line {
+  display: block;
+  padding-inline: var(--og-space-4);
+}
+
+.snippet-line mark {
+  background: rgba(255,255,255,0.16);
+}
+
+.token-comment {
+  color: var(--og-text-faint);
+  font-style: italic;
+}
+
+.token-keyword {
+  color: var(--og-white);
+  font-weight: 700;
+}
+
+.token-string {
+  color: var(--og-gray-3);
+}
+
+@media print {
+  pre {
+    white-space: pre-wrap;
+  }
+}
+
+.code-snippet {
+  font-family: var(--og-font-mono);
+  font-size: var(--og-text-sm);
+}
+
+.snippet-lang {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: var(--og-text-xs);
+  color: var(--og-text-faint);
+}
+
+pre code {
+  display: block;
+  padding: var(--og-space-4);
+}
+
+@media (max-width: 600px) {
+  pre {
+    font-size: var(--og-text-xs);
+  }
+}
+
+@media (forced-colors: active) {
+  pre {
+    border: 1px solid CanvasText;
+  }
+}
+
+.code-body {
+  overflow-x: auto;
+}
+
+.copy-indicator {
+  font-size: var(--og-text-xs);
+  color: var(--og-text-faint);
+}
+
+@media (max-width: 600px) {
+  .code-head {
+    padding-inline: var(--og-space-2);
+  }
+}
+
+@media print {
+  .og-code {
+    border: 1px solid #000;
+  }
+}

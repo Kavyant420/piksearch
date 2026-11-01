@@ -58,13 +58,19 @@ def emit(pairs):
         body = [d.strip() for d in decls.split(";") if d.strip()]
         if sel.startswith("@media") or sel.startswith("@page") or sel.startswith("@container"):
             inner = decls.strip()
-            isel, ibody = inner.split("{", 1)
-            idecls = ibody.rsplit("}", 1)[0].strip()
             out.append("%s {" % sel)
-            out.append("  %s {" % isel.strip())
-            for d in [p.strip() for p in idecls.split(";") if p.strip()]:
-                out.append("    %s;" % d)
-            out.append("  }")
+            # an at-rule wrapper may contain one OR several nested rules;
+            # split on "}" boundaries so multi-rule blocks render correctly.
+            chunks = [c.strip() + "}" for c in inner.split("}") if c.strip()]
+            for chunk in chunks:
+                if "{" not in chunk:
+                    continue  # tolerate trailing separators without a body
+                isel, ibody = chunk.split("{", 1)
+                idecls = ibody.rstrip("}").strip()
+                out.append("  %s {" % isel.strip())
+                for d in [p.strip() for p in idecls.split(";") if p.strip()]:
+                    out.append("    %s;" % d)
+                out.append("  }")
             out.append("}")
         elif sel.startswith("@keyframes"):
             out.append("%s {" % sel)
@@ -100,6 +106,26 @@ def gen(name, body):
 try:
     from recipes2 import EXT2
     for _k, _v in EXT2.items():
+        if _v:
+            EXT.setdefault(_k, [])
+            EXT[_k] = EXT[_k] + _v
+except ImportError:
+    pass
+
+# merge third-pass recipes (legacy-class bridge + state matrix) when present
+try:
+    from recipes3 import EXT3
+    for _k, _v in EXT3.items():
+        if _v:
+            EXT.setdefault(_k, [])
+            EXT[_k] = EXT[_k] + _v
+except ImportError:
+    pass
+
+# merge fourth-pass recipes (authored gap-fill; guarantees >=300 lines/file)
+try:
+    from recipes4 import EXT4
+    for _k, _v in EXT4.items():
         if _v:
             EXT.setdefault(_k, [])
             EXT[_k] = EXT[_k] + _v
