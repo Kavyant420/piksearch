@@ -1,0 +1,131 @@
+/* =============================================================
+ * PikSearch — premium monochrome search interface
+ * File 24 · Audio Waveform
+ *
+ * Part of the open-glass-ui facade integration layer.
+ * Renderer contract: renderer="auto" (CSS-first default, WebGL only
+ * for an owned image/canvas/video source — see 37-webgl-canvas.css).
+ * Palette contract: pure black & white everywhere except icon glyphs.
+ * A11y contract: semantic DOM, accessible names preserved, reduced
+ * motion/transparency honoured, forced-colors fallbacks provided.
+ *
+ * License: MIT. Assets self-authored or public-domain/MIT.
+ * Inspiration references (non-copied): pmndrs/react-three-fiber,
+ * Uiverse community patterns, iOS 26 liquid-glass material language.
+ * ============================================================= */
+
+/* =============================================================
+ * PikSearch - 24-audio-waveform.css
+ * Podcast/voice result card with static waveform bars (monochrome),
+ * playhead sweep, speed pill.
+ * ============================================================= */
+@layer og.audio {
+  .og-audio {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: var(--og-space-4);
+  align-items: center;
+  padding: var(--og-space-4);
+}
+  .og-wave {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  block-size: 40px;
+}
+  .og-wave i {
+  inline-size: 3px;
+  border-radius: 2px;
+  background: var(--og-gray-2);
+}
+  .og-wave i.played {
+  background: var(--og-white);
+}
+  .og-audio.is-playing .og-wave i {
+  animation: og-pulse 1.2s ease-in-out infinite alternate;
+}
+  @keyframes og-pulse { from { transform: scaleY(0.7); } to { transform: scaleY(1.15); } }
+  .og-speed {
+  font-family: var(--og-font-mono);
+  font-size: var(--og-text-xs);
+  padding: var(--og-space-1) var(--og-space-2);
+  border: 1px solid var(--og-hairline-strong);
+  border-radius: var(--og-radius-pill);
+  cursor: pointer;
+  background: transparent;
+  color: inherit;
+}
+}
+
+/* --- Extended recipe set (component variants & states) --------- */
+
+.og-audio__meta {
+  display: grid;
+  gap: 2px;
+}
+
+.og-audio__show {
+  font-weight: 600;
+  font-size: var(--og-text-sm);
+}
+
+.og-audio__episode {
+  font-size: var(--og-text-xs);
+  color: var(--og-text-muted);
+}
+
+.og-audio__time {
+  font-family: var(--og-font-mono);
+  font-size: var(--og-text-xs);
+  color: var(--og-text-secondary);
+}
+
+.og-wave--dense i {
+  inline-size: 2px;
+}
+
+.og-wave__cursor {
+  position: absolute;
+  inset-block: 0;
+  inline-size: 2px;
+  background: var(--og-white);
+}
+
+.og-transcript-line {
+  display: grid;
+  grid-template-columns: 64px 1fr;
+  gap: var(--og-space-3);
+  padding: var(--og-space-2);
+  border-radius: 6px;
+  font-size: var(--og-text-sm);
+  color: var(--og-text-muted);
+}
+
+.og-transcript-line.is-active {
+  background: var(--og-accent-soft);
+  color: var(--og-white);
+}
+
+.og-transcript-line time {
+  font-family: var(--og-font-mono);
+  font-size: var(--og-text-xs);
+}
+
+.og-volume-mini {
+  inline-size: 60px;
+}
+
+.og-audio-queue {
+  display: grid;
+  gap: var(--og-space-2);
+  list-style: none;
+  padding: 0;
+}
+
+.og-audio-queue li {
+  display: flex;
+  justify-content: space-between;
+  padding: var(--og-space-2) var(--og-space-3);
+  border-radius: var(--og-radius-sm);
+  font-size: var(--og-text-sm);
+}

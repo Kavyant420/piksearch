@@ -1,0 +1,140 @@
+/* =============================================================
+ * PikSearch — premium monochrome search interface
+ * File 31 · Dark Theme Tokens
+ *
+ * Part of the open-glass-ui facade integration layer.
+ * Renderer contract: renderer="auto" (CSS-first default, WebGL only
+ * for an owned image/canvas/video source — see 37-webgl-canvas.css).
+ * Palette contract: pure black & white everywhere except icon glyphs.
+ * A11y contract: semantic DOM, accessible names preserved, reduced
+ * motion/transparency honoured, forced-colors fallbacks provided.
+ *
+ * License: MIT. Assets self-authored or public-domain/MIT.
+ * Inspiration references (non-copied): pmndrs/react-three-fiber,
+ * Uiverse community patterns, iOS 26 liquid-glass material language.
+ * ============================================================= */
+
+/* =============================================================
+ * PikSearch - 31-dark-theme-tokens.css
+ * The app ships black-first; this file defines the inverted "paper"
+ * theme (white bg / black ink) toggled via html[data-theme="paper"],
+ * plus auto-sync with prefers-color-scheme when data-theme="auto".
+ * ============================================================= */
+@layer og.theme {
+  html[data-theme="paper"] {
+    --og-bg: var(--og-white);
+    --og-bg-elevated: var(--og-white-50);
+    --og-text: var(--og-black);
+    --og-text-secondary: var(--og-black-700);
+    --og-text-muted: var(--og-black-500);
+    --og-text-faint: var(--og-black-600);
+    --og-surface: rgba(0,0,0,0.04);
+    --og-surface-strong: rgba(0,0,0,0.08);
+    --og-hairline: rgba(0,0,0,0.12);
+    --og-hairline-strong: rgba(0,0,0,0.22);
+    --og-accent: var(--og-black);
+    --og-on-accent: var(--og-white);
+    --og-focus-ring: rgba(0,0,0,0.85);
+    --og-glass-tint: rgba(255,255,255,0.55);
+    --og-glass-border-top: rgba(0,0,0,0.12);
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: light) {
+    html[data-theme="auto"] {
+      --og-bg: var(--og-white);
+      --og-text: var(--og-black);
+      --og-text-secondary: var(--og-black-700);
+      --og-surface: rgba(0,0,0,0.04);
+      --og-hairline: rgba(0,0,0,0.12);
+      --og-accent: var(--og-black);
+      --og-on-accent: var(--og-white);
+      color-scheme: light;
+    }
+  }
+  html[data-theme="paper"] body {
+  background: var(--og-white);
+}
+  html[data-theme="paper"] ::selection {
+  background: var(--og-black);
+  color: var(--og-white);
+}
+  html[data-theme="paper"] .og-search__submit {
+  background: var(--og-black);
+  color: var(--og-white);
+}
+  html[data-theme="paper"] .og-btn--filled {
+  background: var(--og-black);
+  color: var(--og-white);
+}
+}
+
+/* --- Extended recipe set (component variants & states) --------- */
+
+.og-theme-preview {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--og-space-4);
+}
+
+.og-theme-swatch--black {
+  background: var(--og-black);
+  border: 1px solid var(--og-hairline);
+  border-radius: var(--og-radius-lg);
+  block-size: 96px;
+}
+
+.og-theme-swatch--paper {
+  background: var(--og-white);
+  border-radius: var(--og-radius-lg);
+  block-size: 96px;
+}
+
+.og-theme-label {
+  font-size: var(--og-text-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--og-text-muted);
+  margin-block-start: var(--og-space-2);
+}
+
+.og-auto-flag {
+  font-size: var(--og-text-xs);
+  color: var(--og-text-faint);
+}
+
+.og-theme-toggle-row {
+  display: flex;
+  gap: var(--og-space-2);
+  align-items: center;
+}
+
+.og-contrast-demo {
+  padding: var(--og-space-3);
+  border-radius: var(--og-radius-md);
+  background: var(--og-surface);
+  border: 1px solid var(--og-hairline);
+}
+
+.og-inverted-panel {
+  background: var(--og-white);
+  color: var(--og-black);
+  border-radius: var(--og-radius-lg);
+  padding: var(--og-space-4);
+}
+
+.og-paper-only {
+  display: none;
+}
+
+html[data-theme='paper'] .og-paper-only {
+  display: block;
+}
+
+html[data-theme='paper'] .og-glass {
+  background: rgba(255,255,255,0.6);
+  color: var(--og-black);
+}
+
+html[data-theme='paper'] .og-grain {
+  opacity: 0.03;
+}

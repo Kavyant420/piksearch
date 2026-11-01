@@ -1,0 +1,135 @@
+/* =============================================================
+ * PikSearch — premium monochrome search interface
+ * File 27 · Translate Linguistic
+ *
+ * Part of the open-glass-ui facade integration layer.
+ * Renderer contract: renderer="auto" (CSS-first default, WebGL only
+ * for an owned image/canvas/video source — see 37-webgl-canvas.css).
+ * Palette contract: pure black & white everywhere except icon glyphs.
+ * A11y contract: semantic DOM, accessible names preserved, reduced
+ * motion/transparency honoured, forced-colors fallbacks provided.
+ *
+ * License: MIT. Assets self-authored or public-domain/MIT.
+ * Inspiration references (non-copied): pmndrs/react-three-fiber,
+ * Uiverse community patterns, iOS 26 liquid-glass material language.
+ * ============================================================= */
+
+/* =============================================================
+ * PikSearch - 27-translate-linguistic.css
+ * Translator card: dual-pane layout, character counter, swap button
+ * rotation animation, IPA line.
+ * ============================================================= */
+@layer og.i18n {
+  .og-translator {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: var(--og-space-4);
+  align-items: stretch;
+}
+  .og-trans-pane {
+  padding: var(--og-space-4);
+  min-block-size: 140px;
+}
+  .og-trans-pane textarea {
+  inline-size: 100%;
+  block-size: 100%;
+  resize: none;
+  background: transparent;
+  color: var(--og-white);
+  border: 0;
+  outline: none;
+}
+  .og-swap {
+  align-self: center;
+}
+  .og-swap:hover svg {
+  rotate: 180deg;
+  transition: rotate var(--og-dur-base) var(--og-ease-spring);
+}
+  .og-charcount {
+  text-align: end;
+  font-size: var(--og-text-xs);
+  color: var(--og-text-faint);
+}
+  .og-ipa {
+  font-family: var(--og-font-mono);
+  color: var(--og-text-muted);
+}
+}
+
+/* --- Extended recipe set (component variants & states) --------- */
+
+.og-lang-pick {
+  display: flex;
+  gap: var(--og-space-2);
+  align-items: center;
+  margin-block-end: var(--og-space-3);
+}
+
+.og-lang-pick select {
+  inline-size: auto;
+  padding: var(--og-space-1) var(--og-space-4);
+}
+
+.og-trans-out {
+  font-size: var(--og-text-lg);
+  min-block-size: 1.5em;
+}
+
+.og-alt-meanings {
+  display: grid;
+  gap: var(--og-space-2);
+  margin-block-start: var(--og-space-4);
+  list-style: none;
+  padding: 0;
+}
+
+.og-alt-meanings li {
+  font-size: var(--og-text-sm);
+  color: var(--og-text-secondary);
+  padding-inline-start: var(--og-space-4);
+  position: relative;
+}
+
+.og-alt-meanings li::before {
+  content: '\2022';
+  position: absolute;
+  inset-inline-start: 0;
+}
+
+.og-script-tag {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--og-text-faint);
+}
+
+.og-confidence-bar {
+  block-size: 4px;
+  border-radius: 4px;
+  background: var(--og-black-500);
+  overflow: hidden;
+  margin-block-start: var(--og-space-2);
+}
+
+.og-confidence-bar i {
+  display: block;
+  block-size: 100%;
+  background: var(--og-white);
+}
+
+.og-dictionary-entry dt {
+  font-weight: 700;
+  margin-block-start: var(--og-space-3);
+}
+
+.og-dictionary-entry dd {
+  color: var(--og-text-secondary);
+  font-size: var(--og-text-sm);
+  margin-inline-start: var(--og-space-4);
+}
+
+.og-trans-detected {
+  font-size: var(--og-text-xs);
+  color: var(--og-text-muted);
+}

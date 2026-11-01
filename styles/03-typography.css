@@ -1,0 +1,350 @@
+/* =============================================================
+ * PikSearch — premium monochrome search interface
+ * File 03 · Typography
+ *
+ * Part of the open-glass-ui facade integration layer.
+ * Renderer contract: renderer="auto" (CSS-first default, WebGL only
+ * for an owned image/canvas/video source — see 37-webgl-canvas.css).
+ * Palette contract: pure black & white everywhere except icon glyphs.
+ * A11y contract: semantic DOM, accessible names preserved, reduced
+ * motion/transparency honoured, forced-colors fallbacks provided.
+ *
+ * License: MIT. Assets self-authored or public-domain/MIT.
+ * Inspiration references (non-copied): pmndrs/react-three-fiber,
+ * Uiverse community patterns, iOS 26 liquid-glass material language.
+ * ============================================================= */
+
+/* =============================================================
+ * PikSearch - 03-typography.css
+ * Monochrome editorial type system: fluid display sizes, optical
+ * weights, tabular numerics for stats, disciplined measure lengths.
+ * ============================================================= */
+@layer og.type {
+  .og-display {
+  font-size: clamp(2.5rem, 1.6rem + 4vw, var(--og-text-4xl));
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  line-height: 1.05;
+}
+  .og-headline {
+  font-size: clamp(1.75rem, 1.3rem + 1.8vw, var(--og-text-3xl));
+  font-weight: 750;
+  letter-spacing: -0.025em;
+}
+  .og-title {
+  font-size: var(--og-text-xl);
+  font-weight: 650;
+  letter-spacing: -0.015em;
+}
+  .og-subtitle {
+  font-size: var(--og-text-lg);
+  font-weight: 500;
+  color: var(--og-text-secondary);
+}
+  .og-body {
+  font-size: var(--og-text-base);
+  color: var(--og-text-secondary);
+  max-inline-size: 65ch;
+}
+  .og-caption {
+  font-size: var(--og-text-xs);
+  color: var(--og-text-muted);
+  letter-spacing: 0.01em;
+}
+  .og-overline {
+  font-size: var(--og-text-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: var(--og-tracking-wide);
+  color: var(--og-text-faint);
+}
+  .og-quote {
+  font-size: var(--og-text-lg);
+  font-style: italic;
+  border-inline-start: 2px solid var(--og-hairline-strong);
+  padding-inline-start: var(--og-space-4);
+}
+  .og-num {
+  font-variant-numeric: tabular-nums lining-nums;
+}
+  .og-mark {
+  background: var(--og-white);
+  color: var(--og-black);
+  padding-inline: 0.15em;
+  border-radius: 3px;
+  font-weight: 600;
+}
+  .og-link {
+  color: var(--og-text);
+  text-decoration: underline;
+  text-decoration-color: var(--og-gray-2);
+  text-underline-offset: 0.18em;
+  transition: text-decoration-color var(--og-dur-fast);
+}
+  .og-link:hover {
+  text-decoration-color: var(--og-white);
+}
+  .og-kbd {
+  display: inline-block;
+  min-width: 1.6em;
+  padding: 0.15em 0.45em;
+  font-family: var(--og-font-mono);
+  font-size: 0.8em;
+  text-align: center;
+  background: var(--og-black-400);
+  border-radius: var(--og-radius-xs);
+  box-shadow: inset 0 -1px 0 rgba(0,0,0,0.6), 0 1px 0 rgba(255,255,255,0.08);
+}
+  .og-measure-narrow {
+  max-inline-size: 42ch;
+}
+  .og-measure-wide {
+  max-inline-size: 78ch;
+}
+  .og-flow > * + * {
+  margin-block-start: var(--og-space-4);
+}
+  .og-flow-lg > * + * {
+  margin-block-start: var(--og-space-6);
+}
+  h1.og-display, h2.og-headline {
+  text-wrap: balance;
+}
+  .og-dim {
+  color: var(--og-text-muted);
+}
+  .og-invert {
+  background: var(--og-white);
+  color: var(--og-black);
+}
+}
+
+/* --- Extended recipe set (component variants & states) --------- */
+
+.og-text-hero {
+  font-size: clamp(2.75rem, 2rem + 3.6vw, 4.5rem);
+  font-weight: 850;
+  letter-spacing: -0.04em;
+  line-height: 1.02;
+}
+
+.og-text-page {
+  font-size: var(--og-text-2xl);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.og-text-section {
+  font-size: var(--og-text-xl);
+  font-weight: 650;
+  letter-spacing: -0.01em;
+}
+
+.og-text-item {
+  font-size: var(--og-text-base);
+  font-weight: 500;
+}
+
+.og-text-meta {
+  font-size: var(--og-text-sm);
+  color: var(--og-text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.og-text-fine {
+  font-size: var(--og-text-xs);
+  line-height: 1.5;
+  color: var(--og-text-faint);
+}
+
+.og-text-data {
+  font-family: var(--og-font-mono);
+  font-size: var(--og-text-sm);
+  letter-spacing: 0;
+}
+
+.og-headline-group h2 + p {
+  margin-block-start: var(--og-space-2);
+  color: var(--og-text-secondary);
+}
+
+.og-display em {
+  font-style: normal;
+  color: var(--og-gray-5);
+}
+
+.og-title-row {
+  display: flex;
+  align-items: baseline;
+  gap: var(--og-space-3);
+  flex-wrap: wrap;
+}
+
+.og-truncate-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.og-truncate-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.og-hyphenate {
+  hyphens: auto;
+  overflow-wrap: anywhere;
+}
+
+.og-lr-balance {
+  text-align-last: balance;
+}
+
+.og-smallcaps {
+  font-variant-caps: all-small-caps;
+  letter-spacing: 0.06em;
+}
+
+.og-serif-accent {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-style: italic;
+}
+
+.og-letterhead {
+  font-size: var(--og-text-sm);
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--og-text-faint);
+}
+
+.og-stat-num {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 200;
+  letter-spacing: -0.04em;
+  font-variant-numeric: tabular-nums;
+}
+
+.og-label-pair dt {
+  color: var(--og-text-muted);
+  font-size: var(--og-text-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.og-label-pair dd {
+  margin: 0;
+  font-size: var(--og-text-base);
+  margin-block-end: var(--og-space-3);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .og-link {
+    transition: none;
+  }
+}
+
+@media (forced-colors: active) {
+  .og-mark {
+    background: Highlight;
+    color: HighlightText;
+  }
+}
+
+@media (forced-colors: active) {
+  .og-kbd {
+    border: 1px solid CanvasText;
+    background: Canvas;
+  }
+}
+
+@media print {
+  .og-caption, .og-overline {
+    color: #333;
+  }
+}
+
+@media print {
+  .og-quote {
+    border-inline-start-color: #000;
+  }
+}
+
+.og-display--tight {
+  letter-spacing: -0.05em;
+  line-height: 1.0;
+}
+
+.og-headline--loose {
+  line-height: 1.3;
+  letter-spacing: 0;
+}
+
+.og-title + .og-subtitle {
+  margin-block-start: var(--og-space-1);
+}
+
+.og-body--lead {
+  font-size: var(--og-text-lg);
+  color: var(--og-text-secondary);
+  max-inline-size: 60ch;
+}
+
+.og-caption--upper {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.og-num--big {
+  font-size: var(--og-text-3xl);
+  font-weight: 700;
+}
+
+.og-link--quiet {
+  text-decoration: none;
+}
+
+.og-link--quiet:hover {
+  text-decoration: underline;
+}
+
+.og-kbd-row {
+  display: flex;
+  gap: var(--og-space-1);
+  align-items: center;
+}
+
+.og-flow-x > * + * {
+  margin-inline-start: var(--og-space-3);
+}
+
+.og-measure-widget {
+  max-inline-size: 34ch;
+}
+
+.og-datetime {
+  font-variant-numeric: tabular-nums lining-nums;
+  color: var(--og-text-muted);
+}
+
+.og-url-path {
+  font-family: var(--og-font-mono);
+  font-size: var(--og-text-xs);
+  word-break: break-all;
+  color: var(--og-text-faint);
+}
+
+.og-phonetic {
+  font-family: var(--og-font-mono);
+  color: var(--og-gray-4);
+}
+
+.og-thin {
+  font-weight: 200;
+}
+
+.og-heavy {
+  font-weight: 900;
+}

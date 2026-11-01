@@ -1,0 +1,130 @@
+/* =============================================================
+ * PikSearch — premium monochrome search interface
+ * File 30 · Footer Legal
+ *
+ * Part of the open-glass-ui facade integration layer.
+ * Renderer contract: renderer="auto" (CSS-first default, WebGL only
+ * for an owned image/canvas/video source — see 37-webgl-canvas.css).
+ * Palette contract: pure black & white everywhere except icon glyphs.
+ * A11y contract: semantic DOM, accessible names preserved, reduced
+ * motion/transparency honoured, forced-colors fallbacks provided.
+ *
+ * License: MIT. Assets self-authored or public-domain/MIT.
+ * Inspiration references (non-copied): pmndrs/react-three-fiber,
+ * Uiverse community patterns, iOS 26 liquid-glass material language.
+ * ============================================================= */
+
+/* =============================================================
+ * PikSearch - 30-footer-legal.css
+ * Mega footer: link columns, language select, privacy-first badges.
+ * ============================================================= */
+@layer og.footer {
+  .og-footer {
+  margin-block-start: var(--og-space-9);
+  border-block-start: 1px solid var(--og-hairline);
+  padding-block: var(--og-space-8) var(--og-space-6);
+  background: var(--og-black-100);
+}
+  .og-footer__cols {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: var(--og-space-6);
+}
+  .og-footer h3 {
+  font-size: var(--og-text-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--og-text-faint);
+  margin-block-end: var(--og-space-3);
+}
+  .og-footer a {
+  display: block;
+  padding-block: var(--og-space-1);
+  color: var(--og-text-secondary);
+  font-size: var(--og-text-sm);
+  text-decoration: none;
+}
+  .og-footer a:hover {
+  color: var(--og-white);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+  .og-footer__bottom {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--og-space-4);
+  justify-content: space-between;
+  margin-block-start: var(--og-space-8);
+  padding-block-start: var(--og-space-4);
+  border-block-start: 1px solid var(--og-hairline);
+  color: var(--og-text-faint);
+  font-size: var(--og-text-xs);
+}
+}
+
+/* --- Extended recipe set (component variants & states) --------- */
+
+.og-footer__brand {
+  display: grid;
+  gap: var(--og-space-3);
+  max-inline-size: 28ch;
+}
+
+.og-footer__tagline {
+  font-size: var(--og-text-sm);
+  color: var(--og-text-muted);
+}
+
+.og-footer__badges {
+  display: flex;
+  gap: var(--og-space-3);
+  flex-wrap: wrap;
+}
+
+.og-priv-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--og-text-xs);
+  padding: 4px 10px;
+  border-radius: var(--og-radius-pill);
+  border: 1px solid var(--og-hairline-strong);
+  color: var(--og-text-secondary);
+}
+
+.og-footer__lang {
+  display: flex;
+  align-items: center;
+  gap: var(--og-space-2);
+}
+
+.og-footer__lang select {
+  inline-size: auto;
+}
+
+.og-footer__status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--og-text-xs);
+  color: var(--og-text-muted);
+}
+
+.og-status-dot {
+  inline-size: 8px;
+  block-size: 8px;
+  border-radius: 50%;
+  background: var(--og-white);
+  box-shadow: 0 0 8px rgba(255,255,255,0.6);
+}
+
+.og-footer__top-link {
+  text-decoration: none;
+}
+
+.og-legal-note {
+  max-inline-size: 70ch;
+  font-size: var(--og-text-xs);
+  color: var(--og-text-faint);
+  line-height: 1.7;
+}

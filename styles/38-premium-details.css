@@ -1,0 +1,134 @@
+/* =============================================================
+ * PikSearch — premium monochrome search interface
+ * File 38 · Premium Details
+ *
+ * Part of the open-glass-ui facade integration layer.
+ * Renderer contract: renderer="auto" (CSS-first default, WebGL only
+ * for an owned image/canvas/video source — see 37-webgl-canvas.css).
+ * Palette contract: pure black & white everywhere except icon glyphs.
+ * A11y contract: semantic DOM, accessible names preserved, reduced
+ * motion/transparency honoured, forced-colors fallbacks provided.
+ *
+ * License: MIT. Assets self-authored or public-domain/MIT.
+ * Inspiration references (non-copied): pmndrs/react-three-fiber,
+ * Uiverse community patterns, iOS 26 liquid-glass material language.
+ * ============================================================= */
+
+/* =============================================================
+ * PikSearch - 38-premium-details.css
+ * Micro-detail pass: hairline gradients, corner specular dots,
+ * inner glow on press, ultra-thin separators, luxury spacing rhythm.
+ * ============================================================= */
+@layer og.premium {
+  .og-hairline-top {
+  position: relative;
+}
+  .og-hairline-top::before {
+  content: "";
+  position: absolute;
+  inset-inline: 12%;
+  inset-block-start: 0;
+  block-size: 1px;
+  background: linear-gradient(90deg, transparent, var(--og-hairline-strong), transparent);
+}
+  .og-corner-spec {
+  position: relative;
+}
+  .og-corner-spec::after {
+  content: "";
+  position: absolute;
+  inline-size: 4px;
+  block-size: 4px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.5);
+  inset-block-start: 6px;
+  inset-inline-start: 10px;
+  filter: blur(0.5px);
+}
+  .og-press-glow:active {
+  box-shadow: inset 0 0 24px rgba(255,255,255,0.08);
+}
+  .og-lux-pad {
+  padding: clamp(var(--og-space-5), 4vw, var(--og-space-8));
+}
+  .og-rule-fade {
+  block-size: 1px;
+  border: 0;
+  background: linear-gradient(90deg, var(--og-hairline-strong), transparent);
+}
+  .og-shadow-layered {
+  box-shadow: 0 1px 1px rgba(255,255,255,0.04), 0 8px 24px rgba(0,0,0,0.6), 0 32px 64px rgba(0,0,0,0.5);
+}
+}
+
+/* --- Extended recipe set (component variants & states) --------- */
+
+.og-edge-light {
+  position: relative;
+  overflow: hidden;
+}
+
+.og-edge-light::before {
+  content: '';
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline: 20%;
+  block-size: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent);
+}
+
+.og-inner-bevel {
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.1), inset 0 -1px 0 rgba(0,0,0,0.4), inset 1px 0 0 rgba(255,255,255,0.04), inset -1px 0 0 rgba(255,255,255,0.04);
+}
+
+.og-depth-plate {
+  background: linear-gradient(180deg, rgba(255,255,255,0.05), transparent 40%), var(--og-black-200);
+  border-radius: var(--og-radius-xl);
+  box-shadow: var(--og-elev-3);
+}
+
+.og-whisper-border {
+  border: 1px solid rgba(255,255,255,0.06);
+}
+
+.og-metal-text {
+  background: linear-gradient(180deg, #fff 20%, #9a9a9a 60%, #e8e8e8 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.og-lux-divider {
+  block-size: 1px;
+  margin-block: var(--og-space-6);
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.35), transparent);
+  border: 0;
+}
+
+.og-spotlight {
+  background: radial-gradient(40% 60% at var(--sx, 50%) var(--sy, 30%), rgba(255,255,255,0.06), transparent 70%);
+}
+
+.og-notch-frame {
+  border-radius: 28px;
+  box-shadow: 0 0 0 1px rgba(255,255,255,0.08), 0 30px 60px -20px rgba(0,0,0,0.9);
+}
+
+.og-gilded-corner {
+  position: relative;
+}
+
+.og-gilded-corner::before {
+  content: '';
+  position: absolute;
+  inset-block-start: -1px;
+  inset-inline-end: 24px;
+  inline-size: 60px;
+  block-size: 2px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent);
+  border-radius: 2px;
+}
+
+.og-premium-shadow-text {
+  text-shadow: 0 1px 0 rgba(255,255,255,0.08), 0 -1px 0 rgba(0,0,0,0.6);
+}

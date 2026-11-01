@@ -1,0 +1,184 @@
+/* =============================================================
+ * PikSearch — premium monochrome search interface
+ * File 12 · Modals Overlays
+ *
+ * Part of the open-glass-ui facade integration layer.
+ * Renderer contract: renderer="auto" (CSS-first default, WebGL only
+ * for an owned image/canvas/video source — see 37-webgl-canvas.css).
+ * Palette contract: pure black & white everywhere except icon glyphs.
+ * A11y contract: semantic DOM, accessible names preserved, reduced
+ * motion/transparency honoured, forced-colors fallbacks provided.
+ *
+ * License: MIT. Assets self-authored or public-domain/MIT.
+ * Inspiration references (non-copied): pmndrs/react-three-fiber,
+ * Uiverse community patterns, iOS 26 liquid-glass material language.
+ * ============================================================= */
+
+/* =============================================================
+ * PikSearch - 12-modals-overlays.css
+ * Dialog sheet recipe with scrim, spring entry, focus-trap friendly
+ * structure. Uses semantic dialog where available.
+ * ============================================================= */
+@layer og.modal {
+  .og-modal {
+  position: fixed;
+  inset: 0;
+  z-index: var(--og-z-modal);
+  display: grid;
+  place-items: center;
+  padding: var(--og-gutter);
+  visibility: hidden;
+}
+  .og-modal[data-open="true"] {
+  visibility: visible;
+}
+  .og-modal__scrim {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.7);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  opacity: 0;
+  transition: opacity var(--og-dur-base);
+  border: 0;
+  cursor: pointer;
+}
+  .og-modal[data-open="true"] .og-modal__scrim {
+  opacity: 1;
+}
+  .og-modal__panel {
+  position: relative;
+  inline-size: min(560px, 100%);
+  max-block-size: 82vh;
+  overflow: auto;
+  padding: var(--og-space-6);
+  transform: translateY(24px) scale(0.96);
+  opacity: 0;
+  transition: transform var(--og-dur-slow) var(--og-ease-spring), opacity var(--og-dur-base);
+}
+  .og-modal[data-open="true"] .og-modal__panel {
+  transform: translateY(0) scale(1);
+  opacity: 1;
+}
+  .og-modal__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-block-end: var(--og-space-4);
+}
+  .og-modal__title {
+  font-size: var(--og-text-xl);
+}
+  .og-sheet {
+  border-radius: var(--og-radius-2xl) var(--og-radius-2xl) 0 0;
+  align-self: end;
+  inline-size: 100%;
+  max-inline-size: 720px;
+}
+  dialog.og-modal {
+  position: fixed;
+}
+  dialog.og-modal::backdrop {
+  background: transparent;
+}
+}
+
+/* --- Extended recipe set (component variants & states) --------- */
+
+.og-modal__body {
+  color: var(--og-text-secondary);
+  font-size: var(--og-text-sm);
+  display: grid;
+  gap: var(--og-space-3);
+}
+
+.og-modal__footer {
+  display: flex;
+  gap: var(--og-space-3);
+  justify-content: end;
+  margin-block-start: var(--og-space-6);
+}
+
+.og-modal--wide .og-modal__panel {
+  inline-size: min(880px, 100%);
+}
+
+.og-confirm__danger {
+  border: 1px solid var(--og-hairline-strong);
+  border-radius: var(--og-radius-md);
+  padding: var(--og-space-4);
+  background: var(--og-surface);
+}
+
+.og-command-palette {
+  align-self: start;
+  margin-block-start: 12vh;
+}
+
+.og-command-palette__input {
+  inline-size: 100%;
+  padding: var(--og-space-4);
+  font-size: var(--og-text-lg);
+  background: transparent;
+  border: 0;
+  border-block-end: 1px solid var(--og-hairline);
+  outline: none;
+  color: var(--og-white);
+}
+
+.og-command-palette__results {
+  display: grid;
+  gap: 2px;
+  padding-block: var(--og-space-3);
+  max-block-size: 50vh;
+  overflow: auto;
+}
+
+.og-command-palette__result {
+  display: flex;
+  justify-content: space-between;
+  padding: var(--og-space-2) var(--og-space-3);
+  border-radius: var(--og-radius-sm);
+  cursor: pointer;
+  font-size: var(--og-text-sm);
+}
+
+.og-command-palette__result.is-active {
+  background: var(--og-accent-soft);
+  color: var(--og-white);
+}
+
+.og-layer-count {
+  position: fixed;
+  inset-block-end: var(--og-space-4);
+  inset-inline-start: var(--og-space-4);
+  z-index: var(--og-z-tooltip);
+  font-size: 10px;
+  color: var(--og-text-faint);
+}
+
+.og-scroll-lock {
+  overflow: hidden;
+}
+
+.og-modal__close-corner {
+  position: absolute;
+  inset-block-start: var(--og-space-3);
+  inset-inline-end: var(--og-space-3);
+}
+
+.og-drawer-handle {
+  inline-size: 36px;
+  block-size: 4px;
+  border-radius: 4px;
+  background: var(--og-gray-2);
+  margin: var(--og-space-2) auto var(--og-space-4);
+}
+
+.og-overlay--dim {
+  background: rgba(0,0,0,0.4);
+}
+
+.og-nested-toast-host {
+  position: relative;
+}

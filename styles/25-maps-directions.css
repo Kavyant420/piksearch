@@ -1,0 +1,151 @@
+/* =============================================================
+ * PikSearch — premium monochrome search interface
+ * File 25 · Maps Directions
+ *
+ * Part of the open-glass-ui facade integration layer.
+ * Renderer contract: renderer="auto" (CSS-first default, WebGL only
+ * for an owned image/canvas/video source — see 37-webgl-canvas.css).
+ * Palette contract: pure black & white everywhere except icon glyphs.
+ * A11y contract: semantic DOM, accessible names preserved, reduced
+ * motion/transparency honoured, forced-colors fallbacks provided.
+ *
+ * License: MIT. Assets self-authored or public-domain/MIT.
+ * Inspiration references (non-copied): pmndrs/react-three-fiber,
+ * Uiverse community patterns, iOS 26 liquid-glass material language.
+ * ============================================================= */
+
+/* =============================================================
+ * PikSearch - 25-maps-directions.css
+ * Local pack: stylized map frame (grayscale tiles), pin markers,
+ * hours table, distance chips.
+ * ============================================================= */
+@layer og.maps {
+  .og-map-frame {
+  position: relative;
+  aspect-ratio: 16/10;
+  border-radius: var(--og-radius-lg);
+  overflow: hidden;
+  background: repeating-linear-gradient(45deg, var(--og-black-300) 0 12px, var(--og-black-200) 12px 24px);
+  filter: grayscale(1) contrast(1.1);
+}
+  .og-pin {
+  position: absolute;
+  translate: -50% -100%;
+}
+  .og-pin::before {
+  content: "";
+  display: block;
+  inline-size: 14px;
+  block-size: 14px;
+  border-radius: 50% 50% 50% 0;
+  rotate: -45deg;
+  background: var(--og-white);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.6);
+}
+  .og-hours {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--og-space-1) var(--og-space-4);
+  font-size: var(--og-text-sm);
+}
+  .og-hours [data-day="today"] {
+  color: var(--og-white);
+  font-weight: 600;
+}
+  .og-dist-chips {
+  display: flex;
+  gap: var(--og-space-2);
+  flex-wrap: wrap;
+  list-style: none;
+}
+}
+
+/* --- Extended recipe set (component variants & states) --------- */
+
+.og-map-controls {
+  position: absolute;
+  inset-inline-end: 10px;
+  inset-block-end: 10px;
+  display: grid;
+  gap: 6px;
+}
+
+.og-map-zoom-btn {
+  inline-size: 32px;
+  block-size: 32px;
+  border-radius: 8px;
+  display: grid;
+  place-items: center;
+  background: rgba(255,255,255,0.12);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.25);
+  color: var(--og-white);
+  cursor: pointer;
+}
+
+.og-local-pack {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--og-space-4);
+}
+
+.og-place-row {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: var(--og-space-3);
+  padding: var(--og-space-3);
+  border-block-end: 1px solid var(--og-hairline);
+  align-items: center;
+}
+
+.og-place-row:last-child {
+  border-block-end: 0;
+}
+
+.og-place-name {
+  font-weight: 600;
+  font-size: var(--og-text-sm);
+}
+
+.og-place-addr {
+  font-size: var(--og-text-xs);
+  color: var(--og-text-muted);
+}
+
+.og-rating-stars {
+  letter-spacing: 2px;
+  font-size: var(--og-text-xs);
+}
+
+.og-route-step {
+  display: grid;
+  grid-template-columns: 28px 1fr;
+  gap: var(--og-space-3);
+  font-size: var(--og-text-sm);
+  padding-block: var(--og-space-2);
+}
+
+.og-route-step__num {
+  inline-size: 28px;
+  block-size: 28px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--og-white);
+  color: var(--og-black);
+  font-weight: 800;
+  font-size: 12px;
+}
+
+.og-traffic-note {
+  font-size: var(--og-text-xs);
+  color: var(--og-text-muted);
+}
+
+.og-map-attribution {
+  position: absolute;
+  inset-block-end: 4px;
+  inset-inline-start: 8px;
+  font-size: 9px;
+  color: var(--og-text-faint);
+}

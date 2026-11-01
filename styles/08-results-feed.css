@@ -1,0 +1,264 @@
+/* =============================================================
+ * PikSearch — premium monochrome search interface
+ * File 08 · Results Feed
+ *
+ * Part of the open-glass-ui facade integration layer.
+ * Renderer contract: renderer="auto" (CSS-first default, WebGL only
+ * for an owned image/canvas/video source — see 37-webgl-canvas.css).
+ * Palette contract: pure black & white everywhere except icon glyphs.
+ * A11y contract: semantic DOM, accessible names preserved, reduced
+ * motion/transparency honoured, forced-colors fallbacks provided.
+ *
+ * License: MIT. Assets self-authored or public-domain/MIT.
+ * Inspiration references (non-copied): pmndrs/react-three-fiber,
+ * Uiverse community patterns, iOS 26 liquid-glass material language.
+ * ============================================================= */
+
+/* =============================================================
+ * PikSearch - 08-results-feed.css
+ * Organic result cards, sitelinks tree, pagination pills, infinite
+ * sentinel, sponsored label discipline (monochrome badges).
+ * ============================================================= */
+@layer og.results {
+  .og-result {
+  padding: var(--og-space-5);
+  margin-block-end: var(--og-space-4);
+}
+  .og-result__url {
+  display: flex;
+  align-items: center;
+  gap: var(--og-space-2);
+  font-size: var(--og-text-xs);
+  color: var(--og-text-muted);
+}
+  .og-result__favicon {
+  inline-size: 18px;
+  block-size: 18px;
+  border-radius: 4px;
+  background: var(--og-black-400);
+}
+  .og-result__title {
+  font-size: var(--og-text-lg);
+  color: var(--og-white);
+  text-decoration: none;
+}
+  .og-result__title:visited {
+  color: var(--og-gray-5);
+}
+  .og-result__title:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+  .og-result__snippet {
+  margin-block-start: var(--og-space-2);
+  color: var(--og-text-secondary);
+  font-size: var(--og-text-sm);
+}
+  .og-result__badges {
+  display: flex;
+  gap: var(--og-space-2);
+  margin-block-start: var(--og-space-3);
+}
+  .og-sitelinks {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: var(--og-space-2);
+  margin-block-start: var(--og-space-3);
+  list-style: none;
+}
+  .og-sitelink {
+  font-size: var(--og-text-sm);
+  color: var(--og-text-secondary);
+  padding: var(--og-space-2);
+  border-radius: var(--og-radius-xs);
+  text-decoration: none;
+}
+  .og-sitelink:hover {
+  background: var(--og-accent-soft);
+  color: var(--og-white);
+}
+  .og-sponsored {
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border: 1px solid var(--og-hairline-strong);
+  padding: 2px 6px;
+  border-radius: 3px;
+  color: var(--og-text-faint);
+}
+  .og-pagination {
+  display: flex;
+  justify-content: center;
+  gap: var(--og-space-2);
+  margin-block: var(--og-space-7);
+}
+  .og-page-btn {
+  inline-size: 40px;
+  block-size: 40px;
+  display: grid;
+  place-items: center;
+  border-radius: var(--og-radius-md);
+  color: var(--og-text-secondary);
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: all var(--og-dur-fast);
+  background: transparent;
+}
+  .og-page-btn:hover {
+  border-color: var(--og-hairline-strong);
+}
+  .og-page-btn[aria-current="page"] {
+  background: var(--og-white);
+  color: var(--og-black);
+  font-weight: 700;
+}
+  .og-sentinel {
+  block-size: 1px;
+}
+  .og-result--dense {
+  padding: var(--og-space-3);
+}
+  .og-result--dense .og-result__title {
+  font-size: var(--og-text-base);
+}
+}
+
+/* --- Extended recipe set (component variants & states) --------- */
+
+.og-result__actions {
+  display: flex;
+  gap: var(--og-space-2);
+  margin-block-start: var(--og-space-3);
+  opacity: 0;
+  transition: opacity var(--og-dur-fast);
+}
+
+.og-result:hover .og-result__actions,
+.og-result:focus-within .og-result__actions {
+  opacity: 1;
+}
+
+.og-result__thumb {
+  float: inline-end;
+  inline-size: 92px;
+  block-size: 68px;
+  border-radius: var(--og-radius-md);
+  margin-inline-start: var(--og-space-4);
+  object-fit: cover;
+  filter: grayscale(1);
+}
+
+.og-result__date {
+  font-variant-numeric: tabular-nums;
+}
+
+.og-feed {
+  display: grid;
+  gap: var(--og-space-4);
+  list-style: none;
+  padding: 0;
+}
+
+.og-feed--two-col {
+  grid-template-columns: repeat(auto-fill, minmax(min(340px, 100%), 1fr));
+}
+
+.og-result__highlight {
+  background: rgba(255,255,255,0.14);
+  border-radius: 2px;
+  padding-inline: 2px;
+}
+
+.og-result__rating {
+  letter-spacing: 0.1em;
+  color: var(--og-text-secondary);
+  font-size: var(--og-text-sm);
+}
+
+.og-result__breadcrumbs {
+  font-size: var(--og-text-xs);
+  color: var(--og-text-faint);
+  margin-block-start: var(--og-space-1);
+}
+
+.og-answer-direct {
+  padding: var(--og-space-5);
+  border-inline-start: 3px solid var(--og-white);
+}
+
+.og-answer-direct b {
+  font-size: var(--og-text-2xl);
+  font-variant-numeric: tabular-nums;
+}
+
+.og-people-also-ask {
+  display: grid;
+  gap: var(--og-space-2);
+  padding: var(--og-space-4);
+}
+
+.og-paa-item {
+  border-block-end: 1px solid var(--og-hairline);
+  padding: var(--og-space-3);
+  cursor: pointer;
+  font-size: var(--og-text-sm);
+}
+
+.og-paa-item:last-child {
+  border-block-end: 0;
+}
+
+.og-related-searches {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--og-space-2);
+  list-style: none;
+  padding: 0;
+}
+
+.og-related-searches a {
+  display: flex;
+  gap: var(--og-space-2);
+  align-items: center;
+  padding: var(--og-space-2);
+  color: var(--og-text-secondary);
+  text-decoration: none;
+  font-size: var(--og-text-sm);
+}
+
+.og-result--featured {
+  outline: 1px solid var(--og-hairline-strong);
+  outline-offset: 4px;
+}
+
+.og-rank-badge {
+  font-family: var(--og-font-mono);
+  font-size: 10px;
+  color: var(--og-text-faint);
+  margin-inline-end: var(--og-space-2);
+}
+
+.og-feed-density-toggle {
+  display: flex;
+  gap: var(--og-space-1);
+}
+
+.og-page-btn:focus-visible {
+  outline: 2px solid var(--og-focus-ring);
+  outline-offset: 2px;
+}
+
+.og-page-btn[aria-disabled='true'] {
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+.og-sitelink:focus-visible {
+  outline: 2px solid var(--og-focus-ring);
+  outline-offset: 2px;
+}
+
+.og-sitelink[aria-disabled='true'] {
+  opacity: 0.4;
+  pointer-events: none;
+}

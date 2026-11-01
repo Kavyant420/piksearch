@@ -1,0 +1,173 @@
+/* =============================================================
+ * PikSearch — premium monochrome search interface
+ * File 34 · Forced Colors High Contrast
+ *
+ * Part of the open-glass-ui facade integration layer.
+ * Renderer contract: renderer="auto" (CSS-first default, WebGL only
+ * for an owned image/canvas/video source — see 37-webgl-canvas.css).
+ * Palette contract: pure black & white everywhere except icon glyphs.
+ * A11y contract: semantic DOM, accessible names preserved, reduced
+ * motion/transparency honoured, forced-colors fallbacks provided.
+ *
+ * License: MIT. Assets self-authored or public-domain/MIT.
+ * Inspiration references (non-copied): pmndrs/react-three-fiber,
+ * Uiverse community patterns, iOS 26 liquid-glass material language.
+ * ============================================================= */
+
+/* =============================================================
+ * PikSearch - 34-forced-colors-high-contrast.css
+ * Comprehensive forced-colors fallbacks so every recipe remains
+ * legible under Windows high-contrast / macOS Increase Contrast.
+ * Backdrop effects removed; boundaries use system colors.
+ * ============================================================= */
+@layer og.a11y-forced {
+  @media (forced-colors: active) {
+    .og-btn, .og-iconbtn, .og-page-btn, .og-engine-chip, .og-tablist, .og-menu, .og-tip, .og-popover, .og-toast,
+    .og-input, .og-select, .og-textarea, .og-table-wrap, .og-codeblock, .og-thumb, .og-datebrick, .og-set-group,
+    .og-trans-pane {
+      background: Canvas !important;
+      color: CanvasText !important;
+      border: 1px solid CanvasText !important;
+      box-shadow: none !important;
+      forced-color-adjust: auto;
+    }
+    .og-btn--filled, .og-nav__link[aria-current="page"], .og-page-btn[aria-current="page"],
+    .og-tab[aria-selected="true"], .og-engine-chip[aria-pressed="true"] {
+      background: Highlight !important;
+      color: HighlightText !important;
+      border-color: Highlight !important;
+    }
+    .og-switch__track {
+  border: 1px solid CanvasText;
+  background: Canvas;
+}
+    .og-switch__thumb {
+  background: CanvasText;
+}
+    .og-switch input:checked ~ .og-switch__track {
+  background: Highlight;
+}
+    .og-range__fill {
+  background: Highlight;
+}
+    .og-range input::-webkit-slider-thumb, .og-range input::-moz-range-thumb {
+  background: CanvasText;
+  border: 1px solid CanvasText;
+}
+    .og-tab-indicator {
+  background: Highlight;
+}
+    .og-skel {
+  background: Canvas;
+  border: 1px dashed CanvasText;
+}
+    .og-skel::after {
+  display: none;
+}
+    .og-spinner {
+  border-color: CanvasText;
+  border-block-start-color: Highlight;
+}
+    .og-glass::before, .og-glass::after, .og-grain, .og-vignette {
+  display: none !important;
+}
+    a, .og-result__title {
+  color: LinkText !important;
+}
+    a:visited, .og-result__title:visited {
+  color: VisitedText !important;
+}
+    :focus-visible {
+  outline: 2px solid Highlight !important;
+  outline-offset: 2px;
+}
+  }
+}
+
+/* --- Extended recipe set (component variants & states) --------- */
+
+@media (forced-colors: active) {
+  .og-empty__art .stroke {
+    stroke: CanvasText;
+  }
+}
+
+@media (forced-colors: active) {
+  .og-empty__art .accent {
+    fill: CanvasText;
+  }
+}
+
+@media (forced-colors: active) {
+  .og-datebrick {
+    background: Canvas;
+    color: CanvasText;
+  }
+}
+
+@media (forced-colors: active) {
+  .og-route-step__num {
+    background: CanvasText;
+    color: Canvas;
+  }
+}
+
+@media (forced-colors: active) {
+  .og-badge-count {
+    background: CanvasText;
+    color: Canvas;
+  }
+}
+
+@media (forced-colors: active) {
+  .og-status-dot {
+    background: CanvasText;
+    box-shadow: none;
+  }
+}
+
+@media (forced-colors: active) {
+  .og-mark {
+    background: Highlight;
+    color: HighlightText;
+  }
+}
+
+@media (forced-colors: active) {
+  .og-search__submit {
+    background: ButtonFace;
+    color: ButtonText;
+    border: 1px solid ButtonText;
+  }
+}
+
+@media (forced-colors: active) {
+  .og-tab-indicator {
+    display: none;
+  }
+}
+
+@media (forced-colors: active) {
+  .og-tab[aria-selected='true'] {
+    border: 2px solid Highlight;
+  }
+}
+
+@media (forced-colors: active) {
+  .og-grain, .og-vignette, .og-hero-canvas {
+    display: none !important;
+  }
+}
+
+@media (forced-colors: active) {
+  .og-marquee__track {
+    animation: none;
+  }
+}
+
+@media (forced-colors: active) {
+  .og-fab {
+    background: Canvas;
+    border: 1px solid CanvasText;
+  }
+}

@@ -1,0 +1,190 @@
+/* =============================================================
+ * PikSearch — premium monochrome search interface
+ * File 40 · Integration Open Glass
+ *
+ * Part of the open-glass-ui facade integration layer.
+ * Renderer contract: renderer="auto" (CSS-first default, WebGL only
+ * for an owned image/canvas/video source — see 37-webgl-canvas.css).
+ * Palette contract: pure black & white everywhere except icon glyphs.
+ * A11y contract: semantic DOM, accessible names preserved, reduced
+ * motion/transparency honoured, forced-colors fallbacks provided.
+ *
+ * License: MIT. Assets self-authored or public-domain/MIT.
+ * Inspiration references (non-copied): pmndrs/react-three-fiber,
+ * Uiverse community patterns, iOS 26 liquid-glass material language.
+ * ============================================================= */
+
+/* =============================================================
+ * PikSearch - 40-integration-open-glass.css
+ * Bridge layer between local recipes and the public open-glass-ui
+ * facade. open-glass-ui/styles.css is imported ONCE from here. These
+ * rules harmonize og-* namespaced classes with our tokens so either
+ * naming works without duplication. renderer="auto": CSS renders by
+ * default; scripts/03-glass-renderer.js upgrades marked hosts.
+ * ============================================================= */
+@import "open-glass-ui/styles.css";
+
+@layer og.bridge {
+  :root {
+  --ogui-blur: var(--og-glass-blur);
+  --ogui-tint: var(--og-glass-tint);
+  --ogui-radius: var(--og-radius-fluid);
+}
+  .ogui-glass {
+  background: var(--og-glass-tint);
+  border-radius: var(--og-radius-fluid);
+}
+  .ogui-glass .ogui-label, [data-og-role="label"] {
+  font-size: var(--og-text-xs);
+  color: var(--og-text-muted);
+}
+  .og-panel {
+  padding: var(--og-space-4);
+  border-radius: var(--og-radius-lg);
+  background: var(--og-surface);
+  border: 1px solid var(--og-hairline);
+}
+  .og-panel--glass {
+  background: var(--og-glass-tint);
+  -webkit-backdrop-filter: var(--og-glass-blur);
+  backdrop-filter: var(--og-glass-blur);
+  border-color: var(--og-glass-border-top);
+}
+  @media (forced-colors: active) { .ogui-glass, .og-panel { background: Canvas; border: 1px solid CanvasText; backdrop-filter: none; -webkit-backdrop-filter: none; } }
+  @media (prefers-reduced-transparency: reduce) { .ogui-glass, .og-panel--glass { backdrop-filter: none; -webkit-backdrop-filter: none; background: var(--og-black-300); } }
+}
+
+/* --- Extended recipe set (component variants & states) --------- */
+
+.ogui-btn {
+  border-radius: var(--og-radius-pill);
+  padding: var(--og-space-2) var(--og-space-5);
+  background: var(--og-glass-tint-strong);
+  border: 1px solid var(--og-glass-border-top);
+  color: var(--og-text);
+  cursor: pointer;
+  backdrop-filter: var(--og-glass-blur-thin);
+  -webkit-backdrop-filter: var(--og-glass-blur-thin);
+}
+
+.ogui-btn:hover {
+  background: var(--og-surface-strong);
+}
+
+.ogui-btn--primary {
+  background: var(--og-white);
+  color: var(--og-black);
+  border-color: transparent;
+}
+
+.ogui-toggle {
+  inline-size: 51px;
+  block-size: 31px;
+  border-radius: var(--og-radius-pill);
+  background: var(--og-black-500);
+  position: relative;
+  border: 1px solid var(--og-hairline);
+  cursor: pointer;
+}
+
+.ogui-toggle[aria-checked='true'] {
+  background: var(--og-white);
+}
+
+.ogui-toggle::after {
+  content: '';
+  position: absolute;
+  inset-block-start: 2px;
+  inset-inline-start: 2px;
+  inline-size: 25px;
+  block-size: 25px;
+  border-radius: 50%;
+  background: var(--og-white);
+  transition: translate var(--og-dur-base) var(--og-ease-spring);
+}
+
+.ogui-toggle[aria-checked='true']::after {
+  translate: 20px 0;
+  background: var(--og-black);
+}
+
+.ogui-slider {
+  appearance: none;
+  inline-size: 100%;
+  block-size: 4px;
+  border-radius: 4px;
+  background: var(--og-black-500);
+}
+
+.ogui-slider::-webkit-slider-thumb {
+  appearance: none;
+  inline-size: 20px;
+  block-size: 20px;
+  border-radius: 50%;
+  background: var(--og-white);
+  box-shadow: var(--og-elev-2);
+}
+
+.ogui-field {
+  display: grid;
+  gap: var(--og-space-2);
+}
+
+.ogui-input {
+  padding: var(--og-space-3);
+  border-radius: var(--og-radius-md);
+  background: var(--og-glass-tint);
+  border: 1px solid var(--og-glass-border-top);
+  color: var(--og-text);
+}
+
+.ogui-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: var(--og-radius-pill);
+  background: var(--og-glass-tint-strong);
+  border: 1px solid var(--og-hairline);
+  font-size: var(--og-text-xs);
+}
+
+.ogui-chip button {
+  all: unset;
+  cursor: pointer;
+  inline-size: 14px;
+  display: grid;
+  place-items: center;
+}
+
+.ogui-panel--elevated {
+  box-shadow: var(--og-glass-shadow);
+}
+
+.ogui-separator {
+  block-size: 1px;
+  background: var(--og-hairline);
+  border: 0;
+  margin-block: var(--og-space-3);
+}
+
+.ogui-heading {
+  font-size: var(--og-text-sm);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--og-text-muted);
+}
+
+.ogui-hint {
+  font-size: var(--og-text-xs);
+  color: var(--og-text-faint);
+}
+
+.ogui-theme-sync {
+  color-scheme: dark;
+}
+
+html[data-theme='paper'] .ogui-theme-sync {
+  color-scheme: light;
+}

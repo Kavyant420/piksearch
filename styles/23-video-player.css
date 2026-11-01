@@ -1,0 +1,158 @@
+/* =============================================================
+ * PikSearch — premium monochrome search interface
+ * File 23 · Video Player
+ *
+ * Part of the open-glass-ui facade integration layer.
+ * Renderer contract: renderer="auto" (CSS-first default, WebGL only
+ * for an owned image/canvas/video source — see 37-webgl-canvas.css).
+ * Palette contract: pure black & white everywhere except icon glyphs.
+ * A11y contract: semantic DOM, accessible names preserved, reduced
+ * motion/transparency honoured, forced-colors fallbacks provided.
+ *
+ * License: MIT. Assets self-authored or public-domain/MIT.
+ * Inspiration references (non-copied): pmndrs/react-three-fiber,
+ * Uiverse community patterns, iOS 26 liquid-glass material language.
+ * ============================================================= */
+
+/* =============================================================
+ * PikSearch - 23-video-player.css
+ * Video result card: owned video source (WebGL-glass eligible),
+ * custom monochrome transport controls over a glass bar.
+ * ============================================================= */
+@layer og.video {
+  .og-video {
+  position: relative;
+  border-radius: var(--og-radius-xl);
+  overflow: hidden;
+  background: var(--og-black);
+}
+  .og-video video {
+  inline-size: 100%;
+  display: block;
+}
+  .og-video__controls {
+  position: absolute;
+  inset-inline: var(--og-space-3);
+  inset-block-end: var(--og-space-3);
+  display: flex;
+  align-items: center;
+  gap: var(--og-space-3);
+  padding: var(--og-space-2) var(--og-space-3);
+}
+  .og-video__scrub {
+  flex: 1;
+  position: relative;
+  block-size: 4px;
+  border-radius: 4px;
+  background: rgba(255,255,255,0.25);
+  cursor: pointer;
+  border: 0;
+  padding: 0;
+}
+  .og-video__played {
+  position: absolute;
+  inset: 0 auto 0 0;
+  block-size: 100%;
+  border-radius: 4px;
+  background: var(--og-white);
+}
+  .og-video__time {
+  font-family: var(--og-font-mono);
+  font-size: var(--og-text-xs);
+  color: var(--og-text-secondary);
+}
+  .og-video:not(:hover):not(:focus-within) .og-video__controls {
+  opacity: 0;
+  transform: translateY(8px);
+  transition: all var(--og-dur-base);
+}
+}
+
+/* --- Extended recipe set (component variants & states) --------- */
+
+.og-video__poster-shade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(transparent 60%, rgba(0,0,0,0.7));
+  pointer-events: none;
+}
+
+.og-video__bigplay {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+}
+
+.og-video__bigplay span {
+  inline-size: 72px;
+  block-size: 72px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: rgba(255,255,255,0.14);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.3);
+}
+
+.og-video__volume {
+  inline-size: 64px;
+}
+
+.og-video__menu {
+  position: absolute;
+  inset-block-end: 56px;
+  inset-inline-end: 12px;
+  inline-size: 220px;
+}
+
+.og-video__chapter {
+  position: absolute;
+  top: 0;
+  block-size: 100%;
+  border-inline-start: 2px solid rgba(0,0,0,0.8);
+}
+
+.og-video__buffered {
+  position: absolute;
+  inset: 0 auto 0 0;
+  block-size: 100%;
+  background: rgba(255,255,255,0.15);
+  border-radius: 4px;
+}
+
+.og-video__badge-live {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  padding: 2px 8px;
+  border-radius: 4px;
+  background: var(--og-white);
+  color: var(--og-black);
+}
+
+.og-video__duration {
+  position: absolute;
+  inset-block-end: 64px;
+  inset-inline-end: 12px;
+  font-family: var(--og-font-mono);
+  font-size: var(--og-text-xs);
+  background: rgba(0,0,0,0.7);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.og-video.is-fullscreen {
+  position: fixed;
+  inset: 0;
+  border-radius: 0;
+  z-index: var(--og-z-modal);
+}
+
+.og-video__speed[aria-pressed='true'] {
+  background: var(--og-white);
+  color: var(--og-black);
+}

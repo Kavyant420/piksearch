@@ -1,0 +1,276 @@
+/* =============================================================
+ * PikSearch — premium monochrome search interface
+ * File 11 · Forms Inputs
+ *
+ * Part of the open-glass-ui facade integration layer.
+ * Renderer contract: renderer="auto" (CSS-first default, WebGL only
+ * for an owned image/canvas/video source — see 37-webgl-canvas.css).
+ * Palette contract: pure black & white everywhere except icon glyphs.
+ * A11y contract: semantic DOM, accessible names preserved, reduced
+ * motion/transparency honoured, forced-colors fallbacks provided.
+ *
+ * License: MIT. Assets self-authored or public-domain/MIT.
+ * Inspiration references (non-copied): pmndrs/react-three-fiber,
+ * Uiverse community patterns, iOS 26 liquid-glass material language.
+ * ============================================================= */
+
+/* =============================================================
+ * PikSearch - 11-forms-inputs.css
+ * Settings form primitives: labeled fields, selects, switches, radio
+ * rows. Every control carries a visible accessible label.
+ * ============================================================= */
+@layer og.forms {
+  .og-field {
+  display: grid;
+  gap: var(--og-space-2);
+  margin-block-end: var(--og-space-5);
+}
+  .og-field__label {
+  font-size: var(--og-text-sm);
+  font-weight: 600;
+  color: var(--og-text-secondary);
+}
+  .og-field__hint {
+  font-size: var(--og-text-xs);
+  color: var(--og-text-muted);
+}
+  .og-input, .og-select, .og-textarea {
+  inline-size: 100%;
+  padding: var(--og-space-3) var(--og-space-4);
+  background: var(--og-surface);
+  border: 1px solid var(--og-hairline);
+  border-radius: var(--og-radius-md);
+  color: var(--og-white);
+  transition: border-color var(--og-dur-fast), background var(--og-dur-fast);
+}
+  .og-input:hover, .og-select:hover {
+  border-color: var(--og-hairline-strong);
+}
+  .og-input:focus, .og-select:focus, .og-textarea:focus {
+  border-color: var(--og-white);
+  background: var(--og-surface-strong);
+  outline: none;
+}
+  .og-select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23ffffff'%3E%3Cpath d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+}
+  .og-switch {
+  position: relative;
+  inline-size: 51px;
+  block-size: 31px;
+  display: inline-block;
+}
+  .og-switch input {
+  position: absolute;
+  opacity: 0;
+  inline-size: 100%;
+  block-size: 100%;
+  margin: 0;
+  cursor: pointer;
+}
+  .og-switch__track {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--og-radius-pill);
+  background: var(--og-black-500);
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.6);
+  transition: background var(--og-dur-base) var(--og-ease-standard);
+  pointer-events: none;
+}
+  .og-switch__thumb {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  inline-size: 27px;
+  block-size: 27px;
+  border-radius: 50%;
+  background: var(--og-white);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.5);
+  transition: translate var(--og-dur-base) var(--og-ease-spring);
+  pointer-events: none;
+}
+  .og-switch input:checked ~ .og-switch__track {
+  background: var(--og-white);
+}
+  .og-switch input:checked ~ .og-switch__thumb {
+  translate: 20px 0;
+  background: var(--og-black);
+}
+  .og-switch input:focus-visible ~ .og-switch__track {
+  outline: 2px solid var(--og-focus-ring);
+  outline-offset: 2px;
+}
+  .og-radio-row {
+  display: flex;
+  align-items: center;
+  gap: var(--og-space-3);
+  padding: var(--og-space-3);
+  border-radius: var(--og-radius-md);
+  cursor: pointer;
+}
+  .og-radio-row:hover {
+  background: var(--og-surface);
+}
+  .og-radio-row input {
+  accent-color: var(--og-white);
+  inline-size: 18px;
+  block-size: 18px;
+}
+}
+
+/* --- Extended recipe set (component variants & states) --------- */
+
+.og-field-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--og-space-4);
+}
+
+.og-input-group {
+  display: flex;
+  align-items: stretch;
+}
+
+.og-input-group .og-input {
+  border-start-end-radius: 0;
+  border-end-end-radius: 0;
+}
+
+.og-input-group__addon {
+  display: grid;
+  place-items: center;
+  padding-inline: var(--og-space-3);
+  background: var(--og-surface-strong);
+  border: 1px solid var(--og-hairline);
+  border-inline-start: 0;
+  border-radius: 0 var(--og-radius-md) var(--og-radius-md) 0;
+  color: var(--og-text-muted);
+  font-size: var(--og-text-sm);
+}
+
+.og-checkbox {
+  appearance: none;
+  inline-size: 20px;
+  block-size: 20px;
+  border: 1.5px solid var(--og-hairline-strong);
+  border-radius: 6px;
+  display: inline-grid;
+  place-content: center;
+  cursor: pointer;
+  background: transparent;
+}
+
+.og-checkbox:checked {
+  background: var(--og-white);
+  border-color: var(--og-white);
+}
+
+.og-checkbox:checked::after {
+  content: '\2713';
+  color: var(--og-black);
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.og-checkbox:focus-visible {
+  outline: 2px solid var(--og-focus-ring);
+  outline-offset: 2px;
+}
+
+.og-textarea {
+  min-block-size: 96px;
+  resize: vertical;
+}
+
+.og-form-actions {
+  display: flex;
+  gap: var(--og-space-3);
+  justify-content: end;
+  margin-block-start: var(--og-space-5);
+}
+
+.og-fieldset {
+  border: 1px solid var(--og-hairline);
+  border-radius: var(--og-radius-lg);
+  padding: var(--og-space-4);
+  display: grid;
+  gap: var(--og-space-3);
+}
+
+.og-legend {
+  font-size: var(--og-text-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--og-text-muted);
+  padding-inline: var(--og-space-2);
+}
+
+.og-stepper {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--og-hairline-strong);
+  border-radius: var(--og-radius-pill);
+  overflow: hidden;
+}
+
+.og-stepper button {
+  inline-size: 34px;
+  block-size: 34px;
+  border: 0;
+  background: transparent;
+  color: var(--og-text-secondary);
+  cursor: pointer;
+  font-size: var(--og-text-lg);
+}
+
+.og-stepper output {
+  min-inline-size: 40px;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+
+.og-slider-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--og-text-xs);
+  color: var(--og-text-muted);
+}
+
+.og-form-error-summary {
+  border: 1px solid var(--og-white);
+  border-radius: var(--og-radius-md);
+  padding: var(--og-space-3);
+  font-size: var(--og-text-sm);
+}
+
+.og-required-indicator {
+  font-size: var(--og-text-xs);
+  color: var(--og-text-muted);
+}
+
+.og-autogrow {
+  field-sizing: content;
+}
+
+.og-radio-row:focus-visible {
+  outline: 2px solid var(--og-focus-ring);
+  outline-offset: 2px;
+}
+
+.og-radio-row[aria-disabled='true'] {
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+.og-stepper button:focus-visible {
+  outline: 2px solid var(--og-focus-ring);
+  outline-offset: 2px;
+}
+
+.og-stepper button[aria-disabled='true'] {
+  opacity: 0.4;
+  pointer-events: none;
+}

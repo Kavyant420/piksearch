@@ -1,0 +1,182 @@
+/* =============================================================
+ * PikSearch — premium monochrome search interface
+ * File 21 · Hero Landing
+ *
+ * Part of the open-glass-ui facade integration layer.
+ * Renderer contract: renderer="auto" (CSS-first default, WebGL only
+ * for an owned image/canvas/video source — see 37-webgl-canvas.css).
+ * Palette contract: pure black & white everywhere except icon glyphs.
+ * A11y contract: semantic DOM, accessible names preserved, reduced
+ * motion/transparency honoured, forced-colors fallbacks provided.
+ *
+ * License: MIT. Assets self-authored or public-domain/MIT.
+ * Inspiration references (non-copied): pmndrs/react-three-fiber,
+ * Uiverse community patterns, iOS 26 liquid-glass material language.
+ * ============================================================= */
+
+/* =============================================================
+ * PikSearch - 21-hero-landing.css
+ * Full-bleed hero with WebGL canvas behind glass search bar, wordmark
+ * lockup, tagline, feature ticker. The canvas is an OWNED source -
+ * the sanctioned open-glass-ui/webgl surface on the landing page.
+ * ============================================================= */
+@layer og.hero {
+  .og-hero-stage {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-block-size: 100svh;
+  overflow: hidden;
+}
+  .og-hero-canvas {
+  position: absolute;
+  inset: 0;
+  inline-size: 100%;
+  block-size: 100%;
+  z-index: 0;
+}
+  .og-hero-content {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  justify-items: center;
+  gap: var(--og-space-6);
+  inline-size: 100%;
+  padding-inline: var(--og-gutter);
+}
+  .og-wordmark {
+  font-size: clamp(3rem, 8vw, 6rem);
+  font-weight: 900;
+  letter-spacing: -0.05em;
+  line-height: 1;
+}
+  .og-wordmark span {
+  color: var(--og-gray-2);
+}
+  .og-tagline {
+  color: var(--og-text-muted);
+  font-size: var(--og-text-lg);
+  max-inline-size: 46ch;
+}
+  .og-ticker {
+  display: flex;
+  gap: var(--og-space-6);
+  color: var(--og-text-faint);
+  font-size: var(--og-text-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  list-style: none;
+}
+  .og-scroll-hint {
+  position: absolute;
+  inset-block-end: var(--og-space-6);
+  inset-inline-start: 50%;
+  translate: -50% 0;
+  animation: og-bob 2s var(--og-ease-standard) infinite;
+  color: var(--og-text-faint);
+}
+  @keyframes og-bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(8px); } }
+}
+
+/* --- Extended recipe set (component variants & states) --------- */
+
+.og-hero-stage--split {
+  grid-template-columns: 1.2fr 1fr;
+  place-items: center;
+  text-align: start;
+}
+
+.og-hero-copy {
+  display: grid;
+  gap: var(--og-space-4);
+  justify-items: start;
+}
+
+.og-hero-stats {
+  display: flex;
+  gap: var(--og-space-6);
+  margin-block-start: var(--og-space-5);
+}
+
+.og-hero-stat b {
+  display: block;
+  font-size: var(--og-text-2xl);
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+
+.og-hero-stat span {
+  font-size: var(--og-text-xs);
+  color: var(--og-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.og-orbital {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.og-orbital i {
+  position: absolute;
+  inline-size: 6px;
+  block-size: 6px;
+  border-radius: 50%;
+  background: var(--og-white);
+  filter: blur(1px);
+}
+
+.og-hero-glass-frame {
+  padding: var(--og-space-2);
+  border-radius: calc(var(--og-radius-fluid) + 8px);
+}
+
+.og-hero-fade-bottom {
+  position: absolute;
+  inset-inline: 0;
+  inset-block-end: 0;
+  block-size: 200px;
+  background: linear-gradient(transparent, var(--og-black));
+  pointer-events: none;
+}
+
+.og-wordmark .dot {
+  color: var(--og-white);
+}
+
+.og-hero-eyebrow {
+  display: inline-flex;
+  gap: var(--og-space-2);
+  align-items: center;
+  font-size: var(--og-text-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--og-text-muted);
+}
+
+.og-hero-actions {
+  display: flex;
+  gap: var(--og-space-3);
+  margin-block-start: var(--og-space-4);
+}
+
+.og-hero-trust {
+  display: flex;
+  gap: var(--og-space-5);
+  margin-block-start: var(--og-space-6);
+  color: var(--og-text-faint);
+  font-size: var(--og-text-xs);
+}
+
+.og-marquee-logos {
+  margin-block-start: var(--og-space-7);
+  inline-size: 100%;
+}
+
+.og-hero-divider {
+  inline-size: 1px;
+  block-size: 28px;
+  background: var(--og-hairline-strong);
+}

@@ -1,0 +1,144 @@
+/* =============================================================
+ * PikSearch — premium monochrome search interface
+ * File 26 · Calendar Events
+ *
+ * Part of the open-glass-ui facade integration layer.
+ * Renderer contract: renderer="auto" (CSS-first default, WebGL only
+ * for an owned image/canvas/video source — see 37-webgl-canvas.css).
+ * Palette contract: pure black & white everywhere except icon glyphs.
+ * A11y contract: semantic DOM, accessible names preserved, reduced
+ * motion/transparency honoured, forced-colors fallbacks provided.
+ *
+ * License: MIT. Assets self-authored or public-domain/MIT.
+ * Inspiration references (non-copied): pmndrs/react-three-fiber,
+ * Uiverse community patterns, iOS 26 liquid-glass material language.
+ * ============================================================= */
+
+/* =============================================================
+ * PikSearch - 26-calendar-events.css
+ * Event widget: date brick, agenda list, countdown numerals.
+ * ============================================================= */
+@layer og.cal {
+  .og-datebrick {
+  display: grid;
+  place-items: center;
+  inline-size: 64px;
+  block-size: 68px;
+  border-radius: var(--og-radius-md);
+  background: var(--og-white);
+  color: var(--og-black);
+  line-height: 1.1;
+}
+  .og-datebrick b {
+  font-size: var(--og-text-xl);
+}
+  .og-agenda {
+  display: grid;
+  gap: var(--og-space-3);
+  list-style: none;
+}
+  .og-agenda li {
+  display: grid;
+  grid-template-columns: 56px 1fr;
+  gap: var(--og-space-3);
+  align-items: center;
+  padding: var(--og-space-3);
+  border-radius: var(--og-radius-md);
+  border: 1px solid var(--og-hairline);
+}
+  .og-countdown {
+  display: flex;
+  gap: var(--og-space-4);
+  font-family: var(--og-font-mono);
+}
+  .og-countdown div {
+  text-align: center;
+}
+  .og-countdown b {
+  display: block;
+  font-size: var(--og-text-2xl);
+}
+}
+
+/* --- Extended recipe set (component variants & states) --------- */
+
+.og-cal-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+  font-size: var(--og-text-xs);
+}
+
+.og-cal-grid button {
+  aspect-ratio: 1;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  background: transparent;
+  border: 0;
+  color: var(--og-text-secondary);
+  cursor: pointer;
+  position: relative;
+}
+
+.og-cal-grid button:hover {
+  background: var(--og-surface-strong);
+}
+
+.og-cal-grid button[aria-selected='true'] {
+  background: var(--og-white);
+  color: var(--og-black);
+  font-weight: 800;
+}
+
+.og-cal-grid button[data-has-event]::after {
+  content: '';
+  inline-size: 4px;
+  block-size: 4px;
+  border-radius: 50%;
+  background: var(--og-white);
+  position: absolute;
+  inset-block-end: 5px;
+}
+
+.og-cal-dow {
+  text-align: center;
+  color: var(--og-text-faint);
+  padding-block: var(--og-space-1);
+  font-weight: 700;
+}
+
+.og-event-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--og-text-xs);
+  padding: 3px 10px;
+  border-radius: 10px;
+  border: 1px solid var(--og-hairline-strong);
+}
+
+.og-event-time {
+  font-family: var(--og-font-mono);
+  color: var(--og-text-muted);
+}
+
+.og-rsvp-row {
+  display: flex;
+  gap: var(--og-space-2);
+  align-items: center;
+  margin-block-start: var(--og-space-3);
+}
+
+.og-agenda li time {
+  font-family: var(--og-font-mono);
+  font-size: var(--og-text-xs);
+  color: var(--og-text-muted);
+}
+
+.og-tz-row {
+  display: flex;
+  gap: var(--og-space-4);
+  font-size: var(--og-text-xs);
+  color: var(--og-text-faint);
+}

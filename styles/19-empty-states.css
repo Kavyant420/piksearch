@@ -1,0 +1,156 @@
+/* =============================================================
+ * PikSearch — premium monochrome search interface
+ * File 19 · Empty States
+ *
+ * Part of the open-glass-ui facade integration layer.
+ * Renderer contract: renderer="auto" (CSS-first default, WebGL only
+ * for an owned image/canvas/video source — see 37-webgl-canvas.css).
+ * Palette contract: pure black & white everywhere except icon glyphs.
+ * A11y contract: semantic DOM, accessible names preserved, reduced
+ * motion/transparency honoured, forced-colors fallbacks provided.
+ *
+ * License: MIT. Assets self-authored or public-domain/MIT.
+ * Inspiration references (non-copied): pmndrs/react-three-fiber,
+ * Uiverse community patterns, iOS 26 liquid-glass material language.
+ * ============================================================= */
+
+/* =============================================================
+ * PikSearch - 19-empty-states.css
+ * Zero-result art (pure SVG line-art, monochrome), gentle copy,
+ * recovery CTA cluster, offline banner.
+ * ============================================================= */
+@layer og.empty {
+  .og-empty {
+  display: grid;
+  justify-items: center;
+  text-align: center;
+  gap: var(--og-space-4);
+  padding-block: var(--og-space-9);
+}
+  .og-empty__art {
+  inline-size: 140px;
+  opacity: 0.85;
+}
+  .og-empty__art .stroke {
+  fill: none;
+  stroke: var(--og-gray-3);
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+  .og-empty__art .accent {
+  fill: var(--og-white);
+}
+  .og-empty__title {
+  font-size: var(--og-text-xl);
+}
+  .og-empty__desc {
+  color: var(--og-text-muted);
+  max-inline-size: 44ch;
+}
+  .og-offline {
+  position: fixed;
+  inset-block-start: var(--og-header-h);
+  inset-inline: 0;
+  z-index: var(--og-z-overlay);
+  text-align: center;
+  padding: var(--og-space-2);
+  font-size: var(--og-text-sm);
+  background: var(--og-white);
+  color: var(--og-black);
+  transform: translateY(-120%);
+  transition: transform var(--og-dur-base) var(--og-ease-spring);
+}
+  .og-offline[data-show="true"] {
+  transform: none;
+}
+}
+
+/* --- Extended recipe set (component variants & states) --------- */
+
+.og-empty__actions {
+  display: flex;
+  gap: var(--og-space-3);
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.og-empty--compact {
+  padding-block: var(--og-space-6);
+  gap: var(--og-space-3);
+}
+
+.og-empty--compact .og-empty__art {
+  inline-size: 84px;
+}
+
+.og-nodata-table td {
+  text-align: center;
+  color: var(--og-text-muted);
+  padding: var(--og-space-7);
+}
+
+.og-offline a {
+  color: inherit;
+  font-weight: 700;
+}
+
+.og-error-code {
+  font-family: var(--og-font-mono);
+  color: var(--og-text-faint);
+  font-size: var(--og-text-xs);
+}
+
+.og-404-art {
+  font-size: clamp(4rem, 18vw, 10rem);
+  font-weight: 900;
+  letter-spacing: -0.06em;
+  color: var(--og-black-500);
+}
+
+.og-blank-state-list {
+  display: grid;
+  gap: var(--og-space-2);
+}
+
+.og-history-empty {
+  border: 1px dashed var(--og-hairline-strong);
+  border-radius: var(--og-radius-lg);
+  padding: var(--og-space-6);
+  text-align: center;
+  color: var(--og-text-muted);
+}
+
+.og-zero-note {
+  font-size: var(--og-text-xs);
+  color: var(--og-text-faint);
+}
+
+.og-no-js-fallback {
+  padding: var(--og-space-6);
+  text-align: center;
+}
+
+.og-quota-warn {
+  display: flex;
+  gap: var(--og-space-2);
+  align-items: center;
+  font-size: var(--og-text-xs);
+  color: var(--og-text-muted);
+}
+
+.og-consent-card {
+  max-inline-size: 480px;
+  margin-inline: auto;
+  padding: var(--og-space-6);
+  text-align: center;
+  display: grid;
+  gap: var(--og-space-4);
+  justify-items: center;
+}
+
+.og-empty__suggestions {
+  display: flex;
+  gap: var(--og-space-2);
+  flex-wrap: wrap;
+  justify-content: center;
+}
